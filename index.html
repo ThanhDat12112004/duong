@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Một Ngày Của Cao Thùy Dương 💌</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Video Player Container -->
+    <div class="video-player">
+      <!-- Video Display Area -->
+      <div class="video-screen" id="videoScreen">
+        <!-- Scene sẽ được hiển thị ở đây -->
+        <div class="scene" id="currentScene">
+          <div class="scene-image"></div>
+          <div class="scene-text"></div>
+          <div class="messenger-popup"></div>
+        </div>
+
+        <!-- Time display -->
+        <div class="time-overlay" id="timeOverlay"></div>
+      </div>
+
+      <!-- Video Controls -->
+      <div class="video-controls">
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="time-info">
+            <span id="currentTime">0:00</span>
+            <span> / </span>
+            <span id="totalTime">0:32</span>
+          </div>
+        </div>
+
+        <div class="control-buttons">
+          <button class="btn-control" id="playBtn" title="Phát">
+            <span class="icon">▶️</span>
+            <span class="label">Phát Video</span>
+          </button>
+          <button class="btn-control" id="pauseBtn" title="Tạm dừng" style="display: none">
+            <span class="icon">⏸️</span>
+            <span class="label">Tạm dừng</span>
+          </button>
+          <button class="btn-control" id="resetBtn" title="Xem lại">
+            <span class="icon">🔄</span>
+            <span class="label">Xem Lại</span>
+          </button>
+          <button class="btn-control" id="skipBtn" title="Bỏ qua">
+            <span class="icon">⏭️</span>
+            <span class="label">Bỏ Qua</span>
+          </button>
+        </div>
+
+        <div class="scene-info" id="sceneInfo">
+          <strong>Sẵn sàng xem video</strong>
+          <p>Nhấn nút "Phát Video" để bắt đầu 🎬</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video Info -->
+    <div class="video-info">
+      <h1>🎬 Một Ngày Của Cao Thùy Dương</h1>
+      <p class="subtitle">💌 From: Coder rảnh nhất quả đất</p>
+
+      <div class="video-description">
+        <h3>📝 Nội dung video:</h3>
+        <ul>
+          <li>🌅 <strong>07:00</strong> - Thức dậy với tin nhắn buổi sáng</li>
+          <li>🚶‍♀️ <strong>08:30</strong> - Trên đường đi làm</li>
+          <li>🍜 <strong>12:00</strong> - Nghỉ trưa với mì gói</li>
+          <li>💻 <strong>15:00</strong> - Chiều làm việc mệt mỏi</li>
+          <li>🏢 <strong>17:30</strong> - Tan làm về nhà</li>
+          <li>🍽️ <strong>20:00</strong> - Buổi tối thư giãn</li>
+          <li>🌙 <strong>23:00</strong> - Trước khi ngủ</li>
+        </ul>
+
+        <div class="features">
+          <h3>✨ Điểm đặc biệt:</h3>
+          <div class="feature-list">
+            <span class="badge">💬 Tin nhắn mọi lúc</span>
+            <span class="badge">😆 Vừa troll vừa dễ thương</span>
+            <span class="badge">👨‍💻 Phong cách coder</span>
+            <span class="badge">❤️ Kết thúc romantic</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="comments">
+        <h3>💬 Bình luận:</h3>
+        <div class="comment-list" id="commentList">
+          <div class="comment">
+            <span class="avatar">😂</span>
+            <div class="comment-content">
+              <strong>Viewer #1:</strong>
+              <p>Haha! Tin nhắn "debug tình cảm" hay quá! 🤣</p>
+            </div>
+          </div>
+          <div class="comment">
+            <span class="avatar">🥰</span>
+            <div class="comment-content">
+              <strong>Viewer #2:</strong>
+              <p>Ước gì có người spam tin nhắn dễ thương thế này! 💕</p>
+            </div>
+          </div>
+          <div class="comment">
+            <span class="avatar">😆</span>
+            <div class="comment-content">
+              <strong>Viewer #3:</strong>
+              <p>Coder rảnh nhất quả đất mà code tình cảm pro vậy 😆</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>💝 Video được tạo dành riêng cho Cao Thùy Dương</p>
+      <p>⚠️ Cảnh báo: Có thể gây cười và cảm động! 😭😂</p>
+      <p class="small">© 2025 - Made with ❤️ by Coder Rảnh Nhất Quả Đất</p>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scene 2: Buổi Sáng - Cao Thùy Dương</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+        background: linear-gradient(180deg, #e8f5f7 0%, #b0e0e6 100%);
+        position: relative;
+        animation: sceneTransitionIn 1.5s ease-out forwards;
+        opacity: 0;
+      }
+
+      @keyframes sceneTransitionIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+          filter: blur(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+          filter: blur(0px);
+        }
+      }
+
+      /* Animated background particles */
+      .bg-particle {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0.6;
+      }
+
+      .particle-1 {
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.8) 0%,
+          rgba(255, 255, 255, 0) 70%
+        );
+        top: 10%;
+        left: 20%;
+        animation: float 8s ease-in-out infinite;
+      }
+
+      .particle-2 {
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(
+          circle,
+          rgba(173, 216, 230, 0.6) 0%,
+          rgba(173, 216, 230, 0) 70%
+        );
+        top: 60%;
+        right: 15%;
+        animation: float 10s ease-in-out infinite 2s;
+      }
+
+      .particle-3 {
+        width: 80px;
+        height: 80px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 182, 193, 0.7) 0%,
+          rgba(255, 182, 193, 0) 70%
+        );
+        bottom: 20%;
+        left: 30%;
+        animation: float 12s ease-in-out infinite 4s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        33% {
+          transform: translate(50px, -50px) scale(1.2);
+        }
+        66% {
+          transform: translate(-30px, 30px) scale(0.8);
+        }
+      }
+
+      /* Container */
+      .scene-container {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+      }
+
+      /* Each routine scene */
+      .routine-scene {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        opacity: 0;
+      }
+
+      .routine-scene.active {
+        display: block;
+        animation: fadeIn 0.5s ease-out forwards;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Coffee cup with steam */
+      .coffee-cup {
+        position: absolute;
+        bottom: 25%;
+        left: 20%;
+        font-size: 80px;
+        animation: cupSteam 3s ease-in-out infinite;
+      }
+
+      @keyframes cupSteam {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-3px);
+        }
+      }
+
+      /* Coffee brewing animation */
+      .coffee-pour {
+        position: absolute;
+        bottom: 35%;
+        left: 22%;
+        width: 30px;
+        height: 0;
+        background: linear-gradient(180deg, rgba(101, 67, 33, 0.9) 0%, rgba(139, 69, 19, 1) 100%);
+        opacity: 0;
+      }
+
+      .coffee-pour.active {
+        animation: coffeePour 2s ease-out forwards;
+      }
+
+      @keyframes coffeePour {
+        0% {
+          height: 0;
+          opacity: 0;
+        }
+        50% {
+          height: 60px;
+          opacity: 1;
+        }
+        100% {
+          height: 60px;
+          opacity: 0;
+        }
+      }
+
+      /* Toaster with toast popping */
+      .toaster {
+        position: absolute;
+        bottom: 25%;
+        right: 25%;
+        font-size: 70px;
+      }
+
+      .toast {
+        position: absolute;
+        bottom: 32%;
+        right: 26.5%;
+        font-size: 50px;
+        opacity: 0;
+        transform: translateY(0);
+      }
+
+      .toast.pop {
+        animation: toastPop 0.8s ease-out forwards;
+      }
+
+      @keyframes toastPop {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0;
+        }
+        50% {
+          transform: translateY(-80px) rotate(180deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-60px) rotate(360deg);
+          opacity: 1;
+        }
+      }
+
+      /* Frying pan with sizzling egg */
+      .frying-pan {
+        position: absolute;
+        bottom: 30%;
+        left: 35%;
+        font-size: 90px;
+        animation: panSizzle 0.5s ease-in-out infinite;
+      }
+
+      @keyframes panSizzle {
+        0%,
+        100% {
+          transform: rotate(-2deg);
+        }
+        50% {
+          transform: rotate(2deg);
+        }
+      }
+
+      /* Egg cracking and frying */
+      .egg {
+        position: absolute;
+        bottom: 34%;
+        left: 37%;
+        font-size: 60px;
+        opacity: 0;
+        transform: scale(0);
+      }
+
+      .egg.crack {
+        animation: eggCrack 1.5s ease-out forwards;
+      }
+
+      @keyframes eggCrack {
+        0% {
+          transform: translateY(-100px) scale(1) rotate(0deg);
+          opacity: 1;
+        }
+        50% {
+          transform: translateY(-50px) scale(1) rotate(180deg);
+          opacity: 1;
+        }
+        70% {
+          transform: translateY(0) scale(1.2) rotate(360deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(0) scale(1) rotate(360deg);
+          opacity: 1;
+        }
+      }
+
+      /* Sizzle particles */
+      .sizzle {
+        position: absolute;
+        bottom: 38%;
+        left: 38%;
+        font-size: 20px;
+        opacity: 0;
+        animation: sizzleParticle 1s ease-out infinite;
+      }
+
+      @keyframes sizzleParticle {
+        0% {
+          transform: translate(0, 0) scale(1);
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+          transform: translate(var(--sizzle-x), -30px) scale(1.5);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(var(--sizzle-x), -60px) scale(0.5);
+        }
+      }
+
+      /* Plate with food */
+      .plate {
+        position: absolute;
+        bottom: 22%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 80px;
+      }
+
+      /* Food items appearing on plate */
+      .food-item {
+        position: absolute;
+        font-size: 40px;
+        opacity: 0;
+        transform: scale(0);
+      }
+
+      .food-item.appear {
+        animation: foodAppear 0.5s ease-out forwards;
+      }
+
+      @keyframes foodAppear {
+        0% {
+          transform: scale(0) rotate(0deg);
+          opacity: 0;
+        }
+        50% {
+          transform: scale(1.3) rotate(180deg);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1) rotate(360deg);
+          opacity: 1;
+        }
+      }
+
+      /* Steam particles for hot food */
+      .steam {
+        position: absolute;
+        bottom: 50%;
+        left: 50%;
+        width: 5px;
+        height: 40px;
+        background: linear-gradient(
+          to top,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.6) 100%
+        );
+        border-radius: 50%;
+        opacity: 0;
+        animation: steamRise 3s ease-out infinite;
+        filter: blur(3px);
+      }
+
+      @keyframes steamRise {
+        0% {
+          transform: translate(-50%, 0) scale(0.8);
+          opacity: 0;
+        }
+        20% {
+          opacity: 0.7;
+        }
+        80% {
+          opacity: 0.4;
+        }
+        100% {
+          transform: translate(calc(-50% + var(--steam-x, 0px)), -200px) scale(1.5);
+          opacity: 0;
+        }
+      }
+
+      /* Food glow effect */
+      .food-glow {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle, rgba(255, 200, 100, 0.3) 0%, transparent 70%);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: foodGlow 2s ease-in-out infinite;
+      }
+
+      @keyframes foodGlow {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 0.5;
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.2);
+          opacity: 0.8;
+        }
+      }
+
+      /* Bathroom background - animated */
+      .bathroom-bg {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #e8f8f5 0%, #d5f5e3 50%, #a9dfbf 100%);
+        position: relative;
+        animation: bgPulse 8s ease-in-out infinite;
+      }
+
+      @keyframes bgPulse {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      /* Water droplets */
+      .water-drop {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: radial-gradient(circle, #4fc3f7 0%, transparent 70%);
+        border-radius: 50%;
+        animation: dropFall 2s ease-in infinite;
+        opacity: 0;
+      }
+
+      @keyframes dropFall {
+        0% {
+          opacity: 0;
+          transform: translateY(-50px) scale(0.5);
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 0.7;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(400px) scale(1.5);
+        }
+      }
+
+      /* Bubbles */
+      .bubble {
+        position: absolute;
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(255, 255, 255, 0.8),
+          rgba(173, 216, 230, 0.4)
+        );
+        border-radius: 50%;
+        animation: bubbleRise 4s ease-in infinite;
+        box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+      }
+
+      @keyframes bubbleRise {
+        0% {
+          opacity: 0;
+          transform: translateY(0) scale(0.5);
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 0.8;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-400px) scale(1.2);
+        }
+      }
+
+      /* Mirror */
+      .mirror {
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 400px;
+        height: 500px;
+        background: linear-gradient(135deg, #d5f5e3 0%, #a9dfbf 100%);
+        border: 15px solid #8b4513;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* Mirror condensation/fog effect */
+      .mirror-fog {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle at center,
+          rgba(255, 255, 255, 0.4) 0%,
+          rgba(255, 255, 255, 0.1) 50%,
+          transparent 100%
+        );
+        opacity: 0;
+        animation: fogAppear 2s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      @keyframes fogAppear {
+        0%,
+        100% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 0.6;
+        }
+      }
+
+      /* Water droplets on mirror */
+      .water-droplet {
+        position: absolute;
+        width: 8px;
+        height: 12px;
+        background: linear-gradient(
+          180deg,
+          rgba(135, 206, 250, 0.8) 0%,
+          rgba(100, 180, 255, 0.9) 100%
+        );
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(45deg);
+        animation: dropletFall 2s ease-in infinite;
+      }
+
+      @keyframes dropletFall {
+        0% {
+          top: -10px;
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        100% {
+          top: 100%;
+          opacity: 0.5;
+        }
+      }
+
+      /* Character in mirror - with complex animation */
+      .character-mirror {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        animation: characterSway 4s ease-in-out infinite;
+      }
+
+      @keyframes characterSway {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        25% {
+          transform: translate(-48%, -51%) rotate(-2deg);
+        }
+        75% {
+          transform: translate(-52%, -49%) rotate(2deg);
+        }
+      }
+
+      .character-face {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 6px solid white;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 255, 255, 0.5),
+          inset 0 0 20px rgba(255, 255, 255, 0.3);
+        object-fit: cover;
+        animation: faceGlow 3s ease-in-out infinite;
+        position: relative;
+        z-index: 2;
+      }
+
+      @keyframes faceGlow {
+        0%,
+        100% {
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 255, 255, 0.5),
+            inset 0 0 20px rgba(255, 255, 255, 0.3);
+          transform: scale(1);
+        }
+        50% {
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 50px rgba(255, 255, 255, 0.8),
+            inset 0 0 30px rgba(255, 255, 255, 0.5);
+          transform: scale(1.02);
+        }
+      }
+
+      /* Sparkle effects around face */
+      .sparkle {
+        position: absolute;
+        color: #ffd700;
+        font-size: 20px;
+        animation: sparkleAnim 2s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      @keyframes sparkleAnim {
+        0%,
+        100% {
+          opacity: 0;
+          transform: scale(0) rotate(0deg);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.5) rotate(180deg);
+        }
+      }
+
+      /* Anime body */
+      .anime-body {
+        position: relative;
+      }
+
+      .body-torso {
+        width: 80px;
+        height: 100px;
+        background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+        border-radius: 40px 40px 10px 10px;
+        position: relative;
+      }
+
+      .body-arms {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .arm {
+        width: 30px;
+        height: 70px;
+        background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+        border-radius: 15px;
+      }
+
+      /* Brushing animation - more complex */
+      .brushing .arm.right {
+        animation: brush 0.4s ease-in-out infinite;
+        transform-origin: top center;
+      }
+
+      .brushing .arm.left {
+        animation: armIdle 2s ease-in-out infinite;
+        transform-origin: top center;
+      }
+
+      @keyframes brush {
+        0% {
+          transform: rotate(-30deg) translateY(0);
+        }
+        25% {
+          transform: rotate(-10deg) translateY(-5px);
+        }
+        50% {
+          transform: rotate(10deg) translateY(0);
+        }
+        75% {
+          transform: rotate(30deg) translateY(-5px);
+        }
+        100% {
+          transform: rotate(-30deg) translateY(0);
+        }
+      }
+
+      @keyframes armIdle {
+        0%,
+        100% {
+          transform: rotate(-10deg);
+        }
+        50% {
+          transform: rotate(-5deg);
+        }
+      }
+
+      /* Toothpaste foam particles */
+      .foam {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        animation: foamPop 1.5s ease-out infinite;
+      }
+
+      @keyframes foamPop {
+        0% {
+          opacity: 0;
+          transform: scale(0) translate(0, 0);
+        }
+        50% {
+          opacity: 0.8;
+        }
+        100% {
+          opacity: 0;
+          transform: scale(2) translate(var(--tx), var(--ty));
+        }
+      }
+
+      /* Washing animation - more realistic */
+      .washing .arm.left {
+        animation: washLeft 0.8s ease-in-out infinite;
+        transform-origin: top center;
+      }
+
+      .washing .arm.right {
+        animation: washRight 0.8s ease-in-out infinite;
+        transform-origin: top center;
+      }
+
+      @keyframes washLeft {
+        0%,
+        100% {
+          transform: rotate(-20deg) translateY(0);
+        }
+        25% {
+          transform: rotate(-30deg) translateY(-10px);
+        }
+        50% {
+          transform: rotate(-10deg) translateY(-5px);
+        }
+        75% {
+          transform: rotate(-25deg) translateY(-8px);
+        }
+      }
+
+      @keyframes washRight {
+        0%,
+        100% {
+          transform: rotate(20deg) translateY(0);
+        }
+        25% {
+          transform: rotate(10deg) translateY(-5px);
+        }
+        50% {
+          transform: rotate(30deg) translateY(-10px);
+        }
+        75% {
+          transform: rotate(25deg) translateY(-8px);
+        }
+      }
+
+      /* Water splash effect */
+      .splash {
+        position: absolute;
+        color: #4fc3f7;
+        font-size: 30px;
+        animation: splashAnim 1s ease-out infinite;
+      }
+
+      @keyframes splashAnim {
+        0% {
+          opacity: 0;
+          transform: scale(0.5) rotate(0deg);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.5) rotate(180deg);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0.5) rotate(360deg);
+        }
+      }
+
+      /* Water tap */
+      .water-tap {
+        position: absolute;
+        bottom: 15%;
+        left: 15%;
+        font-size: 80px;
+        animation: tapDrip 3s ease-in-out infinite;
+      }
+
+      @keyframes tapDrip {
+        0%,
+        80%,
+        100% {
+          transform: rotate(0deg);
+        }
+        85% {
+          transform: rotate(-5deg);
+        }
+        90% {
+          transform: rotate(5deg);
+        }
+        95% {
+          transform: rotate(-3deg);
+        }
+      }
+
+      /* Water stream from tap */
+      .water-stream {
+        position: absolute;
+        bottom: 15%;
+        left: 18%;
+        width: 4px;
+        height: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(135, 206, 250, 0.8) 0%,
+          rgba(100, 180, 255, 0.9) 100%
+        );
+        opacity: 0;
+      }
+
+      .water-stream.active {
+        animation: streamFlow 0.5s ease-out forwards;
+      }
+
+      @keyframes streamFlow {
+        to {
+          height: 100px;
+          opacity: 1;
+        }
+      }
+
+      /* Sink with water splashing */
+      .sink {
+        position: absolute;
+        bottom: 8%;
+        left: 12%;
+        font-size: 100px;
+        filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
+      }
+
+      /* Water splash particles */
+      .splash-particle {
+        position: absolute;
+        bottom: 12%;
+        left: 18%;
+        width: 10px;
+        height: 10px;
+        background: rgba(135, 206, 250, 0.8);
+        border-radius: 50%;
+        opacity: 0;
+      }
+
+      .splash-particle.active {
+        animation: splashUp 1s ease-out forwards;
+      }
+
+      @keyframes splashUp {
+        0% {
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(var(--splash-x), -80px) scale(0.3);
+          opacity: 0;
+        }
+      }
+
+      /* Toothbrush with paste */
+      .toothbrush-item {
+        position: absolute;
+        bottom: 20%;
+        right: 15%;
+        font-size: 70px;
+        animation: brushVibrate 0.3s ease-in-out infinite;
+      }
+
+      @keyframes brushVibrate {
+        0%,
+        100% {
+          transform: rotate(-5deg);
+        }
+        50% {
+          transform: rotate(5deg);
+        }
+      }
+
+      /* Toothpaste tube */
+      .toothpaste-tube {
+        position: absolute;
+        bottom: 18%;
+        right: 25%;
+        font-size: 60px;
+        animation: tubeSqueeze 2s ease-in-out infinite;
+      }
+
+      @keyframes tubeSqueeze {
+        0%,
+        90%,
+        100% {
+          transform: scale(1, 1);
+        }
+        95% {
+          transform: scale(0.95, 1.05);
+        }
+      }
+
+      /* Toothpaste coming out */
+      .toothpaste-blob {
+        position: absolute;
+        bottom: 23%;
+        right: 24%;
+        width: 30px;
+        height: 15px;
+        background: linear-gradient(90deg, #00ffff 0%, #ffffff 100%);
+        border-radius: 50%;
+        opacity: 0;
+        transform: scaleX(0);
+      }
+
+      .toothpaste-blob.squeeze {
+        animation: pasteSqueezeOut 1s ease-out forwards;
+      }
+
+      @keyframes pasteSqueezeOut {
+        0% {
+          transform: scaleX(0) translateX(0);
+          opacity: 0;
+        }
+        50% {
+          transform: scaleX(1.5) translateX(-20px);
+          opacity: 1;
+        }
+        100% {
+          transform: scaleX(1) translateX(-40px);
+          opacity: 1;
+        }
+      }
+
+      /* Action icon */
+      .action-icon {
+        position: absolute;
+        right: 20%;
+        top: 30%;
+        font-size: 100px;
+        animation: iconFloat 2s ease-in-out infinite;
+      }
+
+      @keyframes iconFloat {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-5deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(5deg);
+        }
+      }
+
+      /* Props around */
+      .props {
+        position: absolute;
+        font-size: 60px;
+      }
+
+      .prop-1 {
+        top: 20%;
+        left: 15%;
+        animation: spin 3s linear infinite;
+      }
+      .prop-2 {
+        top: 40%;
+        right: 15%;
+        animation: spin 4s linear infinite reverse;
+      }
+      .prop-3 {
+        bottom: 20%;
+        left: 20%;
+        animation: bounce 2s ease-in-out infinite;
+      }
+      .prop-4 {
+        bottom: 30%;
+        right: 20%;
+        animation: bounce 2.5s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-30px);
+        }
+      }
+
+      /* Scene title */
+      .scene-title {
+        position: absolute;
+        top: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.9);
+        padding: 15px 40px;
+        border-radius: 30px;
+        font-size: 28px;
+        font-weight: bold;
+        color: #333;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        animation: titleBounce 1s ease-out;
+      }
+
+      @keyframes titleBounce {
+        0% {
+          transform: translateX(-50%) scale(0);
+        }
+        50% {
+          transform: translateX(-50%) scale(1.1);
+        }
+        100% {
+          transform: translateX(-50%) scale(1);
+        }
+      }
+
+      /* Kitchen for breakfast - animated */
+      .kitchen-bg {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #fff9e6 0%, #ffe4b5 50%, #ffd700 100%);
+        background-size: 200% 200%;
+        position: relative;
+        animation: kitchenBg 10s ease-in-out infinite;
+      }
+
+      @keyframes kitchenBg {
+        0%,
+        100% {
+          background-position: 0% 0%;
+        }
+        50% {
+          background-position: 100% 100%;
+        }
+      }
+
+      /* Sunlight rays */
+      .sunray {
+        position: absolute;
+        width: 200px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+        transform-origin: left center;
+        animation: rayRotate 8s linear infinite;
+      }
+
+      @keyframes rayRotate {
+        from {
+          transform: rotate(0deg);
+          opacity: 0.3;
+        }
+        to {
+          transform: rotate(360deg);
+          opacity: 0.6;
+        }
+      }
+
+      .table {
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 500px;
+        height: 300px;
+        background: linear-gradient(180deg, #d2691e 0%, #8b4513 100%);
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .food-items {
+        position: absolute;
+        top: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 30px;
+        font-size: 80px;
+      }
+
+      .food-item {
+        animation: foodBounce 1s ease-in-out infinite;
+      }
+
+      .food-item:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .food-item:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes foodBounce {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          transform: translateY(-15px) scale(1.1);
+        }
+      }
+
+      /* Character eating - animated */
+      .character-eating {
+        position: absolute;
+        bottom: 25%;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        animation: eatingBounce 2s ease-in-out infinite;
+      }
+
+      @keyframes eatingBounce {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          transform: translateX(-50%) translateY(-5px);
+        }
+      }
+
+      .eating .arm.right {
+        animation: eatingMotion 1.2s ease-in-out infinite;
+        transform-origin: top center;
+      }
+
+      .eating .arm.left {
+        animation: holdingFork 2s ease-in-out infinite;
+        transform-origin: top center;
+      }
+
+      @keyframes eatingMotion {
+        0% {
+          transform: rotate(10deg) translateY(0);
+        }
+        25% {
+          transform: rotate(-40deg) translateY(-15px);
+        }
+        50% {
+          transform: rotate(-60deg) translateY(-20px);
+        }
+        75% {
+          transform: rotate(-40deg) translateY(-15px);
+        }
+        100% {
+          transform: rotate(10deg) translateY(0);
+        }
+      }
+
+      @keyframes holdingFork {
+        0%,
+        100% {
+          transform: rotate(-15deg);
+        }
+        50% {
+          transform: rotate(-20deg);
+        }
+      }
+
+      /* Chewing effect */
+      .eating .character-face {
+        animation: chewing 1.2s ease-in-out infinite;
+      }
+
+      @keyframes chewing {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.02);
+        }
+      }
+
+      /* Steam/smoke effect */
+      .steam {
+        position: absolute;
+        font-size: 40px;
+        opacity: 0.6;
+        animation: steamRise 3s ease-out infinite;
+      }
+
+      @keyframes steamRise {
+        0% {
+          transform: translateY(0) scale(0.5);
+          opacity: 0.6;
+        }
+        100% {
+          transform: translateY(-100px) scale(1.5);
+          opacity: 0;
+        }
+      }
+
+      /* Progress indicator */
+      .progress {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 15px;
+      }
+
+      .progress-dot {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        transition: all 0.3s;
+      }
+
+      .progress-dot.active {
+        background: #667eea;
+        transform: scale(1.5);
+      }
+
+      /* Next button */
+      .next-button {
+        position: absolute;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 15px 40px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
+        opacity: 0;
+        transform: scale(0);
+      }
+
+      .next-button.show {
+        animation: buttonPop 0.5s ease-out forwards;
+      }
+
+      @keyframes buttonPop {
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .next-button:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Global background particles -->
+    <div class="bg-particle particle-1"></div>
+    <div class="bg-particle particle-2"></div>
+    <div class="bg-particle particle-3"></div>
+
+    <div class="scene-container">
+      <!-- Scene 1: Brushing Teeth -->
+      <div class="routine-scene" id="brushTeeth">
+        <div class="bathroom-bg">
+          <div class="scene-title">🪥 Đánh răng sạch sẽ</div>
+
+          <!-- Background water drops -->
+          <div class="water-drop" style="left: 15%; animation-delay: 0s"></div>
+          <div class="water-drop" style="left: 35%; animation-delay: 0.5s"></div>
+          <div class="water-drop" style="left: 55%; animation-delay: 1s"></div>
+          <div class="water-drop" style="left: 75%; animation-delay: 1.5s"></div>
+          <div class="water-drop" style="left: 85%; animation-delay: 0.8s"></div>
+
+          <!-- Background bubbles -->
+          <div
+            class="bubble"
+            style="left: 20%; width: 30px; height: 30px; animation-delay: 0s"
+          ></div>
+          <div
+            class="bubble"
+            style="left: 40%; width: 20px; height: 20px; animation-delay: 1s"
+          ></div>
+          <div
+            class="bubble"
+            style="left: 60%; width: 25px; height: 25px; animation-delay: 0.5s"
+          ></div>
+          <div
+            class="bubble"
+            style="left: 80%; width: 35px; height: 35px; animation-delay: 1.5s"
+          ></div>
+
+          <div class="mirror">
+            <div class="character-mirror brushing">
+              <img src="AnhKhuonMatCuaCoAy.jpg" alt="Dương" class="character-face" />
+
+              <!-- Sparkles around face -->
+              <div class="sparkle" style="top: 10%; left: 10%; animation-delay: 0s"></div>
+              <div class="sparkle" style="top: 15%; right: 15%; animation-delay: 0.3s"></div>
+              <div class="sparkle" style="bottom: 20%; left: 20%; animation-delay: 0.6s"></div>
+              <div class="sparkle" style="bottom: 15%; right: 10%; animation-delay: 0.9s"></div>
+
+              <div class="anime-body">
+                <div class="body-torso">
+                  <div class="body-arms">
+                    <div class="arm left"></div>
+                    <div class="arm right">
+                      <!-- Foam particles near mouth -->
+                      <div
+                        class="foam"
+                        style="--foam-x: -10px; --foam-y: -20px; animation-delay: 0s"
+                      ></div>
+                      <div
+                        class="foam"
+                        style="--foam-x: 5px; --foam-y: -15px; animation-delay: 0.2s"
+                      ></div>
+                      <div
+                        class="foam"
+                        style="--foam-x: -15px; --foam-y: -25px; animation-delay: 0.4s"
+                      ></div>
+                      <div
+                        class="foam"
+                        style="--foam-x: 10px; --foam-y: -30px; animation-delay: 0.6s"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-icon">🪥</div>
+
+          <div class="props prop-1">💦</div>
+          <div class="props prop-2">✨</div>
+          <div class="props prop-3">🦷</div>
+          <div class="props prop-4">😁</div>
+        </div>
+      </div>
+
+      <!-- Scene 2: Washing Face -->
+      <div class="routine-scene" id="washFace">
+        <div class="bathroom-bg">
+          <div class="scene-title">💧 Rửa mặt thơm tho</div>
+
+          <!-- More water drops for washing scene -->
+          <div class="water-drop" style="left: 10%; animation-delay: 0s"></div>
+          <div class="water-drop" style="left: 25%; animation-delay: 0.3s"></div>
+          <div class="water-drop" style="left: 45%; animation-delay: 0.6s"></div>
+          <div class="water-drop" style="left: 65%; animation-delay: 0.9s"></div>
+          <div class="water-drop" style="left: 80%; animation-delay: 0.4s"></div>
+          <div class="water-drop" style="left: 90%; animation-delay: 1.2s"></div>
+
+          <!-- More bubbles -->
+          <div
+            class="bubble"
+            style="left: 15%; width: 25px; height: 25px; animation-delay: 0.2s"
+          ></div>
+          <div
+            class="bubble"
+            style="left: 35%; width: 30px; height: 30px; animation-delay: 0.8s"
+          ></div>
+          <div
+            class="bubble"
+            style="left: 55%; width: 20px; height: 20px; animation-delay: 0.4s"
+          ></div>
+          <div
+            class="bubble"
+            style="left: 70%; width: 35px; height: 35px; animation-delay: 1.1s"
+          ></div>
+          <div
+            class="bubble"
+            style="left: 85%; width: 28px; height: 28px; animation-delay: 0.6s"
+          ></div>
+
+          <div class="mirror">
+            <div class="character-mirror washing">
+              <img src="AnhKhuonMatCuaCoAy.jpg" alt="Dương" class="character-face" />
+
+              <!-- Sparkles around face -->
+              <div class="sparkle" style="top: 12%; left: 8%; animation-delay: 0.1s"></div>
+              <div class="sparkle" style="top: 18%; right: 12%; animation-delay: 0.4s"></div>
+              <div class="sparkle" style="bottom: 25%; left: 15%; animation-delay: 0.7s"></div>
+              <div class="sparkle" style="bottom: 18%; right: 8%; animation-delay: 1s"></div>
+              <div class="sparkle" style="top: 50%; left: 5%; animation-delay: 0.5s"></div>
+              <div class="sparkle" style="top: 50%; right: 5%; animation-delay: 0.8s"></div>
+
+              <div class="anime-body">
+                <div class="body-torso">
+                  <div class="body-arms">
+                    <div class="arm left">
+                      <!-- Splash effects on left side -->
+                      <div class="splash" style="animation-delay: 0s"></div>
+                      <div class="splash" style="animation-delay: 0.5s"></div>
+                    </div>
+                    <div class="arm right">
+                      <!-- Splash effects on right side -->
+                      <div class="splash" style="animation-delay: 0.3s"></div>
+                      <div class="splash" style="animation-delay: 0.8s"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-icon">🧼</div>
+
+          <div class="props prop-1">💧</div>
+          <div class="props prop-2">🧴</div>
+          <div class="props prop-3">✨</div>
+          <div class="props prop-4">🌸</div>
+        </div>
+      </div>
+
+      <!-- Scene 3: Breakfast -->
+      <div class="routine-scene" id="breakfast">
+        <div class="kitchen-bg">
+          <div class="scene-title">🍳 Ăn sáng đầy đủ</div>
+
+          <!-- Sunlight rays in kitchen -->
+          <div
+            class="sunray"
+            style="top: 5%; left: 10%; width: 150px; height: 250px; animation-delay: 0s"
+          ></div>
+          <div
+            class="sunray"
+            style="top: 10%; right: 15%; width: 120px; height: 200px; animation-delay: 1s"
+          ></div>
+          <div
+            class="sunray"
+            style="bottom: 20%; left: 20%; width: 100px; height: 180px; animation-delay: 2s"
+          ></div>
+
+          <!-- Coffee brewing -->
+          <div class="coffee-cup">☕</div>
+          <div class="coffee-pour" id="coffeePour"></div>
+
+          <!-- Toaster with toast -->
+          <div class="toaster">📱</div>
+          <div class="toast" id="toast">🍞</div>
+
+          <!-- Frying pan with egg -->
+          <div class="frying-pan">🍳</div>
+          <div class="egg" id="egg">🥚</div>
+
+          <!-- Sizzle particles -->
+          <div class="sizzle" style="--sizzle-x: -15px; animation-delay: 0s">✨</div>
+          <div class="sizzle" style="--sizzle-x: 10px; animation-delay: 0.3s">✨</div>
+          <div class="sizzle" style="--sizzle-x: -5px; animation-delay: 0.6s">💫</div>
+          <div class="sizzle" style="--sizzle-x: 20px; animation-delay: 0.9s">💫</div>
+
+          <!-- Plate with food -->
+          <div class="plate">🍽️</div>
+
+          <div class="table">
+            <!-- Food glow effect -->
+            <div class="food-glow"></div>
+
+            <div class="food-items">
+              <div class="food-item" id="foodCroissant">🥐</div>
+              <div class="food-item" id="foodEgg">🍳</div>
+              <div class="food-item" id="foodCoffee">☕</div>
+            </div>
+
+            <!-- Steam particles from hot food -->
+            <div
+              class="steam"
+              style="left: calc(30% - 20px); --steam-x: -15px; animation-delay: 0s"
+            ></div>
+            <div
+              class="steam"
+              style="left: calc(30% + 10px); --steam-x: 10px; animation-delay: 0.4s"
+            ></div>
+            <div
+              class="steam"
+              style="left: calc(50% - 15px); --steam-x: -10px; animation-delay: 0.8s"
+            ></div>
+            <div
+              class="steam"
+              style="left: calc(50% + 5px); --steam-x: 15px; animation-delay: 1.2s"
+            ></div>
+            <div
+              class="steam"
+              style="left: calc(70% - 10px); --steam-x: -20px; animation-delay: 1.6s"
+            ></div>
+            <div
+              class="steam"
+              style="left: calc(70% + 15px); --steam-x: 12px; animation-delay: 2s"
+            ></div>
+          </div>
+
+          <div class="character-eating eating">
+            <img src="AnhKhuonMatCuaCoAy.jpg" alt="Dương" class="character-face" />
+
+            <!-- Sparkles around character while eating -->
+            <div class="sparkle" style="top: 5%; left: 5%; animation-delay: 0s"></div>
+            <div class="sparkle" style="top: 10%; right: 5%; animation-delay: 0.5s"></div>
+            <div class="sparkle" style="top: 50%; left: -10%; animation-delay: 1s"></div>
+            <div class="sparkle" style="top: 50%; right: -10%; animation-delay: 1.5s"></div>
+
+            <div class="anime-body">
+              <div class="body-torso">
+                <div class="body-arms">
+                  <div class="arm left"></div>
+                  <div class="arm right"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="props prop-1">🍞</div>
+          <div class="props prop-2">🥗</div>
+          <div class="props prop-3">🧃</div>
+          <div class="props prop-4">😋</div>
+        </div>
+      </div>
+
+      <!-- Progress indicator -->
+      <div class="progress">
+        <div class="progress-dot" id="dot1"></div>
+        <div class="progress-dot" id="dot2"></div>
+        <div class="progress-dot" id="dot3"></div>
+      </div>
+
+      <!-- Next button -->
+      <button class="next-button" id="nextButton">Scene 3: Đi làm ➡️</button>
+    </div>
+
+    <script>
+      const scenes = ['brushTeeth', 'washFace', 'breakfast'];
+      const dots = ['dot1', 'dot2', 'dot3'];
+      let currentScene = 0;
+
+      const nextButton = document.getElementById('nextButton');
+
+      // Start first scene
+      function startScene(index) {
+        // Hide all scenes
+        scenes.forEach((sceneId) => {
+          document.getElementById(sceneId).classList.remove('active');
+        });
+
+        // Update progress dots
+        dots.forEach((dotId, i) => {
+          document.getElementById(dotId).classList.toggle('active', i === index);
+        });
+
+        // Show current scene
+        document.getElementById(scenes[index]).classList.add('active');
+
+        // Special animations for breakfast scene
+        if (scenes[index] === 'breakfast') {
+          triggerBreakfastAnimations();
+        }
+      }
+
+      // Breakfast cooking animations sequence
+      function triggerBreakfastAnimations() {
+        // Coffee pouring at 0.5s
+        setTimeout(() => {
+          const coffeePour = document.getElementById('coffeePour');
+          if (coffeePour) {
+            coffeePour.classList.add('active');
+          }
+        }, 500);
+
+        // Toast popping at 1s
+        setTimeout(() => {
+          const toast = document.getElementById('toast');
+          if (toast) {
+            toast.classList.add('pop');
+          }
+        }, 1000);
+
+        // Egg cracking and frying at 1.5s
+        setTimeout(() => {
+          const egg = document.getElementById('egg');
+          if (egg) {
+            egg.classList.add('crack');
+          }
+        }, 1500);
+
+        // Food items appearing on plate progressively
+        setTimeout(() => {
+          const foodCroissant = document.getElementById('foodCroissant');
+          if (foodCroissant) {
+            foodCroissant.classList.add('appear');
+          }
+        }, 2500);
+
+        setTimeout(() => {
+          const foodEgg = document.getElementById('foodEgg');
+          if (foodEgg) {
+            foodEgg.classList.add('appear');
+          }
+        }, 2800);
+
+        setTimeout(() => {
+          const foodCoffee = document.getElementById('foodCoffee');
+          if (foodCoffee) {
+            foodCoffee.classList.add('appear');
+          }
+        }, 3100);
+      }
+
+      // Auto progress through scenes
+      function autoProgress() {
+        startScene(currentScene);
+
+        if (currentScene < scenes.length - 1) {
+          currentScene++;
+          setTimeout(autoProgress, 4000); // 4 seconds per scene
+        } else {
+          // Show next button after last scene
+          setTimeout(() => {
+            nextButton.classList.add('show');
+          }, 2000);
+        }
+      }
+
+      // Start on load
+      window.addEventListener('load', () => {
+        autoProgress();
+      });
+
+      // Next scene button with transition
+      nextButton.addEventListener('click', () => {
+        // Fade out entire scene
+        document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
+
+        // Navigate to Scene 3
+        setTimeout(() => {
+          window.location.href = 'scene3_going_to_work.html';
+        }, 1000);
+      });
+
+      // Add scene transition out animation
+      const style = document.createElement('style');
+      style.textContent = `
+            @keyframes sceneTransitionOut {
+                0% {
+                    opacity: 1;
+                    transform: scale(1);
+                    filter: blur(0px);
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(1.2);
+                    filter: blur(20px);
+                }
+            }
+        `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

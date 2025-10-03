@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scene 5: Về Nhà - Cao Thùy Dương</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+        background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+        position: relative;
+        animation: sceneTransitionIn 1.5s ease-out forwards;
+        opacity: 0;
+      }
+
+      @keyframes sceneTransitionIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+          filter: blur(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+          filter: blur(0px);
+        }
+      }
+
+      /* Scene container */
+      .scene-container {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+      }
+
+      /* Sub scenes */
+      .sub-scene {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        opacity: 0;
+      }
+
+      .sub-scene.active {
+        display: block;
+        animation: fadeIn 0.5s ease-out forwards;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Scene title */
+      .scene-title {
+        position: absolute;
+        top: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 28px;
+        font-weight: bold;
+        color: #ffb6c1;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        z-index: 100;
+      }
+
+      /* Office background (late evening) */
+      .office-evening-bg {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #ff6b6b 0%, #ffa500 50%, #ffd700 100%);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Character tired */
+      .character-tired {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .tired-face {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #ffb6c1;
+        box-shadow: 0 8px 30px rgba(255, 182, 193, 0.4);
+        margin-bottom: 15px;
+        animation: tiredBreathe 3s ease-in-out infinite;
+      }
+
+      @keyframes tiredBreathe {
+        0%,
+        100% {
+          transform: scale(1);
+          filter: brightness(0.9);
+        }
+        50% {
+          transform: scale(1.02);
+          filter: brightness(1);
+        }
+      }
+
+      /* Tired emoji */
+      .tired-emoji {
+        position: absolute;
+        font-size: 35px;
+        animation: tiredFloat 2s ease-in-out infinite;
+      }
+
+      @keyframes tiredFloat {
+        0%,
+        100% {
+          transform: translateY(0);
+          opacity: 0.6;
+        }
+        50% {
+          transform: translateY(-10px);
+          opacity: 1;
+        }
+      }
+
+      /* Phone in hand */
+      .phone {
+        position: absolute;
+        width: 180px;
+        height: 320px;
+        background: #1a1a1a;
+        border-radius: 25px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        padding: 12px;
+        z-index: 30;
+      }
+
+      .phone.show {
+        animation: phonePopIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+      }
+
+      @keyframes phonePopIn {
+        to {
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+
+      .phone-screen {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #e6f3ff 0%, #ffffff 100%);
+        border-radius: 18px;
+        padding: 15px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .messenger-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .sender-name {
+        font-weight: bold;
+        font-size: 13px;
+        color: #333;
+      }
+
+      .messages-container {
+        height: 230px;
+        overflow-y: auto;
+        padding: 5px;
+      }
+
+      .message-bubble {
+        padding: 10px 14px;
+        border-radius: 18px;
+        font-size: 13px;
+        margin-bottom: 8px;
+        max-width: 85%;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      .message-bubble.sent {
+        background: linear-gradient(135deg, #ffb6c1 0%, #ffc0cb 100%);
+        color: #fff;
+        margin-left: auto;
+        border-radius: 18px 18px 5px 18px;
+        text-align: right;
+      }
+
+      .message-bubble.received {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        margin-right: auto;
+        border-radius: 18px 18px 18px 5px;
+      }
+
+      .message-bubble.show {
+        animation: messagePop 0.4s ease-out forwards;
+      }
+
+      @keyframes messagePop {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .message-time {
+        font-size: 9px;
+        color: rgba(255, 255, 255, 0.8);
+        margin-top: 3px;
+      }
+
+      /* Typing indicator */
+      .typing-indicator {
+        display: none;
+        align-items: center;
+        gap: 4px;
+        padding: 10px 14px;
+        background: #e0e0e0;
+        border-radius: 18px;
+        width: fit-content;
+        margin-bottom: 8px;
+      }
+
+      .typing-indicator.show {
+        display: flex;
+        animation: messagePop 0.3s ease-out forwards;
+      }
+
+      .typing-dot {
+        width: 6px;
+        height: 6px;
+        background: #666;
+        border-radius: 50%;
+        animation: typingDot 1.2s ease-in-out infinite;
+      }
+
+      .typing-dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .typing-dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes typingDot {
+        0%,
+        60%,
+        100% {
+          transform: translateY(0);
+        }
+        30% {
+          transform: translateY(-8px);
+        }
+      }
+
+      /* Night street background */
+      .night-street-bg {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Sunset gradient overlay */
+      .sunset-glow {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 40%;
+        background: linear-gradient(
+          180deg,
+          transparent 0%,
+          rgba(255, 107, 107, 0.2) 50%,
+          rgba(255, 165, 0, 0.3) 100%
+        );
+        pointer-events: none;
+      }
+
+      /* Stars */
+      .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: starTwinkle 3s ease-in-out infinite;
+      }
+
+      @keyframes starTwinkle {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.5);
+        }
+      }
+
+      /* Streetlights */
+      .streetlight {
+        position: absolute;
+        bottom: 20%;
+        width: 8px;
+        height: 120px;
+        background: linear-gradient(180deg, #444 0%, #222 100%);
+        animation: streetlightPass 8s linear infinite;
+      }
+
+      @keyframes streetlightPass {
+        from {
+          transform: translateX(100vw);
+        }
+        to {
+          transform: translateX(-100px);
+        }
+      }
+
+      /* Streetlight glow */
+      .streetlight-glow {
+        position: absolute;
+        top: -30px;
+        left: -20px;
+        width: 50px;
+        height: 50px;
+        background: radial-gradient(circle, rgba(255, 200, 100, 0.6) 0%, transparent 70%);
+        border-radius: 50%;
+        animation: glowPulse 2s ease-in-out infinite;
+      }
+
+      @keyframes glowPulse {
+        0%,
+        100% {
+          opacity: 0.6;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.2);
+        }
+      }
+
+      /* Traffic vehicles */
+      .traffic-vehicle {
+        position: absolute;
+        bottom: 22%;
+        font-size: 50px;
+        animation: vehiclePass 6s linear infinite;
+      }
+
+      @keyframes vehiclePass {
+        from {
+          transform: translateX(-150px);
+        }
+        to {
+          transform: translateX(100vw);
+        }
+      }
+
+      /* Vehicle headlights */
+      .headlight-beam {
+        position: absolute;
+        bottom: 24%;
+        width: 150px;
+        height: 40px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 200, 0.4) 50%,
+          transparent 100%
+        );
+        clip-path: polygon(0 50%, 100% 0, 100% 100%);
+        animation: vehiclePass 6s linear infinite;
+        pointer-events: none;
+      }
+
+      /* Exhaust smoke */
+      .exhaust-smoke {
+        position: absolute;
+        font-size: 30px;
+        opacity: 0;
+        animation: smokeRise 2s ease-out infinite;
+      }
+
+      @keyframes smokeRise {
+        0% {
+          opacity: 0;
+          transform: translateX(0) translateY(0) scale(0.8);
+        }
+        50% {
+          opacity: 0.6;
+        }
+        100% {
+          opacity: 0;
+          transform: translateX(-80px) translateY(-60px) scale(1.5);
+        }
+      }
+
+      /* Wind leaves */
+      .wind-leaf {
+        position: absolute;
+        font-size: 25px;
+        opacity: 0.7;
+        animation: leafBlow 10s ease-in-out infinite;
+      }
+
+      @keyframes leafBlow {
+        0% {
+          transform: translate(100vw, 20vh) rotate(0deg);
+          opacity: 0;
+        }
+        20% {
+          opacity: 0.7;
+        }
+        80% {
+          opacity: 0.7;
+        }
+        100% {
+          transform: translate(-100px, 80vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+
+      /* Speed dust particles */
+      .speed-dust {
+        position: absolute;
+        font-size: 20px;
+        opacity: 0.5;
+        animation: dustFly 1.5s ease-out infinite;
+      }
+
+      @keyframes dustFly {
+        from {
+          transform: translateX(0);
+          opacity: 0.5;
+        }
+        to {
+          transform: translateX(-150px);
+          opacity: 0;
+        }
+      }
+
+      /* Moon */
+      .moon {
+        position: absolute;
+        top: 10%;
+        right: 15%;
+        width: 80px;
+        height: 80px;
+        background: #fff8dc;
+        border-radius: 50%;
+        box-shadow: 0 0 40px rgba(255, 248, 220, 0.8);
+        animation: moonGlow 4s ease-in-out infinite;
+      }
+
+      @keyframes moonGlow {
+        0%,
+        100% {
+          box-shadow: 0 0 40px rgba(255, 248, 220, 0.6);
+        }
+        50% {
+          box-shadow: 0 0 60px rgba(255, 248, 220, 1);
+        }
+      }
+
+      /* Street buildings (scrolling) */
+      .buildings {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 200%;
+        height: 35%;
+        background: repeating-linear-gradient(
+          to right,
+          #1a1a2e 0px,
+          #1a1a2e 80px,
+          #2d2d44 80px,
+          #2d2d44 120px,
+          #1a1a2e 120px,
+          #1a1a2e 200px
+        );
+        animation: buildingsScroll 15s linear infinite;
+      }
+
+      @keyframes buildingsScroll {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* Building windows */
+      .building-window {
+        position: absolute;
+        width: 8px;
+        height: 12px;
+        background: rgba(255, 255, 200, 0.6);
+        animation: windowFlicker 3s ease-in-out infinite;
+      }
+
+      @keyframes windowFlicker {
+        0%,
+        100% {
+          opacity: 0.6;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      /* Road */
+      .road {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 200%;
+        height: 20%;
+        background: #2c2c2c;
+        border-top: 4px solid #ffa500;
+        animation: roadScroll 5s linear infinite;
+      }
+
+      @keyframes roadScroll {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* Road lines */
+      .road-line {
+        position: absolute;
+        top: 50%;
+        width: 60px;
+        height: 4px;
+        background: white;
+        animation: roadLineScroll 2s linear infinite;
+      }
+
+      @keyframes roadLineScroll {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-150px);
+        }
+      }
+
+      /* Traffic light */
+      .traffic-light {
+        position: absolute;
+        top: 30%;
+        right: 20%;
+        width: 30px;
+        background: #333;
+        padding: 8px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      }
+
+      .traffic-light-bulb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin-bottom: 6px;
+        opacity: 0.3;
+      }
+
+      /* Thought bubbles */
+      .thought-bubble {
+        position: absolute;
+        background: white;
+        padding: 15px 20px;
+        border-radius: 20px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        font-size: 14px;
+        color: #333;
+        max-width: 200px;
+        opacity: 0;
+        transform: scale(0);
+        z-index: 10;
+      }
+
+      .thought-bubble.show {
+        animation: bubbleAppear 0.5s ease-out forwards;
+      }
+
+      @keyframes bubbleAppear {
+        0% {
+          opacity: 0;
+          transform: scale(0) translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      .thought-bubble.hide {
+        animation: bubbleDisappear 0.5s ease-out forwards;
+      }
+
+      @keyframes bubbleDisappear {
+        0% {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0) translateY(-20px);
+        }
+      }
+
+      /* Thought bubble tail */
+      .thought-bubble::before {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 30px;
+        width: 20px;
+        height: 20px;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .thought-bubble::after {
+        content: '';
+        position: absolute;
+        bottom: -25px;
+        left: 20px;
+        width: 12px;
+        height: 12px;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Yawn effect */
+      .yawn-bubble {
+        position: absolute;
+        font-size: 50px;
+        opacity: 0;
+        animation: yawnGrow 2s ease-out infinite;
+      }
+
+      @keyframes yawnGrow {
+        0% {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.3);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.5);
+        }
+      }
+
+      /* Heavy eyes effect */
+      .heavy-eyes {
+        position: absolute;
+        font-size: 30px;
+        opacity: 0;
+        animation: eyesBlink 3s ease-in-out infinite;
+      }
+
+      @keyframes eyesBlink {
+        0%,
+        100% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      /* Sweat drops from tiredness */
+      .tired-sweat {
+        position: absolute;
+        font-size: 25px;
+        opacity: 0;
+        animation: sweatDrop 2s ease-in infinite;
+      }
+
+      @keyframes sweatDrop {
+        0% {
+          opacity: 0;
+          transform: translateY(0);
+        }
+        20% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(80px);
+        }
+      }
+
+      /* Fatigue lines */
+      .fatigue-line {
+        position: absolute;
+        width: 40px;
+        height: 3px;
+        background: rgba(100, 100, 100, 0.6);
+        animation: fatigueShake 0.5s ease-in-out infinite;
+      }
+
+      @keyframes fatigueShake {
+        0%,
+        100% {
+          transform: translateX(0) rotate(-5deg);
+        }
+        50% {
+          transform: translateX(-3px) rotate(5deg);
+        }
+      }
+
+      .traffic-light-bulb.red {
+        background: #ff0000;
+      }
+      .traffic-light-bulb.yellow {
+        background: #ffff00;
+      }
+      .traffic-light-bulb.green {
+        background: #00ff00;
+      }
+
+      .traffic-light-bulb.active {
+        opacity: 1;
+        box-shadow: 0 0 20px currentColor;
+        animation: lightPulse 1s ease-in-out infinite;
+      }
+
+      @keyframes lightPulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.6;
+        }
+      }
+
+      /* Riding character on bike */
+      .character-riding {
+        position: absolute;
+        bottom: 25%;
+        left: 35%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 10;
+      }
+
+      .riding-face {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #ffb6c1;
+        margin-bottom: 8px;
+        animation: ridingBounce 0.5s ease-in-out infinite;
+      }
+
+      @keyframes ridingBounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+
+      /* Motorcycle */
+      .motorcycle {
+        font-size: 60px;
+        animation: bikeVibrate 0.3s ease-in-out infinite;
+      }
+
+      @keyframes bikeVibrate {
+        0%,
+        100% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(-1deg);
+        }
+        75% {
+          transform: rotate(1deg);
+        }
+      }
+
+      /* Helmet */
+      .helmet {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 50px;
+      }
+
+      /* Backpack on back */
+      .backpack-riding {
+        position: absolute;
+        top: 80px;
+        right: -20px;
+        font-size: 30px;
+        animation: backpackRide 0.5s ease-in-out infinite;
+      }
+
+      @keyframes backpackRide {
+        0%,
+        100% {
+          transform: rotate(-5deg);
+        }
+        50% {
+          transform: rotate(-8deg);
+        }
+      }
+
+      /* Tired effects */
+      .yawn-bubble {
+        position: absolute;
+        top: 10%;
+        left: -30%;
+        font-size: 40px;
+        opacity: 0;
+      }
+
+      .yawn-bubble.show {
+        animation: yawnAppear 2s ease-out forwards;
+      }
+
+      @keyframes yawnAppear {
+        0% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.2);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+      }
+
+      /* Thought bubble */
+      .thought-bubble {
+        position: absolute;
+        top: 8%;
+        right: 10%;
+        background: white;
+        padding: 15px;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        max-width: 200px;
+        opacity: 0;
+        z-index: 20;
+      }
+
+      .thought-bubble.show {
+        animation: thoughtAppear 0.5s ease-out forwards;
+      }
+
+      @keyframes thoughtAppear {
+        to {
+          opacity: 1;
+          transform: translateY(-10px);
+        }
+      }
+
+      .thought-bubble::before {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 30px;
+        width: 20px;
+        height: 20px;
+        background: white;
+        border-radius: 50%;
+      }
+
+      .thought-bubble::after {
+        content: '';
+        position: absolute;
+        bottom: -25px;
+        left: 20px;
+        width: 12px;
+        height: 12px;
+        background: white;
+        border-radius: 50%;
+      }
+
+      .thought-text {
+        font-size: 13px;
+        color: #333;
+        text-align: center;
+      }
+
+      /* Motivation text */
+      .motivation {
+        position: absolute;
+        bottom: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffd700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        opacity: 0;
+      }
+
+      .motivation.show {
+        animation: motivationPulse 2s ease-in-out forwards;
+      }
+
+      @keyframes motivationPulse {
+        0%,
+        100% {
+          opacity: 0;
+          transform: translateX(-50%) scale(0.8);
+        }
+        50% {
+          opacity: 1;
+          transform: translateX(-50%) scale(1.2);
+        }
+      }
+
+      /* Props */
+      .props {
+        position: absolute;
+        font-size: 30px;
+        opacity: 0.5;
+        animation: propFloat 3s ease-in-out infinite;
+      }
+
+      @keyframes propFloat {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-12px) rotate(10deg);
+        }
+      }
+
+      /* Progress dots */
+      .progress {
+        position: fixed;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 15px;
+        z-index: 1000;
+      }
+
+      .progress-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        transition: all 0.3s;
+      }
+
+      .progress-dot.active {
+        background: #ffb6c1;
+        transform: scale(1.5);
+        box-shadow: 0 0 10px #ffb6c1;
+      }
+
+      /* Next button */
+      .next-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 15px 35px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
+        opacity: 0;
+        transform: scale(0);
+        z-index: 1000;
+      }
+
+      .next-button.show {
+        animation: buttonPop 0.5s ease-out forwards;
+      }
+
+      @keyframes buttonPop {
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .next-button:hover {
+        transform: scale(1.1);
+      }
+
+      /* Anime body */
+      .anime-body {
+        position: relative;
+        width: 100px;
+        height: 120px;
+      }
+
+      .body-torso {
+        width: 70px;
+        height: 90px;
+        background: linear-gradient(180deg, #87ceeb 0%, #add8e6 100%);
+        border-radius: 35px 35px 15px 15px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .body-arms {
+        position: absolute;
+        top: 20px;
+        width: 100%;
+      }
+
+      .arm {
+        position: absolute;
+        width: 20px;
+        height: 60px;
+        background: linear-gradient(180deg, #87ceeb 0%, #add8e6 100%);
+        border-radius: 12px;
+      }
+
+      .arm.left {
+        left: -18px;
+        transform-origin: top center;
+      }
+
+      .arm.right {
+        right: -18px;
+        transform-origin: top center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scene-container">
+      <!-- Sub-scene 1: Reply message at office -->
+      <div class="sub-scene" id="replyMessage">
+        <div class="office-evening-bg">
+          <div class="scene-title">📱 Xong việc rồi, về thôi!</div>
+
+          <div class="character-tired">
+            <img src="AnhKhuonMatCuaCoAy.jpg" alt="Dương" class="tired-face" id="face1" />
+            <div class="tired-emoji" style="top: 10%; left: -30%">😴</div>
+            <div class="tired-emoji" style="top: 15%; right: -30%; animation-delay: 1s">🥱</div>
+
+            <!-- Yawn bubble -->
+            <div class="yawn-bubble" id="yawn1">🥱</div>
+
+            <!-- Heavy eyes -->
+            <div class="heavy-eyes" style="top: 20%; left: -20%">😪</div>
+            <div class="heavy-eyes" style="top: 25%; right: -20%; animation-delay: 1.5s">😫</div>
+
+            <!-- Tired sweat -->
+            <div class="tired-sweat" style="top: 15%; left: 10%; animation-delay: 0s">💧</div>
+            <div class="tired-sweat" style="top: 18%; right: 10%; animation-delay: 1s">💧</div>
+
+            <!-- Fatigue lines -->
+            <div class="fatigue-line" style="top: 12%; left: -25%; animation-delay: 0s"></div>
+            <div class="fatigue-line" style="top: 18%; left: -28%; animation-delay: 0.3s"></div>
+            <div class="fatigue-line" style="top: 12%; right: -25%; animation-delay: 0.6s"></div>
+
+            <div class="anime-body">
+              <div class="body-torso">
+                <div class="body-arms">
+                  <div class="arm left"></div>
+                  <div class="arm right"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="phone" id="phone1">
+            <div class="phone-screen">
+              <div class="messenger-header">
+                <img src="AnhKhuonMatCuaToi.jpg" alt="Đạt" class="avatar" />
+                <div class="sender-name">Đạt</div>
+              </div>
+              <div class="messages-container">
+                <div class="message-bubble sent">
+                  Xong rồi, về nhà thôi! 😊
+                  <div class="message-time">18:00</div>
+                </div>
+                <div class="typing-indicator" id="typing1">
+                  <div class="typing-dot"></div>
+                  <div class="typing-dot"></div>
+                  <div class="typing-dot"></div>
+                </div>
+                <div class="message-bubble received" id="reply1">
+                  Oke Dương! Cẩn thận nhé, về nghỉ ngơi đi 🏠💕
+                  <div class="message-time">18:01</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="props" style="top: 12%; left: 8%">🌆</div>
+          <div class="props" style="top: 18%; right: 10%">🌇</div>
+          <div class="props" style="bottom: 20%; left: 12%">💼</div>
+        </div>
+      </div>
+
+      <!-- Sub-scene 2: Riding home (tired) -->
+      <div class="sub-scene" id="ridingHome">
+        <div class="night-street-bg">
+          <div class="scene-title">🏍️ Về nhà (hơi mệt...)</div>
+
+          <!-- Sunset glow -->
+          <div class="sunset-glow"></div>
+
+          <!-- Stars -->
+          <div class="star" style="top: 10%; left: 20%; animation-delay: 0s"></div>
+          <div class="star" style="top: 15%; left: 40%; animation-delay: 0.5s"></div>
+          <div class="star" style="top: 12%; left: 60%; animation-delay: 1s"></div>
+          <div class="star" style="top: 8%; left: 75%; animation-delay: 0.3s"></div>
+          <div class="star" style="top: 20%; left: 85%; animation-delay: 0.8s"></div>
+          <div class="star" style="top: 25%; left: 30%; animation-delay: 1.2s"></div>
+          <div class="star" style="top: 18%; left: 50%; animation-delay: 0.6s"></div>
+          <div class="star" style="top: 22%; right: 20%; animation-delay: 1.5s"></div>
+
+          <!-- Moon -->
+          <div class="moon">🌙</div>
+
+          <!-- Streetlights -->
+          <div class="streetlight" style="animation-delay: 0s">
+            <div class="streetlight-glow"></div>
+          </div>
+          <div class="streetlight" style="animation-delay: 2s">
+            <div class="streetlight-glow" style="animation-delay: 1s"></div>
+          </div>
+          <div class="streetlight" style="animation-delay: 4s">
+            <div class="streetlight-glow" style="animation-delay: 0.5s"></div>
+          </div>
+          <div class="streetlight" style="animation-delay: 6s">
+            <div class="streetlight-glow" style="animation-delay: 1.5s"></div>
+          </div>
+
+          <!-- Traffic vehicles -->
+          <div class="traffic-vehicle" style="animation-delay: 0s">🚗</div>
+          <div class="traffic-vehicle" style="animation-delay: 2s; bottom: 25%">🚙</div>
+          <div class="traffic-vehicle" style="animation-delay: 4s">🚕</div>
+
+          <!-- Headlight beams -->
+          <div class="headlight-beam" style="animation-delay: 0s"></div>
+          <div class="headlight-beam" style="animation-delay: 2s; bottom: 27%"></div>
+          <div class="headlight-beam" style="animation-delay: 4s"></div>
+
+          <!-- Wind leaves -->
+          <div class="wind-leaf" style="animation-delay: 0s">🍂</div>
+          <div class="wind-leaf" style="animation-delay: 3s">🍃</div>
+          <div class="wind-leaf" style="animation-delay: 6s">🍂</div>
+          <div class="wind-leaf" style="animation-delay: 9s">🍃</div>
+
+          <!-- Buildings -->
+          <div class="buildings">
+            <!-- Building windows -->
+            <div
+              class="building-window"
+              style="bottom: 80px; left: 30px; animation-delay: 0s"
+            ></div>
+            <div
+              class="building-window"
+              style="bottom: 100px; left: 30px; animation-delay: 0.5s"
+            ></div>
+            <div
+              class="building-window"
+              style="bottom: 80px; left: 130px; animation-delay: 1s"
+            ></div>
+            <div
+              class="building-window"
+              style="bottom: 100px; left: 250px; animation-delay: 0.3s"
+            ></div>
+          </div>
+
+          <!-- Road -->
+          <div class="road">
+            <div class="road-line" style="left: 0"></div>
+            <div class="road-line" style="left: 150px; animation-delay: 0.5s"></div>
+            <div class="road-line" style="left: 300px; animation-delay: 1s"></div>
+          </div>
+
+          <!-- Traffic light -->
+          <div class="traffic-light">
+            <div class="traffic-light-bulb red" id="redLight"></div>
+            <div class="traffic-light-bulb yellow" id="yellowLight"></div>
+            <div class="traffic-light-bulb green active" id="greenLight"></div>
+          </div>
+
+          <!-- Character riding -->
+          <div class="character-riding">
+            <div style="position: relative">
+              <div class="helmet">⛑️</div>
+              <img src="AnhKhuonMatCuaCoAy.jpg" alt="Dương" class="riding-face" id="face2" />
+              <div class="backpack-riding">🎒</div>
+              <div class="yawn-bubble" id="yawn">😮‍💨</div>
+
+              <!-- Tired effects on rider -->
+              <div class="heavy-eyes" style="top: 20%; left: -15%">😪</div>
+              <div class="tired-sweat" style="top: 10%; right: -10%; animation-delay: 0s">💧</div>
+              <div class="tired-sweat" style="top: 15%; left: -10%; animation-delay: 1.5s">💧</div>
+            </div>
+            <div class="motorcycle">🏍️</div>
+
+            <!-- Exhaust smoke -->
+            <div class="exhaust-smoke" style="bottom: 35%; left: -30%; animation-delay: 0s">💨</div>
+            <div class="exhaust-smoke" style="bottom: 30%; left: -35%; animation-delay: 1s">💨</div>
+            <div class="exhaust-smoke" style="bottom: 38%; left: -25%; animation-delay: 2s">💨</div>
+
+            <!-- Speed dust -->
+            <div class="speed-dust" style="bottom: 32%; left: -20%; animation-delay: 0s">💨</div>
+            <div class="speed-dust" style="bottom: 35%; left: -25%; animation-delay: 0.5s">💨</div>
+            <div class="speed-dust" style="bottom: 30%; left: -22%; animation-delay: 1s">💨</div>
+          </div>
+
+          <!-- Thought bubble -->
+          <div class="thought-bubble" id="thoughtBubble">
+            <div class="thought-text">"Tin nhắn của Đạt dễ thương quá... 💕"</div>
+          </div>
+
+          <!-- Motivation -->
+          <div class="motivation" id="motivation">💪 Sắp về rồi! Cố lên!</div>
+
+          <div class="props" style="top: 40%; left: 8%">🚗</div>
+          <div class="props" style="top: 45%; right: 12%">🚕</div>
+        </div>
+      </div>
+
+      <!-- Progress indicator -->
+      <div class="progress">
+        <div class="progress-dot" id="dot1"></div>
+        <div class="progress-dot" id="dot2"></div>
+      </div>
+
+      <!-- Next button -->
+      <button class="next-button" id="nextButton">Scene 6: Về đến nhà 🏡</button>
+    </div>
+
+    <script>
+      const subScenes = ['replyMessage', 'ridingHome'];
+      const dots = ['dot1', 'dot2'];
+      let currentScene = 0;
+
+      const nextButton = document.getElementById('nextButton');
+
+      // Start scene
+      function startScene(index) {
+        subScenes.forEach((sceneId) => {
+          document.getElementById(sceneId).classList.remove('active');
+        });
+
+        dots.forEach((dotId, i) => {
+          document.getElementById(dotId).classList.toggle('active', i === index);
+        });
+
+        document.getElementById(subScenes[index]).classList.add('active');
+
+        if (index === 0) {
+          animateReplyMessage();
+        } else if (index === 1) {
+          animateRidingHome();
+        }
+      }
+
+      // Scene 1: Reply message
+      function animateReplyMessage() {
+        const phone1 = document.getElementById('phone1');
+        const typing1 = document.getElementById('typing1');
+        const reply1 = document.getElementById('reply1');
+
+        // Show phone
+        setTimeout(() => {
+          phone1.classList.add('show');
+        }, 500);
+
+        // Show sent message
+        setTimeout(() => {
+          document.querySelectorAll('.message-bubble.sent')[0].classList.add('show');
+        }, 1500);
+
+        // Show typing
+        setTimeout(() => {
+          typing1.classList.add('show');
+        }, 2500);
+
+        // Hide typing, show reply
+        setTimeout(() => {
+          typing1.classList.remove('show');
+          reply1.classList.add('show');
+        }, 4000);
+
+        // Move to next scene
+        setTimeout(() => {
+          currentScene++;
+          autoProgress();
+        }, 6000);
+      }
+
+      // Scene 2: Riding home
+      function animateRidingHome() {
+        const yawn = document.getElementById('yawn');
+        const thoughtBubble = document.getElementById('thoughtBubble');
+        const motivation = document.getElementById('motivation');
+        const redLight = document.getElementById('redLight');
+        const yellowLight = document.getElementById('yellowLight');
+        const greenLight = document.getElementById('greenLight');
+
+        // Yawn after 2 seconds
+        setTimeout(() => {
+          yawn.classList.add('show');
+        }, 2000);
+
+        // Remove yawn
+        setTimeout(() => {
+          yawn.classList.remove('show');
+        }, 4000);
+
+        // Thought bubble appears
+        setTimeout(() => {
+          thoughtBubble.classList.add('show');
+        }, 5000);
+
+        // Thought bubble disappears
+        setTimeout(() => {
+          thoughtBubble.style.animation = 'fadeOut 0.5s ease-out forwards';
+        }, 8000);
+
+        // Motivation text
+        setTimeout(() => {
+          motivation.classList.add('show');
+        }, 9000);
+
+        // Traffic light changes
+        setTimeout(() => {
+          greenLight.classList.remove('active');
+          yellowLight.classList.add('active');
+        }, 6000);
+
+        setTimeout(() => {
+          yellowLight.classList.remove('active');
+          redLight.classList.add('active');
+        }, 8000);
+
+        setTimeout(() => {
+          redLight.classList.remove('active');
+          greenLight.classList.add('active');
+        }, 11000);
+
+        // Show next button
+        setTimeout(() => {
+          nextButton.classList.add('show');
+        }, 12000);
+      }
+
+      // Auto progress
+      function autoProgress() {
+        if (currentScene < subScenes.length) {
+          startScene(currentScene);
+        }
+      }
+
+      // Start on load
+      window.addEventListener('load', () => {
+        autoProgress();
+      });
+
+      // Next button
+      nextButton.addEventListener('click', () => {
+        document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
+        setTimeout(() => {
+          window.location.href = 'scene6_at_home.html';
+        }, 1000);
+      });
+
+      // Add fadeOut and transition out
+      const style = document.createElement('style');
+      style.textContent = `
+            @keyframes fadeOut {
+                to { opacity: 0; }
+            }
+
+            @keyframes sceneTransitionOut {
+                0% {
+                    opacity: 1;
+                    transform: scale(1);
+                    filter: blur(0px);
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(1.2);
+                    filter: blur(20px);
+                }
+            }
+        `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

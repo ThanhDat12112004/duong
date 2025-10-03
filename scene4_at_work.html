@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scene 4: Tại Công Ty - Cao Thùy Dương</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+        background: linear-gradient(180deg, #f0f8ff 0%, #e6f3ff 100%);
+        position: relative;
+        animation: sceneTransitionIn 1.5s ease-out forwards;
+        opacity: 0;
+      }
+
+      @keyframes sceneTransitionIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+          filter: blur(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+          filter: blur(0px);
+        }
+      }
+
+      /* Scene container */
+      .scene-container {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+      }
+
+      /* Each sub-scene */
+      .sub-scene {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        opacity: 0;
+      }
+
+      .sub-scene.active {
+        display: block;
+        animation: fadeIn 0.5s ease-out forwards;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Office background */
+      .office-bg {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #e8f4f8 0%, #d4e9f7 100%);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Scene title */
+      .scene-title {
+        position: absolute;
+        top: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 28px;
+        font-weight: bold;
+        color: #4a90e2;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+      }
+
+      /* Character at desk */
+      .character-at-desk {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .character-face {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #ffb6c1;
+        box-shadow: 0 8px 30px rgba(255, 182, 193, 0.4);
+        margin-bottom: 15px;
+      }
+
+      .anime-body {
+        position: relative;
+        width: 120px;
+        height: 180px;
+      }
+
+      .body-torso {
+        width: 80px;
+        height: 120px;
+        background: linear-gradient(180deg, #87ceeb 0%, #add8e6 100%);
+        border-radius: 40px 40px 20px 20px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .body-arms {
+        position: absolute;
+        top: 20px;
+        width: 100%;
+      }
+
+      .arm {
+        position: absolute;
+        width: 25px;
+        height: 70px;
+        background: linear-gradient(180deg, #87ceeb 0%, #add8e6 100%);
+        border-radius: 15px;
+      }
+
+      .arm.left {
+        left: -20px;
+        transform-origin: top center;
+      }
+
+      .arm.right {
+        right: -20px;
+        transform-origin: top center;
+      }
+
+      /* Phone in hand (Scene 1) */
+      .holding-phone .arm.right {
+        animation: holdPhone 0.5s ease-out forwards;
+      }
+
+      @keyframes holdPhone {
+        to {
+          transform: rotate(-50deg) translateY(-15px);
+        }
+      }
+
+      /* Phone popup */
+      .phone {
+        position: absolute;
+        width: 180px;
+        height: 320px;
+        background: #1a1a1a;
+        border-radius: 25px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        padding: 12px;
+        z-index: 30;
+      }
+
+      .phone.show {
+        animation: phonePopIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+      }
+
+      @keyframes phonePopIn {
+        to {
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+
+      .phone-screen {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #e6f3ff 0%, #ffffff 100%);
+        border-radius: 18px;
+        padding: 15px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .messenger-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .sender-name {
+        font-weight: bold;
+        font-size: 13px;
+        color: #333;
+      }
+
+      /* Messages */
+      .messages-container {
+        height: 230px;
+        overflow-y: auto;
+        padding: 5px;
+      }
+
+      .message-bubble {
+        padding: 10px 14px;
+        border-radius: 18px;
+        font-size: 13px;
+        margin-bottom: 8px;
+        max-width: 85%;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      .message-bubble.sent {
+        background: linear-gradient(135deg, #ffb6c1 0%, #ffc0cb 100%);
+        color: #fff;
+        margin-left: auto;
+        border-radius: 18px 18px 5px 18px;
+        text-align: right;
+      }
+
+      .message-bubble.received {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        margin-right: auto;
+        border-radius: 18px 18px 18px 5px;
+      }
+
+      .message-bubble.show {
+        animation: messagePop 0.4s ease-out forwards;
+      }
+
+      @keyframes messagePop {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .message-time {
+        font-size: 9px;
+        color: rgba(255, 255, 255, 0.8);
+        margin-top: 3px;
+      }
+
+      /* Typing animation */
+      .typing-indicator {
+        display: none;
+        align-items: center;
+        gap: 4px;
+        padding: 10px 14px;
+        background: #e0e0e0;
+        border-radius: 18px;
+        width: fit-content;
+        margin-bottom: 8px;
+      }
+
+      .typing-indicator.show {
+        display: flex;
+        animation: messagePop 0.3s ease-out forwards;
+      }
+
+      .typing-dot {
+        width: 6px;
+        height: 6px;
+        background: #666;
+        border-radius: 50%;
+        animation: typingDot 1.2s ease-in-out infinite;
+      }
+
+      .typing-dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .typing-dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes typingDot {
+        0%,
+        60%,
+        100% {
+          transform: translateY(0);
+        }
+        30% {
+          transform: translateY(-8px);
+        }
+      }
+
+      /* Working animation - enhanced typing */
+      .working .arm {
+        animation: typingFast 0.4s ease-in-out infinite;
+      }
+
+      .working .arm.left {
+        animation: typingFast 0.4s ease-in-out infinite;
+        animation-delay: 0.2s;
+      }
+
+      @keyframes typingFast {
+        0% {
+          transform: rotate(-20deg) translateY(0);
+        }
+        25% {
+          transform: rotate(-5deg) translateY(-3px);
+        }
+        50% {
+          transform: rotate(20deg) translateY(0);
+        }
+        75% {
+          transform: rotate(5deg) translateY(-3px);
+        }
+        100% {
+          transform: rotate(-20deg) translateY(0);
+        }
+      }
+
+      /* Body slight movement while working */
+      .working .body-torso {
+        animation: bodyWork 2s ease-in-out infinite;
+      }
+
+      @keyframes bodyWork {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+
+      /* Desk and laptop */
+      .desk {
+        position: absolute;
+        bottom: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 400px;
+        height: 150px;
+        background: linear-gradient(180deg, #8b4513 0%, #a0522d 100%);
+        border-radius: 10px 10px 0 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .laptop {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 180px;
+        height: 120px;
+        background: #2c3e50;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+      }
+
+      .laptop-screen {
+        width: 100%;
+        height: 85%;
+        background: linear-gradient(180deg, #34495e 0%, #2c3e50 100%);
+        border-radius: 5px 5px 0 0;
+        padding: 8px;
+        position: relative;
+      }
+
+      .code-lines {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .code-line {
+        height: 3px;
+        background: #2ecc71;
+        border-radius: 2px;
+        opacity: 0;
+        animation: codeTyping 3s ease-in-out infinite;
+      }
+
+      @keyframes codeTyping {
+        0% {
+          width: 0;
+          opacity: 0;
+        }
+        20% {
+          opacity: 0.8;
+        }
+        80% {
+          opacity: 0.8;
+        }
+        100% {
+          width: var(--line-width);
+          opacity: 0.3;
+        }
+      }
+
+      .code-line:nth-child(1) {
+        --line-width: 80%;
+        animation-delay: 0s;
+      }
+      .code-line:nth-child(2) {
+        --line-width: 60%;
+        animation-delay: 0.5s;
+      }
+      .code-line:nth-child(3) {
+        --line-width: 90%;
+        animation-delay: 1s;
+      }
+      .code-line:nth-child(4) {
+        --line-width: 70%;
+        animation-delay: 1.5s;
+      }
+      .code-line:nth-child(5) {
+        --line-width: 85%;
+        animation-delay: 2s;
+      }
+
+      /* Typing cursor on laptop */
+      .typing-cursor {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        width: 2px;
+        height: 60%;
+        background: #3498db;
+        animation: cursorBlink 0.8s ease-in-out infinite;
+      }
+
+      @keyframes cursorBlink {
+        0%,
+        49% {
+          opacity: 1;
+        }
+        50%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* Notification badge on phone */
+      .notification-badge {
+        position: absolute;
+        top: 25%;
+        right: 25%;
+        background: #ff0000;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(255, 0, 0, 0.6);
+        animation: notificationPulse 1s ease-in-out infinite;
+        z-index: 25;
+      }
+
+      @keyframes notificationPulse {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 4px 15px rgba(255, 0, 0, 0.6);
+        }
+        50% {
+          transform: scale(1.2);
+          box-shadow: 0 6px 25px rgba(255, 0, 0, 0.9);
+        }
+      }
+
+      /* Phone on desk (small) */
+      .phone-on-desk {
+        position: absolute;
+        top: 30px;
+        right: 40px;
+        width: 50px;
+        height: 80px;
+        background: #1a1a1a;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .phone-on-desk:hover {
+        transform: scale(1.1);
+      }
+
+      .phone-on-desk-screen {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+      }
+
+      /* Message notification pop */
+      .message-notification {
+        position: absolute;
+        top: 15%;
+        right: 8%;
+        background: white;
+        padding: 12px 18px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        max-width: 200px;
+        opacity: 0;
+        transform: translateX(300px);
+        z-index: 20;
+      }
+
+      .message-notification.show {
+        animation: notificationSlide 0.5s ease-out forwards;
+      }
+
+      @keyframes notificationSlide {
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .message-notification.hide {
+        animation: notificationSlideOut 0.5s ease-out forwards;
+      }
+
+      @keyframes notificationSlideOut {
+        to {
+          opacity: 0;
+          transform: translateX(300px);
+        }
+      }
+
+      .notification-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 6px;
+      }
+
+      .notification-avatar {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .notification-name {
+        font-weight: bold;
+        font-size: 12px;
+        color: #333;
+      }
+
+      .notification-text {
+        font-size: 11px;
+        color: #666;
+      }
+
+      /* Coffee cup with steam */
+      .coffee-cup-desk {
+        position: absolute;
+        top: 30px;
+        right: 50px;
+        font-size: 50px;
+        animation: cupTilt 3s ease-in-out infinite;
+      }
+
+      @keyframes cupTilt {
+        0%,
+        100% {
+          transform: rotate(-2deg);
+        }
+        50% {
+          transform: rotate(2deg);
+        }
+      }
+
+      .coffee-steam {
+        position: absolute;
+        bottom: 60px;
+        right: 65px;
+        font-size: 25px;
+        opacity: 0;
+        animation: steamRise 3s ease-out infinite;
+      }
+
+      @keyframes steamRise {
+        0% {
+          opacity: 0;
+          transform: translateY(0) scale(0.8);
+        }
+        50% {
+          opacity: 0.7;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-60px) scale(1.3);
+        }
+      }
+
+      /* Office clock */
+      .office-clock {
+        position: absolute;
+        top: 50px;
+        right: 100px;
+        font-size: 60px;
+        animation: clockPulse 2s ease-in-out infinite;
+      }
+
+      @keyframes clockPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      /* Clock hands */
+      .clock-tick {
+        position: absolute;
+        top: 65px;
+        right: 125px;
+        font-size: 30px;
+        animation: clockHandTick 1s steps(1) infinite;
+      }
+
+      @keyframes clockHandTick {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Mouse cursor moving */
+      .mouse-cursor {
+        position: absolute;
+        font-size: 30px;
+        opacity: 0.7;
+        pointer-events: none;
+        animation: cursorMove 4s ease-in-out infinite;
+      }
+
+      @keyframes cursorMove {
+        0%,
+        100% {
+          transform: translate(0, 0);
+        }
+        25% {
+          transform: translate(80px, -40px);
+        }
+        50% {
+          transform: translate(120px, 20px);
+        }
+        75% {
+          transform: translate(40px, 60px);
+        }
+      }
+
+      /* Mouse click effect */
+      .click-ripple {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border: 3px solid #4a90e2;
+        border-radius: 50%;
+        opacity: 0;
+        animation: rippleEffect 1s ease-out infinite;
+      }
+
+      @keyframes rippleEffect {
+        0% {
+          opacity: 1;
+          transform: scale(0.5);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(2);
+        }
+      }
+
+      /* Papers flying */
+      .flying-paper {
+        position: absolute;
+        font-size: 40px;
+        opacity: 0.6;
+        animation: paperFly 8s linear infinite;
+      }
+
+      @keyframes paperFly {
+        0% {
+          transform: translate(-100px, 100vh) rotate(0deg);
+          opacity: 0;
+        }
+        20% {
+          opacity: 0.6;
+        }
+        80% {
+          opacity: 0.6;
+        }
+        100% {
+          transform: translate(100vw, -100px) rotate(720deg);
+          opacity: 0;
+        }
+      }
+
+      /* Stress indicators */
+      .stress-mark {
+        position: absolute;
+        font-size: 30px;
+        opacity: 0;
+        animation: stressAppear 0.5s ease-out forwards;
+      }
+
+      @keyframes stressAppear {
+        0% {
+          opacity: 0;
+          transform: scale(0) rotate(0deg);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1) rotate(360deg);
+        }
+      }
+
+      /* Keyboard keys pressing */
+      .key-press {
+        position: absolute;
+        font-size: 20px;
+        font-weight: bold;
+        color: #4a90e2;
+        opacity: 0;
+        animation: keyPop 0.5s ease-out infinite;
+      }
+
+      @keyframes keyPop {
+        0% {
+          opacity: 0;
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: translateY(-30px) scale(1.2);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-60px) scale(0.8);
+        }
+      }
+
+      /* Co-worker avatars in background */
+      .coworker {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        opacity: 0.6;
+        animation: coworkerBob 3s ease-in-out infinite;
+      }
+
+      @keyframes coworkerBob {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+
+      /* Email notification badge */
+      .email-badge {
+        position: absolute;
+        background: #ff4444;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 5px 10px;
+        border-radius: 50%;
+        opacity: 0;
+        animation: badgeBounce 0.5s ease-out forwards;
+      }
+
+      @keyframes badgeBounce {
+        0% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        50% {
+          transform: scale(1.3);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Happy face effect - enhanced with smile */
+      .character-face.happy {
+        animation: happyBounce 0.6s ease-in-out;
+        filter: brightness(1.15) saturate(1.2);
+      }
+
+      @keyframes happyBounce {
+        0%,
+        100% {
+          transform: scale(1) rotate(0deg);
+        }
+        25% {
+          transform: scale(1.05) rotate(-3deg);
+        }
+        50% {
+          transform: scale(1.15) rotate(3deg);
+        }
+        75% {
+          transform: scale(1.05) rotate(-2deg);
+        }
+      }
+
+      /* Smile emoji floating up */
+      .smile-emoji {
+        position: absolute;
+        font-size: 40px;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 50;
+      }
+
+      .smile-emoji.show {
+        animation: smileFloat 1.5s ease-out forwards;
+      }
+
+      @keyframes smileFloat {
+        0% {
+          opacity: 0;
+          transform: translateY(0) scale(0.5) rotate(0deg);
+        }
+        20% {
+          opacity: 1;
+        }
+        80% {
+          opacity: 0.8;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-150px) scale(1.3) rotate(360deg);
+        }
+      }
+
+      /* Hearts floating from character */
+      .heart-float {
+        position: absolute;
+        font-size: 30px;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 50;
+      }
+
+      .heart-float.show {
+        animation: heartFloatUp 2s ease-out forwards;
+      }
+
+      @keyframes heartFloatUp {
+        0% {
+          opacity: 0;
+          transform: translateY(0) translateX(0) scale(0);
+        }
+        30% {
+          opacity: 1;
+          transform: translateY(-30px) translateX(var(--float-x, 0)) scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-120px) translateX(var(--float-x, 0)) scale(0.5);
+        }
+      }
+
+      /* Sparkles around face when happy */
+      .sparkle {
+        position: absolute;
+        font-size: 20px;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .sparkle.show {
+        animation: sparkleAnim 1s ease-out forwards;
+      }
+
+      @keyframes sparkleAnim {
+        0% {
+          opacity: 0;
+          transform: scale(0) rotate(0deg);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.2) rotate(180deg);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0.5) rotate(360deg);
+        }
+      }
+
+      /* Coffee cup with steam */
+      .coffee-cup {
+        position: absolute;
+        bottom: 30px;
+        left: 50px;
+        font-size: 50px;
+        animation: cupShake 2s ease-in-out infinite;
+      }
+
+      @keyframes cupShake {
+        0%,
+        100% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(-2deg);
+        }
+        75% {
+          transform: rotate(2deg);
+        }
+      }
+
+      .steam-particle {
+        position: absolute;
+        width: 4px;
+        height: 30px;
+        background: linear-gradient(
+          to top,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(200, 200, 200, 0.6) 100%
+        );
+        border-radius: 50%;
+        filter: blur(2px);
+        animation: steamRise 2.5s ease-out infinite;
+      }
+
+      @keyframes steamRise {
+        0% {
+          transform: translateY(0) translateX(0) scale(0.8);
+          opacity: 0;
+        }
+        30% {
+          opacity: 0.6;
+        }
+        100% {
+          transform: translateY(-80px) translateX(var(--steam-x, 0)) scale(1.5);
+          opacity: 0;
+        }
+      }
+
+      /* Flying documents */
+      .document {
+        position: absolute;
+        font-size: 40px;
+        opacity: 0;
+        animation: documentFly 5s ease-in-out infinite;
+      }
+
+      @keyframes documentFly {
+        0% {
+          opacity: 0;
+          transform: translateX(-100px) translateY(0) rotate(0deg);
+        }
+        10% {
+          opacity: 0.7;
+        }
+        90% {
+          opacity: 0.7;
+        }
+        100% {
+          opacity: 0;
+          transform: translateX(100vw) translateY(-50px) rotate(360deg);
+        }
+      }
+
+      /* Light bulb idea */
+      .light-bulb {
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        font-size: 50px;
+        opacity: 0;
+      }
+
+      .light-bulb.show {
+        animation: bulbGlow 2s ease-in-out forwards;
+      }
+
+      @keyframes bulbGlow {
+        0%,
+        100% {
+          opacity: 0;
+          transform: scale(0.5);
+          filter: brightness(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.3);
+          filter: brightness(2) drop-shadow(0 0 20px yellow);
+        }
+      }
+
+      /* Chart/Graph animation */
+      .chart-bar {
+        position: absolute;
+        bottom: 0;
+        width: 30px;
+        background: linear-gradient(180deg, #3498db 0%, #2ecc71 100%);
+        border-radius: 5px 5px 0 0;
+        animation: chartGrow 2s ease-out infinite;
+      }
+
+      @keyframes chartGrow {
+        0% {
+          height: 0;
+          opacity: 0.5;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          height: var(--chart-height);
+          opacity: 0.8;
+        }
+      }
+
+      /* Props */
+      .props {
+        position: absolute;
+        font-size: 35px;
+        opacity: 0.6;
+        animation: propFloat 3s ease-in-out infinite;
+      }
+
+      @keyframes propFloat {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-15px) rotate(10deg);
+        }
+      }
+
+      /* Mouse cursor animation */
+      .mouse-cursor {
+        position: absolute;
+        font-size: 25px;
+        animation: mouseMove 3s ease-in-out infinite;
+      }
+
+      @keyframes mouseMove {
+        0%,
+        100% {
+          transform: translate(0, 0);
+        }
+        25% {
+          transform: translate(30px, -20px);
+        }
+        50% {
+          transform: translate(-20px, 30px);
+        }
+        75% {
+          transform: translate(40px, 10px);
+        }
+      }
+
+      /* Progress dots */
+      .progress {
+        position: fixed;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 15px;
+        z-index: 1000;
+      }
+
+      .progress-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        transition: all 0.3s;
+      }
+
+      .progress-dot.active {
+        background: #4a90e2;
+        transform: scale(1.5);
+        box-shadow: 0 0 10px #4a90e2;
+      }
+
+      /* Next button */
+      .next-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 15px 35px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
+        opacity: 0;
+        transform: scale(0);
+        z-index: 1000;
+      }
+
+      .next-button.show {
+        animation: buttonPop 0.5s ease-out forwards;
+      }
+
+      @keyframes buttonPop {
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .next-button:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scene-container">
+      <!-- Sub-scene 1: Arriving and texting -->
+      <div class="sub-scene" id="arriving">
+        <div class="office-bg">
+          <div class="scene-title">📱 Mở điện thoại: "Mình tới rồi"</div>
+
+          <!-- Office environment -->
+          <div class="office-clock">🕐</div>
+          <div class="clock-tick">⏰</div>
+          <div class="coffee-cup-desk">☕</div>
+          <div class="coffee-steam" style="animation-delay: 0s">💨</div>
+          <div class="coffee-steam" style="animation-delay: 1s">💨</div>
+          <div class="coffee-steam" style="animation-delay: 2s">💨</div>
+
+          <!-- Co-workers in background -->
+          <div class="coworker" style="top: 20%; left: 15%; animation-delay: 0s">👨‍💼</div>
+          <div class="coworker" style="top: 30%; right: 20%; animation-delay: 1s">👩‍💻</div>
+          <div class="coworker" style="bottom: 25%; left: 10%; animation-delay: 0.5s">🧑‍💼</div>
+
+          <div class="character-at-desk holding-phone">
+            <img src="AnhKhuonMatCuaCoAy.jpg" alt="Dương" class="character-face" id="face1" />
+            <div class="anime-body">
+              <div class="body-torso">
+                <div class="body-arms">
+                  <div class="arm left"></div>
+                  <div class="arm right"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="phone" id="phone1">
+            <div class="phone-screen">
+              <div class="messenger-header">
+                <img src="AnhKhuonMatCuaToi.jpg" alt="Đạt" class="avatar" />
+                <div class="sender-name">Đạt</div>
+              </div>
+              <div class="messages-container" id="messagesContainer1">
+                <div class="message-bubble sent">
+                  Mình tới công ty rồi nè 🏢
+                  <div class="message-time">8:30</div>
+                </div>
+                <div class="typing-indicator" id="typing1">
+                  <div class="typing-dot"></div>
+                  <div class="typing-dot"></div>
+                  <div class="typing-dot"></div>
+                </div>
+                <div class="message-bubble received" id="reply1">
+                  Oke Dương! Chúc một ngày làm việc vui vẻ nhé! 😊💪
+                  <div class="message-time">8:31</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="props" style="top: 12%; left: 10%">🏢</div>
+          <div class="props" style="top: 18%; right: 12%">💼</div>
+          <div class="props" style="bottom: 20%; right: 15%">☕</div>
+        </div>
+      </div>
+
+      <!-- Sub-scene 2: Working and receiving many messages -->
+      <div class="sub-scene" id="working">
+        <div class="office-bg">
+          <div class="scene-title">💼 Chăm chỉ làm việc</div>
+
+          <!-- Office environment -->
+          <div class="office-clock">🕐</div>
+          <div class="coffee-cup-desk">☕</div>
+          <div class="coffee-steam" style="animation-delay: 0s">💨</div>
+          <div class="coffee-steam" style="animation-delay: 1.5s">💨</div>
+
+          <!-- Flying papers -->
+          <div class="flying-paper" style="animation-delay: 0s">📄</div>
+          <div class="flying-paper" style="animation-delay: 3s">📋</div>
+          <div class="flying-paper" style="animation-delay: 6s">📃</div>
+
+          <!-- Mouse cursor with clicks -->
+          <div class="mouse-cursor" style="top: 40%; left: 45%">🖱️</div>
+          <div class="click-ripple" style="top: 45%; left: 50%; animation-delay: 0s"></div>
+          <div class="click-ripple" style="top: 45%; left: 50%; animation-delay: 0.5s"></div>
+
+          <!-- Keyboard key presses -->
+          <div class="key-press" style="bottom: 28%; left: 45%; animation-delay: 0s">A</div>
+          <div class="key-press" style="bottom: 28%; left: 48%; animation-delay: 0.2s">S</div>
+          <div class="key-press" style="bottom: 28%; left: 51%; animation-delay: 0.4s">D</div>
+          <div class="key-press" style="bottom: 28%; left: 54%; animation-delay: 0.6s">F</div>
+
+          <!-- Email notifications -->
+          <div class="email-badge" id="emailBadge" style="top: 25%; right: 20%">99+</div>
+
+          <!-- Character working -->
+          <div class="character-at-desk working" style="bottom: 20%">
+            <img src="AnhKhuonMatCuaCoAy.jpg" alt="Dương" class="character-face" id="face2" />
+            <div class="sparkle" id="sparkle1" style="top: 10%; left: 10%">✨</div>
+            <div class="sparkle" id="sparkle2" style="top: 15%; right: 10%">💕</div>
+            <div class="sparkle" id="sparkle3" style="bottom: 20%; left: 15%">⭐</div>
+            <div class="sparkle" id="sparkle4" style="bottom: 15%; right: 15%">💖</div>
+
+            <!-- Smile emojis when receiving messages -->
+            <div class="smile-emoji" id="smile1" style="top: 40%; left: 50%">😊</div>
+            <div class="smile-emoji" id="smile2" style="top: 40%; left: 50%">🥰</div>
+            <div class="smile-emoji" id="smile3" style="top: 40%; left: 50%">😄</div>
+
+            <!-- Floating hearts -->
+            <div class="heart-float" id="heart1" style="top: 30%; left: 20%; --float-x: -20px">
+              💖
+            </div>
+            <div class="heart-float" id="heart2" style="top: 30%; right: 20%; --float-x: 20px">
+              💕
+            </div>
+            <div class="heart-float" id="heart3" style="top: 35%; left: 50%; --float-x: 0px">
+              💗
+            </div>
+
+            <!-- Stress marks (hidden initially, shown when too many messages) -->
+            <div class="stress-mark" id="stress1" style="top: 15%; left: -5%; display: none">
+              😰
+            </div>
+            <div class="stress-mark" id="stress2" style="top: 15%; right: -5%; display: none">
+              💦
+            </div>
+            <div
+              class="stress-mark"
+              id="stress3"
+              style="top: 5%; left: 50%; transform: translateX(-50%); display: none"
+            >
+              😅
+            </div>
+
+            <div class="anime-body">
+              <div class="body-torso">
+                <div class="body-arms">
+                  <div class="arm left"></div>
+                  <div class="arm right"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Desk with laptop -->
+          <div class="desk">
+            <!-- Coffee cup with steam -->
+            <div class="coffee-cup">☕</div>
+            <div
+              class="steam-particle"
+              style="bottom: 70px; left: 65px; --steam-x: -5px; animation-delay: 0s"
+            ></div>
+            <div
+              class="steam-particle"
+              style="bottom: 70px; left: 72px; --steam-x: 5px; animation-delay: 0.5s"
+            ></div>
+            <div
+              class="steam-particle"
+              style="bottom: 70px; left: 78px; --steam-x: -3px; animation-delay: 1s"
+            ></div>
+
+            <div class="laptop">
+              <div class="laptop-screen">
+                <div class="code-lines">
+                  <div class="code-line"></div>
+                  <div class="code-line"></div>
+                  <div class="code-line"></div>
+                  <div class="code-line"></div>
+                  <div class="code-line"></div>
+                </div>
+                <div class="typing-cursor"></div>
+              </div>
+            </div>
+
+            <!-- Mouse cursor moving -->
+            <div class="mouse-cursor" style="top: 50px; left: 220px">🖱️</div>
+
+            <!-- Phone on desk with notifications -->
+            <div class="phone-on-desk">
+              <div class="phone-on-desk-screen">📱</div>
+            </div>
+            <div class="notification-badge" id="notifBadge">0</div>
+          </div>
+
+          <!-- Flying documents across screen -->
+          <div class="document" style="top: 20%; animation-delay: 0s">📄</div>
+          <div class="document" style="top: 40%; animation-delay: 2s">📋</div>
+          <div class="document" style="top: 60%; animation-delay: 4s">📊</div>
+
+          <!-- Light bulb for ideas -->
+          <div class="light-bulb" id="lightBulb">💡</div>
+
+          <!-- Chart bars (progress visualization) -->
+          <div
+            style="
+              position: absolute;
+              bottom: 15%;
+              right: 10%;
+              display: flex;
+              gap: 10px;
+              align-items: flex-end;
+              height: 100px;
+            "
+          >
+            <div class="chart-bar" style="--chart-height: 60px; animation-delay: 0s"></div>
+            <div class="chart-bar" style="--chart-height: 80px; animation-delay: 0.3s"></div>
+            <div class="chart-bar" style="--chart-height: 45px; animation-delay: 0.6s"></div>
+            <div class="chart-bar" style="--chart-height: 90px; animation-delay: 0.9s"></div>
+          </div>
+
+          <!-- Message notifications (multiple) -->
+          <div class="message-notification" id="notif1">
+            <div class="notification-header">
+              <img src="AnhKhuonMatCuaToi.jpg" alt="Đạt" class="notification-avatar" />
+              <div class="notification-name">Đạt</div>
+            </div>
+            <div class="notification-text">Dương ăn sáng chưa? 🍞</div>
+          </div>
+
+          <div class="message-notification" id="notif2">
+            <div class="notification-header">
+              <img src="AnhKhuonMatCuaToi.jpg" alt="Đạt" class="notification-avatar" />
+              <div class="notification-name">Đạt</div>
+            </div>
+            <div class="notification-text">Nhớ uống nước nhiều vào nhé 💧</div>
+          </div>
+
+          <div class="message-notification" id="notif3">
+            <div class="notification-header">
+              <img src="AnhKhuonMatCuaToi.jpg" alt="Đạt" class="notification-avatar" />
+              <div class="notification-name">Đạt</div>
+            </div>
+            <div class="notification-text">Làm việc đừng quá căng nhé 😊</div>
+          </div>
+
+          <div class="message-notification" id="notif4">
+            <div class="notification-header">
+              <img src="AnhKhuonMatCuaToi.jpg" alt="Đạt" class="notification-avatar" />
+              <div class="notification-name">Đạt</div>
+            </div>
+            <div class="notification-text">Trưa ăn gì ngon không? 🍜</div>
+          </div>
+
+          <div class="message-notification" id="notif5">
+            <div class="notification-header">
+              <img src="AnhKhuonMatCuaToi.jpg" alt="Đạt" class="notification-avatar" />
+              <div class="notification-name">Đạt</div>
+            </div>
+            <div class="notification-text">Chăm chỉ làm việc nha Dương! �✨</div>
+          </div>
+
+          <div class="props" style="top: 15%; left: 8%">💻</div>
+          <div class="props" style="top: 20%; right: 10%">📊</div>
+          <div class="props" style="bottom: 25%; left: 12%">📝</div>
+        </div>
+      </div>
+
+      <!-- Progress indicator -->
+      <div class="progress">
+        <div class="progress-dot" id="dot1"></div>
+        <div class="progress-dot" id="dot2"></div>
+      </div>
+
+      <!-- Next button -->
+      <button class="next-button" id="nextButton">Scene 5: Về nhà ➡️</button>
+    </div>
+
+    <script>
+      const subScenes = ['arriving', 'working'];
+      const dots = ['dot1', 'dot2'];
+      let currentScene = 0;
+      let messageCount = 0;
+
+      const nextButton = document.getElementById('nextButton');
+
+      // Start scene
+      function startScene(index) {
+        subScenes.forEach((sceneId) => {
+          document.getElementById(sceneId).classList.remove('active');
+        });
+
+        dots.forEach((dotId, i) => {
+          document.getElementById(dotId).classList.toggle('active', i === index);
+        });
+
+        document.getElementById(subScenes[index]).classList.add('active');
+
+        if (index === 0) {
+          animateArriving();
+        } else if (index === 1) {
+          animateWorking();
+        }
+      }
+
+      // Scene 1: Arriving and texting
+      function animateArriving() {
+        const phone1 = document.getElementById('phone1');
+        const typing1 = document.getElementById('typing1');
+        const reply1 = document.getElementById('reply1');
+
+        // Show phone
+        setTimeout(() => {
+          phone1.classList.add('show');
+        }, 500);
+
+        // Show sent message
+        setTimeout(() => {
+          document
+            .querySelectorAll('#messagesContainer1 .message-bubble.sent')[0]
+            .classList.add('show');
+        }, 1500);
+
+        // Show typing
+        setTimeout(() => {
+          typing1.classList.add('show');
+        }, 2500);
+
+        // Hide typing, show reply
+        setTimeout(() => {
+          typing1.classList.remove('show');
+          reply1.classList.add('show');
+        }, 4000);
+
+        // Move to next scene
+        setTimeout(() => {
+          currentScene++;
+          autoProgress();
+        }, 6000);
+      }
+
+      // Scene 2: Working and receiving spam messages
+      function animateWorking() {
+        const face = document.getElementById('face2');
+        const badge = document.getElementById('notifBadge');
+        const notifications = [
+          document.getElementById('notif1'),
+          document.getElementById('notif2'),
+          document.getElementById('notif3'),
+          document.getElementById('notif4'),
+          document.getElementById('notif5'),
+        ];
+        const sparkles = [
+          document.getElementById('sparkle1'),
+          document.getElementById('sparkle2'),
+          document.getElementById('sparkle3'),
+          document.getElementById('sparkle4'),
+        ];
+
+        const smileEmojis = [
+          document.getElementById('smile1'),
+          document.getElementById('smile2'),
+          document.getElementById('smile3'),
+        ];
+
+        const heartFloats = [
+          document.getElementById('heart1'),
+          document.getElementById('heart2'),
+          document.getElementById('heart3'),
+        ];
+
+        const lightBulb = document.getElementById('lightBulb');
+        const stress1 = document.getElementById('stress1');
+        const stress2 = document.getElementById('stress2');
+        const stress3 = document.getElementById('stress3');
+        const emailBadge = document.getElementById('emailBadge');
+
+        // Show email badge early
+        setTimeout(() => {
+          if (emailBadge) {
+            emailBadge.style.display = 'block';
+          }
+        }, 1000);
+
+        let notifIndex = 0;
+        const notifInterval = setInterval(() => {
+          if (notifIndex < notifications.length) {
+            // Show notification
+            const notif = notifications[notifIndex];
+            notif.classList.add('show');
+
+            // Update badge count
+            messageCount++;
+            badge.textContent = messageCount;
+
+            // Face happy animation (enhanced)
+            face.classList.add('happy');
+            setTimeout(() => face.classList.remove('happy'), 600);
+
+            // Show stress marks when too many messages (after 3rd message)
+            if (notifIndex >= 2) {
+              if (stress1) {
+                stress1.style.display = 'block';
+                setTimeout(() => (stress1.style.opacity = '1'), 50);
+              }
+              if (notifIndex >= 3 && stress2) {
+                stress2.style.display = 'block';
+                setTimeout(() => (stress2.style.opacity = '1'), 50);
+              }
+              if (notifIndex >= 4 && stress3) {
+                stress3.style.display = 'block';
+                setTimeout(() => (stress3.style.opacity = '1'), 50);
+              }
+            }
+
+            // Show light bulb (idea!) on first and third message
+            if (notifIndex === 0 || notifIndex === 2) {
+              lightBulb.classList.add('show');
+              setTimeout(() => lightBulb.classList.remove('show'), 2000);
+            }
+
+            // Show smile emoji
+            const smileIndex = notifIndex % smileEmojis.length;
+            smileEmojis[smileIndex].classList.add('show');
+            setTimeout(() => {
+              smileEmojis[smileIndex].classList.remove('show');
+            }, 1500);
+
+            // Show floating hearts
+            heartFloats.forEach((heart, i) => {
+              setTimeout(() => {
+                heart.classList.add('show');
+                setTimeout(() => heart.classList.remove('show'), 2000);
+              }, i * 200);
+            });
+
+            // Show sparkles
+            sparkles.forEach((sparkle) => {
+              sparkle.classList.add('show');
+              setTimeout(() => sparkle.classList.remove('show'), 1000);
+            });
+
+            // Hide notification after 2 seconds
+            setTimeout(() => {
+              notif.classList.remove('show');
+              notif.classList.add('hide');
+            }, 2000);
+
+            notifIndex++;
+          } else {
+            clearInterval(notifInterval);
+            // Show next button after messages
+            setTimeout(() => {
+              nextButton.classList.add('show');
+            }, 2000);
+          }
+        }, 2500); // Every 2.5 seconds
+      }
+
+      // Auto progress
+      function autoProgress() {
+        if (currentScene < subScenes.length) {
+          startScene(currentScene);
+        } else {
+          setTimeout(() => {
+            nextButton.classList.add('show');
+          }, 1500);
+        }
+      }
+
+      // Start on load
+      window.addEventListener('load', () => {
+        autoProgress();
+      });
+
+      // Next button
+      nextButton.addEventListener('click', () => {
+        document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
+        setTimeout(() => {
+          alert(
+            'Scene 5: Về nhà - Đang phát triển! 🏡\n\nSẽ có: về nhà, trả lời tin nhắn, video call... 💬📞'
+          );
+          document.body.style.animation = 'sceneTransitionIn 1s ease-out forwards';
+        }, 1000);
+      });
+
+      // Add transition out
+      const style = document.createElement('style');
+      style.textContent = `
+            @keyframes sceneTransitionOut {
+                0% {
+                    opacity: 1;
+                    transform: scale(1);
+                    filter: blur(0px);
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(1.2);
+                    filter: blur(20px);
+                }
+            }
+        `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scene 3: Đi Làm - Cao Thùy Dương</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+        background: linear-gradient(180deg, #fff8dc 0%, #ffe4b5 100%);
+        position: relative;
+        animation: sceneTransitionIn 1.5s ease-out forwards;
+        opacity: 0;
+      }
+
+      @keyframes sceneTransitionIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+          filter: blur(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+          filter: blur(0px);
+        }
+      }
+
+      /* Background particles */
+      .bg-particle {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0.4;
+        animation: float 8s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translate(0, 0);
+        }
+        50% {
+          transform: translate(30px, -30px);
+        }
+      }
+
+      /* Scene container */
+      .scene-container {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+      }
+
+      /* Each sub-scene */
+      .sub-scene {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        opacity: 0;
+      }
+
+      .sub-scene.active {
+        display: block;
+        animation: fadeIn 0.5s ease-out forwards;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Scene 1: Reading message */
+      .room-bg {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #ffe5b4 0%, #ffdab9 100%);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .character-with-phone {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 10;
+      }
+
+      .character-face-large {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid #ffb6c1;
+        box-shadow: 0 10px 40px rgba(255, 182, 193, 0.5);
+        margin-bottom: 20px;
+        animation: characterSway 3s ease-in-out infinite;
+      }
+
+      @keyframes characterSway {
+        0%,
+        100% {
+          transform: rotate(-2deg);
+        }
+        50% {
+          transform: rotate(2deg);
+        }
+      }
+
+      /* Blushing effect */
+      .character-face-large.blushing {
+        animation: blushAnimation 2s ease-in-out forwards, characterSway 3s ease-in-out infinite;
+      }
+
+      @keyframes blushAnimation {
+        0% {
+          filter: brightness(1);
+          box-shadow: 0 10px 40px rgba(255, 182, 193, 0.5);
+        }
+        50% {
+          filter: brightness(1.2);
+          box-shadow: 0 10px 60px rgba(255, 105, 180, 0.8);
+        }
+        100% {
+          filter: brightness(1.1);
+          box-shadow: 0 10px 50px rgba(255, 105, 180, 0.7);
+        }
+      }
+
+      /* Phone unlock animation */
+      .phone-unlock {
+        position: absolute;
+        bottom: 35%;
+        right: 25%;
+        font-size: 80px;
+        opacity: 0;
+        transform: scale(0.5) rotateY(90deg);
+      }
+
+      .phone-unlock.active {
+        animation: phoneUnlock 1s ease-out forwards;
+      }
+
+      @keyframes phoneUnlock {
+        0% {
+          opacity: 0;
+          transform: scale(0.5) rotateY(90deg);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.1) rotateY(0deg);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1) rotateY(0deg);
+        }
+      }
+
+      /* Phone screen glow */
+      .phone-glow {
+        position: absolute;
+        bottom: 35%;
+        right: 25%;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, rgba(100, 149, 237, 0.4) 0%, transparent 70%);
+        border-radius: 50%;
+        opacity: 0;
+        animation: glowPulse 2s ease-in-out infinite;
+      }
+
+      @keyframes glowPulse {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.6;
+          transform: scale(1.2);
+        }
+      }
+
+      /* Notification badges */
+      .notification-badge {
+        position: absolute;
+        background: #ff4444;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 4px 8px;
+        border-radius: 50%;
+        opacity: 0;
+        animation: badgePop 0.5s ease-out forwards;
+      }
+
+      @keyframes badgePop {
+        0% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        50% {
+          transform: scale(1.3);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Blush marks on cheeks */
+      .blush-mark {
+        position: absolute;
+        width: 40px;
+        height: 30px;
+        background: radial-gradient(circle, rgba(255, 105, 180, 0.6) 0%, transparent 70%);
+        border-radius: 50%;
+        opacity: 0;
+        animation: blushAppear 1s ease-out forwards;
+      }
+
+      @keyframes blushAppear {
+        to {
+          opacity: 1;
+        }
+      }
+
+      .blush-left {
+        top: 50%;
+        left: -25%;
+      }
+
+      .blush-right {
+        top: 50%;
+        right: -25%;
+      }
+
+      /* Anime body */
+      .anime-body {
+        position: relative;
+        width: 120px;
+        height: 200px;
+      }
+
+      .body-torso {
+        width: 80px;
+        height: 120px;
+        background: linear-gradient(180deg, #ffb6c1 0%, #ffc0cb 100%);
+        border-radius: 40px 40px 20px 20px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .body-arms {
+        position: absolute;
+        top: 20px;
+        width: 100%;
+      }
+
+      .arm {
+        position: absolute;
+        width: 25px;
+        height: 80px;
+        background: linear-gradient(180deg, #ffb6c1 0%, #ffc0cb 100%);
+        border-radius: 15px;
+      }
+
+      .arm.left {
+        left: -20px;
+        transform-origin: top center;
+      }
+
+      .arm.right {
+        right: -20px;
+        transform-origin: top center;
+      }
+
+      /* Holding phone */
+      .holding-phone .arm.right {
+        animation: holdingPhone 0.5s ease-out forwards;
+      }
+
+      @keyframes holdingPhone {
+        to {
+          transform: rotate(-45deg) translateY(-20px);
+        }
+      }
+
+      /* Phone */
+      .phone-in-hand {
+        position: absolute;
+        width: 150px;
+        height: 250px;
+        background: #1a1a1a;
+        border-radius: 20px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        z-index: 20;
+        animation: phonePopIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+      }
+
+      @keyframes phonePopIn {
+        to {
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+
+      .phone-screen {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #e6f3ff 0%, #ffffff 100%);
+        border-radius: 15px;
+        padding: 15px;
+        position: relative;
+      }
+
+      .messenger-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .sender-avatar {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .sender-name {
+        font-weight: bold;
+        font-size: 14px;
+        color: #333;
+      }
+
+      .message-bubble {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 12px 15px;
+        border-radius: 20px 20px 20px 5px;
+        font-size: 14px;
+        max-width: 90%;
+        margin-bottom: 5px;
+        opacity: 0;
+        transform: translateX(-20px);
+        animation: messagePop 0.5s ease-out forwards;
+        animation-delay: 1s;
+      }
+
+      @keyframes messagePop {
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .message-time {
+        font-size: 10px;
+        color: #999;
+        margin-top: 3px;
+      }
+
+      /* Heart reactions floating */
+      .heart-reaction {
+        position: absolute;
+        font-size: 30px;
+        opacity: 0;
+        animation: heartFloat 2s ease-out forwards;
+      }
+
+      @keyframes heartFloat {
+        0% {
+          opacity: 0;
+          transform: translateY(0) scale(0);
+        }
+        50% {
+          opacity: 1;
+          transform: translateY(-50px) scale(1.2);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-100px) scale(0.8);
+        }
+      }
+
+      /* Scene 2: Getting ready - grabbing items */
+      .getting-ready-bg {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #ffefd5 0%, #ffe4b5 100%);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .character-grabbing {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* Items to grab */
+      .items-on-table {
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 40px;
+      }
+
+      .item {
+        font-size: 60px;
+        animation: itemBounce 1s ease-in-out infinite;
+        cursor: pointer;
+        transition: all 0.3s;
+        position: relative;
+      }
+
+      @keyframes itemBounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .item.grabbed {
+        animation: itemGrab 0.8s ease-out forwards;
+      }
+
+      @keyframes itemGrab {
+        0% {
+          transform: translateY(0) scale(1) rotate(0deg);
+          opacity: 1;
+        }
+        50% {
+          transform: translateY(-100px) scale(0.8) rotate(180deg);
+        }
+        100% {
+          transform: translateY(-200px) scale(0.3) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* Keys jangling animation */
+      .item.keys {
+        animation: itemBounce 1s ease-in-out infinite, keysJangle 0.5s ease-in-out infinite;
+      }
+
+      @keyframes keysJangle {
+        0%,
+        100% {
+          transform: rotate(-5deg) translateY(0);
+        }
+        25% {
+          transform: rotate(5deg) translateY(-3px);
+        }
+        50% {
+          transform: rotate(-3deg) translateY(-5px);
+        }
+        75% {
+          transform: rotate(3deg) translateY(-3px);
+        }
+      }
+
+      /* Phone vibration */
+      .item.phone-item {
+        animation: itemBounce 1s ease-in-out infinite, phoneVibrate 0.3s ease-in-out infinite;
+      }
+
+      @keyframes phoneVibrate {
+        0%,
+        100% {
+          transform: translateX(0) translateY(0);
+        }
+        25% {
+          transform: translateX(-2px) translateY(0);
+        }
+        50% {
+          transform: translateX(0) translateY(-10px);
+        }
+        75% {
+          transform: translateX(2px) translateY(0);
+        }
+      }
+
+      /* Wallet pulse */
+      .item.wallet {
+        animation: itemBounce 1s ease-in-out infinite, walletPulse 2s ease-in-out infinite;
+      }
+
+      @keyframes walletPulse {
+        0%,
+        100% {
+          transform: scale(1) translateY(0);
+          filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+        }
+        50% {
+          transform: scale(1.05) translateY(-10px);
+          filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+        }
+      }
+
+      /* Item shine effect */
+      .item-shine {
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        width: 40px;
+        height: 40px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 60%);
+        border-radius: 50%;
+        opacity: 0;
+        animation: shineMove 2s ease-in-out infinite;
+      }
+
+      @keyframes shineMove {
+        0%,
+        100% {
+          opacity: 0;
+          transform: translate(0, 0);
+        }
+        50% {
+          opacity: 1;
+          transform: translate(80px, 80px);
+        }
+      }
+
+      /* Character with backpack */
+      .backpack {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 80px;
+        opacity: 0;
+      }
+
+      .backpack.show {
+        animation: backpackAppear 0.8s ease-out forwards, backpackSwing 1.5s ease-in-out infinite;
+      }
+
+      @keyframes backpackAppear {
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes backpackSwing {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) rotate(-5deg);
+        }
+        50% {
+          transform: translate(-50%, -50%) rotate(5deg);
+        }
+      }
+
+      /* Shoes appearing and tapping */
+      .shoes {
+        position: absolute;
+        bottom: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 70px;
+        opacity: 0;
+      }
+
+      .shoes.show {
+        animation: shoesAppear 0.6s ease-out forwards, shoesTap 0.8s ease-in-out infinite;
+      }
+
+      @keyframes shoesAppear {
+        0% {
+          opacity: 0;
+          transform: translateX(-50%) scale(0) rotate(180deg);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(-50%) scale(1) rotate(0deg);
+        }
+      }
+
+      @keyframes shoesTap {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          transform: translateX(-50%) translateY(-10px);
+        }
+      }
+
+      /* Hand reaching animation */
+      .hand-reach {
+        position: absolute;
+        font-size: 50px;
+        opacity: 0;
+        transform: rotate(0deg);
+      }
+
+      .hand-reach.grab {
+        animation: handGrabbing 1s ease-out forwards;
+      }
+
+      @keyframes handGrabbing {
+        0% {
+          opacity: 0;
+          transform: translateY(100px) rotate(0deg);
+        }
+        50% {
+          opacity: 1;
+          transform: translateY(0) rotate(-30deg);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-50px) rotate(-60deg);
+        }
+      }
+
+      /* Dust clouds when grabbing */
+      .dust-cloud {
+        position: absolute;
+        font-size: 40px;
+        opacity: 0;
+        animation: dustPuff 0.8s ease-out forwards;
+      }
+
+      @keyframes dustPuff {
+        0% {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        50% {
+          opacity: 0.7;
+          transform: scale(1.2);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(2);
+        }
+      }
+
+      /* Ready indicator */
+      .ready-indicator {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 60px;
+        opacity: 0;
+      }
+
+      .ready-indicator.show {
+        animation: readyPop 1s ease-out forwards;
+      }
+
+      @keyframes readyPop {
+        0% {
+          opacity: 0;
+          transform: translateX(-50%) scale(0) rotate(0deg);
+        }
+        70% {
+          opacity: 1;
+          transform: translateX(-50%) scale(1.3) rotate(360deg);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(-50%) scale(1) rotate(360deg);
+        }
+      }
+
+      /* Scene 3: Running to work */
+      .street-bg {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #87ceeb 0%, #98d8c8 100%);
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Scrolling background buildings */
+      .buildings {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 200%;
+        height: 40%;
+        background: repeating-linear-gradient(
+          to right,
+          #8b4513 0px,
+          #8b4513 100px,
+          #d2691e 100px,
+          #d2691e 150px,
+          #a0522d 150px,
+          #a0522d 220px,
+          #cd853f 220px,
+          #cd853f 300px
+        );
+        animation: buildingsScroll 10s linear infinite;
+      }
+
+      @keyframes buildingsScroll {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* Ground */
+      .ground {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 200%;
+        height: 20%;
+        background: repeating-linear-gradient(
+          to right,
+          #696969 0px,
+          #696969 50px,
+          #808080 50px,
+          #808080 100px
+        );
+        animation: groundScroll 3s linear infinite;
+      }
+
+      @keyframes groundScroll {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-100px);
+        }
+      }
+
+      /* Running character */
+      .character-running {
+        position: absolute;
+        bottom: 25%;
+        left: 30%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: runningBounce 0.4s ease-in-out infinite;
+        filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+      }
+
+      @keyframes runningBounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      /* Motion blur effect */
+      .motion-blur {
+        position: absolute;
+        bottom: 25%;
+        left: 10%;
+        width: 150px;
+        height: 200px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 182, 193, 0) 0%,
+          rgba(255, 182, 193, 0.3) 50%,
+          rgba(255, 182, 193, 0) 100%
+        );
+        opacity: 0.6;
+        filter: blur(20px);
+        animation: blurPulse 0.4s ease-in-out infinite;
+      }
+
+      @keyframes blurPulse {
+        0%,
+        100% {
+          opacity: 0.4;
+          transform: scaleX(1);
+        }
+        50% {
+          opacity: 0.7;
+          transform: scaleX(1.2);
+        }
+      }
+
+      /* Speed lines */
+      .speed-line {
+        position: absolute;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.8) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        opacity: 0.7;
+        animation: speedLineMove 0.6s linear infinite;
+      }
+
+      @keyframes speedLineMove {
+        from {
+          transform: translateX(100vw);
+          opacity: 0;
+        }
+        20% {
+          opacity: 0.7;
+        }
+        to {
+          transform: translateX(-100px);
+          opacity: 0;
+        }
+      }
+
+      /* Sweat drops */
+      .sweat-drop {
+        position: absolute;
+        font-size: 25px;
+        opacity: 0;
+        animation: sweatFall 1s ease-in infinite;
+      }
+
+      @keyframes sweatFall {
+        0% {
+          opacity: 0;
+          transform: translateY(0) scale(1);
+        }
+        20% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(60px) scale(0.5);
+        }
+      }
+
+      /* Tired puff clouds */
+      .tired-puff {
+        position: absolute;
+        font-size: 35px;
+        opacity: 0;
+        animation: puffBreathe 2s ease-out infinite;
+      }
+
+      @keyframes puffBreathe {
+        0% {
+          opacity: 0;
+          transform: scale(0.5) translateX(0);
+        }
+        50% {
+          opacity: 0.8;
+          transform: scale(1.2) translateX(-40px);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.5) translateX(-80px);
+        }
+      }
+
+      .running-face {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #ffb6c1;
+        box-shadow: 0 5px 20px rgba(255, 182, 193, 0.5);
+        margin-bottom: 10px;
+      }
+
+      .running-body {
+        position: relative;
+        width: 100px;
+        height: 150px;
+      }
+
+      .running-body .body-torso {
+        width: 70px;
+        height: 100px;
+        background: linear-gradient(180deg, #ffb6c1 0%, #ffc0cb 100%);
+        border-radius: 35px 35px 15px 15px;
+        margin: 0 auto;
+        position: relative;
+        transform: rotate(5deg);
+      }
+
+      /* Running arms */
+      .running-body .arm {
+        animation: armSwing 0.4s ease-in-out infinite;
+      }
+
+      .running-body .arm.left {
+        animation-delay: 0.2s;
+      }
+
+      @keyframes armSwing {
+        0%,
+        100% {
+          transform: rotate(-45deg);
+        }
+        50% {
+          transform: rotate(45deg);
+        }
+      }
+
+      /* Running legs */
+      .legs {
+        position: absolute;
+        bottom: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 60px;
+      }
+
+      .leg {
+        position: absolute;
+        width: 20px;
+        height: 60px;
+        background: linear-gradient(180deg, #ffb6c1 0%, #ffc0cb 100%);
+        border-radius: 10px;
+      }
+
+      .leg.left {
+        left: 20px;
+        animation: legRun 0.4s ease-in-out infinite;
+      }
+
+      .leg.right {
+        right: 20px;
+        animation: legRun 0.4s ease-in-out infinite;
+        animation-delay: 0.2s;
+      }
+
+      @keyframes legRun {
+        0%,
+        100% {
+          transform: rotate(0deg);
+        }
+        50% {
+          transform: rotate(-45deg);
+        }
+      }
+
+      /* Traffic cars */
+      .traffic-car {
+        position: absolute;
+        bottom: 18%;
+        font-size: 60px;
+        animation: carPass 4s linear infinite;
+      }
+
+      @keyframes carPass {
+        from {
+          transform: translateX(100vw);
+        }
+        to {
+          transform: translateX(-200px);
+        }
+      }
+
+      /* Traffic light */
+      .traffic-light {
+        position: absolute;
+        bottom: 45%;
+        right: 20%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 10px;
+        background: rgba(50, 50, 50, 0.8);
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      }
+
+      .traffic-bulb {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: all 0.3s;
+      }
+
+      .traffic-bulb.red {
+        background: radial-gradient(circle, #ff0000 0%, #aa0000 100%);
+        box-shadow: 0 0 20px #ff0000;
+      }
+
+      .traffic-bulb.yellow {
+        background: radial-gradient(circle, #ffff00 0%, #aaaa00 100%);
+        box-shadow: 0 0 20px #ffff00;
+      }
+
+      .traffic-bulb.green {
+        background: radial-gradient(circle, #00ff00 0%, #00aa00 100%);
+        box-shadow: 0 0 20px #00ff00;
+      }
+
+      /* Sky clouds moving */
+      .sky-cloud {
+        position: absolute;
+        top: 10%;
+        font-size: 50px;
+        opacity: 0.7;
+        animation: cloudFloat 20s linear infinite;
+      }
+
+      @keyframes cloudFloat {
+        from {
+          transform: translateX(-200px);
+        }
+        to {
+          transform: translateX(100vw);
+        }
+      }
+
+      /* Birds flying */
+      .flying-bird {
+        position: absolute;
+        top: 20%;
+        font-size: 30px;
+        animation: birdFly 8s ease-in-out infinite;
+      }
+
+      @keyframes birdFly {
+        0% {
+          transform: translateX(-100px) translateY(0);
+        }
+        50% {
+          transform: translateX(50vw) translateY(-30px);
+        }
+        100% {
+          transform: translateX(100vw) translateY(0);
+        }
+      }
+
+      /* Road markings */
+      .road-marking {
+        position: absolute;
+        bottom: 15%;
+        width: 100px;
+        height: 5px;
+        background: white;
+        animation: markingScroll 2s linear infinite;
+      }
+
+      @keyframes markingScroll {
+        from {
+          transform: translateX(100vw);
+        }
+        to {
+          transform: translateX(-100px);
+        }
+      }
+
+      /* Wind effect particles */
+      .wind-particle {
+        position: absolute;
+        font-size: 20px;
+        opacity: 0.5;
+        animation: windBlow 3s ease-out infinite;
+      }
+
+      @keyframes windBlow {
+        from {
+          transform: translateX(100vw) rotate(0deg);
+          opacity: 0.5;
+        }
+        to {
+          transform: translateX(-100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* Backpack on back */
+      .backpack-on-back {
+        position: absolute;
+        top: 10px;
+        right: -15px;
+        font-size: 35px;
+        animation: backpackBounce 0.4s ease-in-out infinite;
+      }
+
+      @keyframes backpackBounce {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-10deg);
+        }
+        50% {
+          transform: translateY(-5px) rotate(-15deg);
+        }
+      }
+
+      /* Speed lines */
+      .speed-line {
+        position: absolute;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.6);
+        animation: speedLineMove 0.8s linear infinite;
+      }
+
+      @keyframes speedLineMove {
+        from {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateX(-300px);
+          opacity: 0;
+        }
+      }
+
+      /* Sweat drops */
+      .sweat {
+        position: absolute;
+        font-size: 25px;
+        animation: sweatDrop 1s ease-out infinite;
+      }
+
+      @keyframes sweatDrop {
+        0% {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(50px) scale(0.5);
+          opacity: 0;
+        }
+      }
+
+      /* Scene title */
+      .scene-title {
+        position: absolute;
+        top: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 28px;
+        font-weight: bold;
+        color: #ff69b4;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+      }
+
+      /* Props floating around */
+      .props {
+        position: absolute;
+        font-size: 40px;
+        opacity: 0.7;
+        animation: propFloat 3s ease-in-out infinite;
+      }
+
+      @keyframes propFloat {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(10deg);
+        }
+      }
+
+      /* Progress dots */
+      .progress {
+        position: fixed;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 15px;
+        z-index: 1000;
+      }
+
+      .progress-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        transition: all 0.3s;
+      }
+
+      .progress-dot.active {
+        background: #ff69b4;
+        transform: scale(1.5);
+        box-shadow: 0 0 10px #ff69b4;
+      }
+
+      /* Next button */
+      .next-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 15px 35px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
+        opacity: 0;
+        transform: scale(0);
+        z-index: 1000;
+      }
+
+      .next-button.show {
+        animation: buttonPop 0.5s ease-out forwards;
+      }
+
+      @keyframes buttonPop {
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .next-button:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background particles -->
+    <div
+      class="bg-particle"
+      style="
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, rgba(255, 192, 203, 0.6) 0%, transparent 70%);
+        top: 10%;
+        left: 15%;
+      "
+    ></div>
+    <div
+      class="bg-particle"
+      style="
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle, rgba(255, 182, 193, 0.5) 0%, transparent 70%);
+        top: 60%;
+        right: 10%;
+      "
+    ></div>
+
+    <div class="scene-container">
+      <!-- Sub-scene 1: Reading message and blushing -->
+      <div class="sub-scene" id="readingMessage">
+        <div class="room-bg">
+          <div class="scene-title">📱 Nhận tin nhắn từ anh</div>
+
+          <!-- Phone unlock effects -->
+          <div class="phone-glow"></div>
+          <div class="phone-unlock" id="phoneUnlock">📱</div>
+          <div class="notification-badge" id="badge1" style="bottom: 40%; right: 23%">1</div>
+
+          <div class="character-with-phone holding-phone">
+            <div style="position: relative">
+              <img
+                src="AnhKhuonMatCuaCoAy.jpg"
+                alt="Dương"
+                class="character-face-large"
+                id="characterFace"
+              />
+              <div class="blush-mark blush-left" id="blushLeft" style="display: none"></div>
+              <div class="blush-mark blush-right" id="blushRight" style="display: none"></div>
+            </div>
+            <div class="anime-body">
+              <div class="body-torso">
+                <div class="body-arms">
+                  <div class="arm left"></div>
+                  <div class="arm right"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phone popup -->
+          <div class="phone-in-hand" id="phone">
+            <div class="phone-screen">
+              <div class="messenger-header">
+                <img src="AnhKhuonMatCuaToi.jpg" alt="Anh" class="sender-avatar" />
+                <div class="sender-name">Đạt</div>
+              </div>
+              <div class="message-bubble" id="messageText">
+                Dương đi cẩn thận nhé! Đường đông xe lắm 🚗💕
+              </div>
+              <div class="message-time">Vừa xong</div>
+            </div>
+          </div>
+
+          <!-- Floating hearts -->
+          <div class="heart-reaction" id="heart1" style="top: 30%; left: 45%; animation-delay: 2s">
+            💕
+          </div>
+          <div
+            class="heart-reaction"
+            id="heart2"
+            style="top: 35%; right: 40%; animation-delay: 2.3s"
+          >
+            💗
+          </div>
+          <div
+            class="heart-reaction"
+            id="heart3"
+            style="top: 40%; left: 50%; animation-delay: 2.6s"
+          >
+            💖
+          </div>
+
+          <div class="props" style="top: 15%; left: 10%; animation-delay: 0s">💌</div>
+          <div class="props" style="top: 20%; right: 15%; animation-delay: 1s">💝</div>
+          <div class="props" style="bottom: 25%; left: 20%; animation-delay: 0.5s">✨</div>
+        </div>
+      </div>
+
+      <!-- Sub-scene 2: Grabbing laptop and bag -->
+      <div class="sub-scene" id="gettingReady">
+        <div class="getting-ready-bg">
+          <div class="scene-title">🎒 Chuẩn bị đồ đi làm</div>
+
+          <div class="character-grabbing">
+            <img src="AnhKhuonMatCuaCoAy.jpg" alt="Dương" class="character-face-large" />
+            <div class="anime-body">
+              <div class="body-torso">
+                <div class="body-arms">
+                  <div class="arm left"></div>
+                  <div class="arm right"></div>
+                </div>
+              </div>
+            </div>
+            <div class="backpack" id="backpack">🎒</div>
+          </div>
+
+          <!-- Items on table with special effects -->
+          <div class="items-on-table">
+            <div class="item" id="laptop">💻</div>
+            <div class="item keys" id="bag">�</div>
+            <div class="item phone-item" id="phone2">📱</div>
+            <div class="item wallet" id="wallet">👛</div>
+            <div class="item-shine"></div>
+          </div>
+
+          <!-- Shoes appearing -->
+          <div class="shoes" id="shoes">👟</div>
+
+          <!-- Hand reaching effects -->
+          <div class="hand-reach" id="hand1" style="bottom: 22%; left: 35%">✋</div>
+          <div class="hand-reach" id="hand2" style="bottom: 22%; left: 45%">✋</div>
+
+          <!-- Dust clouds -->
+          <div class="dust-cloud" id="dust1" style="bottom: 20%; left: 38%">💨</div>
+          <div class="dust-cloud" id="dust2" style="bottom: 20%; left: 48%">💨</div>
+
+          <!-- Ready indicator -->
+          <div class="ready-indicator" id="ready">✨ Sẵn sàng! ✨</div>
+
+          <div class="props" style="top: 20%; left: 15%; animation-delay: 0s">📝</div>
+          <div class="props" style="top: 25%; right: 20%; animation-delay: 0.8s">☕</div>
+          <div class="props" style="bottom: 30%; right: 15%; animation-delay: 0.4s">🔑</div>
+        </div>
+      </div>
+
+      <!-- Sub-scene 3: Running to work -->
+      <div class="sub-scene" id="runningToWork">
+        <div class="street-bg">
+          <div class="scene-title">🏃‍♀️ Chạy tèn tèn đi làm</div>
+
+          <!-- Background -->
+          <div class="buildings"></div>
+          <div class="ground"></div>
+
+          <!-- Sky elements -->
+          <div class="sky-cloud" style="left: 20%; animation-delay: 0s">☁️</div>
+          <div class="sky-cloud" style="left: 60%; animation-delay: 5s">☁️</div>
+          <div class="sky-cloud" style="left: 80%; animation-delay: 10s">☁️</div>
+
+          <!-- Birds -->
+          <div class="flying-bird" style="left: 10%; animation-delay: 0s">🐦</div>
+          <div class="flying-bird" style="left: 50%; animation-delay: 3s">🐦</div>
+
+          <!-- Traffic elements -->
+          <div class="traffic-car" style="animation-delay: 0s">🚗</div>
+          <div class="traffic-car" style="animation-delay: 2s; bottom: 20%">🚙</div>
+          <div class="traffic-car" style="animation-delay: 3.5s">🚕</div>
+
+          <!-- Traffic light -->
+          <div class="traffic-light" id="trafficLight">
+            <div class="traffic-bulb red" id="redLight"></div>
+            <div class="traffic-bulb" id="yellowLight"></div>
+            <div class="traffic-bulb green" id="greenLight"></div>
+          </div>
+
+          <!-- Road markings -->
+          <div class="road-marking" style="animation-delay: 0s"></div>
+          <div class="road-marking" style="animation-delay: 0.5s"></div>
+          <div class="road-marking" style="animation-delay: 1s"></div>
+          <div class="road-marking" style="animation-delay: 1.5s"></div>
+
+          <!-- Wind particles -->
+          <div class="wind-particle" style="top: 40%; animation-delay: 0s">🍃</div>
+          <div class="wind-particle" style="top: 50%; animation-delay: 1s">🍃</div>
+          <div class="wind-particle" style="top: 35%; animation-delay: 2s">💨</div>
+          <div class="wind-particle" style="top: 55%; animation-delay: 2.5s">💨</div>
+
+          <!-- Motion blur effect -->
+          <div class="motion-blur"></div>
+
+          <!-- Running character -->
+          <div class="character-running">
+            <img src="AnhKhuonMatCuaCoAy.jpg" alt="Dương" class="running-face" />
+            <div class="running-body">
+              <div class="body-torso">
+                <div class="body-arms">
+                  <div class="arm left"></div>
+                  <div class="arm right"></div>
+                </div>
+                <div class="backpack-on-back">🎒</div>
+              </div>
+              <div class="legs">
+                <div class="leg left"></div>
+                <div class="leg right"></div>
+              </div>
+            </div>
+            <div class="sweat" style="top: 0; left: 10%; animation-delay: 0s">💦</div>
+            <div class="sweat" style="top: 5%; right: 10%; animation-delay: 0.5s">💦</div>
+          </div>
+
+          <!-- Sweat drops -->
+          <div class="sweat-drop" style="top: 28%; left: 26%; animation-delay: 0s">💧</div>
+          <div class="sweat-drop" style="top: 30%; left: 34%; animation-delay: 0.5s">💧</div>
+          <div class="sweat-drop" style="top: 29%; left: 30%; animation-delay: 1s">💧</div>
+
+          <!-- Tired puff clouds -->
+          <div class="tired-puff" style="top: 35%; left: 35%; animation-delay: 0s">💨</div>
+          <div class="tired-puff" style="top: 37%; left: 35%; animation-delay: 1s">💨</div>
+
+          <!-- Speed lines -->
+          <div
+            class="speed-line"
+            style="top: 30%; right: 0; width: 200px; animation-delay: 0s"
+          ></div>
+          <div
+            class="speed-line"
+            style="top: 40%; right: 0; width: 150px; animation-delay: 0.3s"
+          ></div>
+          <div
+            class="speed-line"
+            style="top: 50%; right: 0; width: 180px; animation-delay: 0.6s"
+          ></div>
+          <div
+            class="speed-line"
+            style="top: 60%; right: 0; width: 160px; animation-delay: 0.2s"
+          ></div>
+
+          <div class="props" style="top: 15%; left: 20%; animation-delay: 0s">🚗</div>
+          <div class="props" style="top: 25%; right: 25%; animation-delay: 1s">🚌</div>
+          <div class="props" style="bottom: 50%; left: 40%; animation-delay: 0.5s">🌳</div>
+        </div>
+      </div>
+
+      <!-- Progress indicator -->
+      <div class="progress">
+        <div class="progress-dot" id="dot1"></div>
+        <div class="progress-dot" id="dot2"></div>
+        <div class="progress-dot" id="dot3"></div>
+      </div>
+
+      <!-- Next button -->
+      <button class="next-button" id="nextButton">Scene 4: Tại công ty ➡️</button>
+    </div>
+
+    <script>
+      const subScenes = ['readingMessage', 'gettingReady', 'runningToWork'];
+      const dots = ['dot1', 'dot2', 'dot3'];
+      let currentScene = 0;
+
+      const nextButton = document.getElementById('nextButton');
+
+      // Start scene
+      function startScene(index) {
+        // Hide all scenes
+        subScenes.forEach((sceneId) => {
+          document.getElementById(sceneId).classList.remove('active');
+        });
+
+        // Update progress dots
+        dots.forEach((dotId, i) => {
+          document.getElementById(dotId).classList.toggle('active', i === index);
+        });
+
+        // Show current scene
+        document.getElementById(subScenes[index]).classList.add('active');
+
+        // Scene-specific animations
+        if (index === 0) {
+          animateReadingMessage();
+        } else if (index === 1) {
+          animateGettingReady();
+        }
+      }
+
+      // Scene 1: Reading message and blushing
+      function animateReadingMessage() {
+        const characterFace = document.getElementById('characterFace');
+        const blushLeft = document.getElementById('blushLeft');
+        const blushRight = document.getElementById('blushRight');
+        const phoneUnlock = document.getElementById('phoneUnlock');
+        const badge1 = document.getElementById('badge1');
+
+        // Phone unlock animation at 0.5s
+        setTimeout(() => {
+          if (phoneUnlock) {
+            phoneUnlock.classList.add('active');
+          }
+          if (badge1) {
+            badge1.style.animationDelay = '0.3s';
+          }
+        }, 500);
+
+        // After reading message (2s), start blushing
+        setTimeout(() => {
+          characterFace.classList.add('blushing');
+          blushLeft.style.display = 'block';
+          blushRight.style.display = 'block';
+        }, 2000);
+
+        // Move to next scene after blushing
+        setTimeout(() => {
+          currentScene++;
+          autoProgress();
+        }, 5000);
+      }
+
+      // Scene 2: Grabbing items
+      function animateGettingReady() {
+        const laptop = document.getElementById('laptop');
+        const bag = document.getElementById('bag');
+        const phone2 = document.getElementById('phone2');
+        const wallet = document.getElementById('wallet');
+        const backpack = document.getElementById('backpack');
+        const shoes = document.getElementById('shoes');
+        const hand1 = document.getElementById('hand1');
+        const hand2 = document.getElementById('hand2');
+        const dust1 = document.getElementById('dust1');
+        const dust2 = document.getElementById('dust2');
+        const ready = document.getElementById('ready');
+
+        // Hand reaching at 0.5s
+        setTimeout(() => {
+          if (hand1) hand1.classList.add('grab');
+        }, 500);
+
+        // Grab items one by one with dust effects
+        setTimeout(() => {
+          laptop.classList.add('grabbed');
+          if (dust1) dust1.style.animationDelay = '0s';
+        }, 1000);
+
+        setTimeout(() => {
+          bag.classList.add('grabbed');
+          if (hand2) hand2.classList.add('grab');
+        }, 1800);
+
+        setTimeout(() => {
+          phone2.classList.add('grabbed');
+          if (dust2) dust2.style.animationDelay = '0s';
+        }, 2600);
+
+        setTimeout(() => {
+          if (wallet) wallet.classList.add('grabbed');
+        }, 3200);
+
+        // Show backpack on character
+        setTimeout(() => {
+          backpack.classList.add('show');
+        }, 3500);
+
+        // Show shoes
+        setTimeout(() => {
+          if (shoes) shoes.classList.add('show');
+        }, 3800);
+
+        // Ready indicator
+        setTimeout(() => {
+          if (ready) ready.classList.add('show');
+        }, 4200);
+
+        // Move to next scene
+        setTimeout(() => {
+          currentScene++;
+          autoProgress();
+        }, 5000);
+      }
+
+      // Auto progress
+      function autoProgress() {
+        if (currentScene < subScenes.length) {
+          startScene(currentScene);
+        } else {
+          // Show next button after all scenes
+          setTimeout(() => {
+            nextButton.classList.add('show');
+          }, 2000);
+        }
+      }
+
+      // Start on load
+      window.addEventListener('load', () => {
+        autoProgress();
+      });
+
+      // Next button - go to Scene 4
+      nextButton.addEventListener('click', () => {
+        document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
+        setTimeout(() => {
+          window.location.href = 'scene4_at_work.html';
+        }, 1000);
+      });
+
+      // Add transition out animation
+      const style = document.createElement('style');
+      style.textContent = `
+            @keyframes sceneTransitionOut {
+                0% {
+                    opacity: 1;
+                    transform: scale(1);
+                    filter: blur(0px);
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(1.2);
+                    filter: blur(20px);
+                }
+            }
+        `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scene 6: Về Đến Nhà - Cao Thùy Dương</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+        background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+        position: relative;
+        animation: sceneTransitionIn 1.5s ease-out forwards;
+        opacity: 0;
+      }
+
+      @keyframes sceneTransitionIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+          filter: blur(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+          filter: blur(0px);
+        }
+      }
+
+      @keyframes sceneTransitionOut {
+        0% {
+          opacity: 1;
+          transform: scale(1);
+          filter: blur(0px);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.2);
+          filter: blur(20px);
+        }
+      }
+
+      /* Scene container */
+      .scene-container {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+      }
+
+      /* Sub scenes */
+      .sub-scene {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        opacity: 0;
+      }
+
+      .sub-scene.active {
+        display: block;
+        animation: fadeIn 0.5s ease-out forwards;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Scene title */
+      .scene-title {
+        position: absolute;
+        top: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 28px;
+        font-weight: bold;
+        color: #ffb6c1;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        z-index: 100;
+      }
+
+      /* Home backgrounds */
+      .home-bg {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #fff8e7 0%, #ffe4b5 100%);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .bathroom-bg {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #e0f7fa 0%, #b2ebf2 100%);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .kitchen-bg {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #fff3e0 0%, #ffe0b2 100%);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .bedroom-bg {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #e8eaf6 0%, #c5cae9 100%);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Door animation */
+      .door {
+        position: absolute;
+        left: 20%;
+        top: 20%;
+        width: 150px;
+        height: 250px;
+        background: #8b4513;
+        border-radius: 10px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        transform-origin: left center;
+        animation: doorOpen 2s ease-out forwards;
+      }
+
+      @keyframes doorOpen {
+        0% {
+          transform: rotateY(0deg);
+        }
+        100% {
+          transform: rotateY(-90deg);
+        }
+      }
+
+      /* Keys dropping */
+      .keys-drop {
+        position: absolute;
+        bottom: 30%;
+        left: 25%;
+        font-size: 50px;
+        opacity: 0;
+        animation: keysDrop 1s ease-in forwards;
+      }
+
+      @keyframes keysDrop {
+        0% {
+          opacity: 0;
+          transform: translateY(-100px) rotate(0deg);
+        }
+        70% {
+          opacity: 1;
+          transform: translateY(0) rotate(360deg);
+        }
+        85% {
+          transform: translateY(-15px) rotate(380deg);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) rotate(360deg);
+        }
+      }
+
+      /* Shoes kicking off */
+      .shoe-kick {
+        position: absolute;
+        bottom: 25%;
+        font-size: 50px;
+        opacity: 0;
+        animation: shoeKick 1.2s ease-out forwards;
+      }
+
+      @keyframes shoeKick {
+        0% {
+          opacity: 0;
+          transform: translateX(0) translateY(0) rotate(0deg);
+        }
+        50% {
+          opacity: 1;
+          transform: translateX(-80px) translateY(-60px) rotate(-180deg);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(-100px) translateY(0) rotate(-360deg);
+        }
+      }
+
+      /* Backpack dropping */
+      .backpack-drop {
+        position: absolute;
+        bottom: 35%;
+        right: 30%;
+        font-size: 60px;
+        opacity: 0;
+        animation: backpackDrop 0.8s ease-in forwards;
+      }
+
+      @keyframes backpackDrop {
+        0% {
+          opacity: 0;
+          transform: translateY(-150px) rotate(0deg);
+        }
+        80% {
+          opacity: 1;
+          transform: translateY(0) rotate(180deg);
+        }
+        90% {
+          transform: translateY(-10px) rotate(190deg);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) rotate(180deg);
+        }
+      }
+
+      /* Light switch clicking */
+      .light-switch {
+        position: absolute;
+        top: 35%;
+        right: 20%;
+        font-size: 40px;
+        animation: switchFlip 0.5s ease-out forwards;
+        transform-origin: center;
+      }
+
+      @keyframes switchFlip {
+        0%, 100% {
+          transform: rotate(0deg);
+        }
+        50% {
+          transform: rotate(20deg);
+        }
+      }
+
+      /* Room brightness */
+      .room-brightness {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 70% 30%, 
+          rgba(255, 255, 200, 0.3) 0%,
+          transparent 60%);
+        opacity: 0;
+        pointer-events: none;
+        animation: lightsOn 1s ease-out forwards;
+      }
+
+      @keyframes lightsOn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Door creaking sound effect */
+      .door-creak {
+        position: absolute;
+        top: 15%;
+        left: 15%;
+        font-size: 30px;
+        opacity: 0;
+        animation: creakAppear 0.5s ease-out forwards;
+      }
+
+      @keyframes creakAppear {
+        0% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.3);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1);
+        }
+      }
+
+      /* Welcome home feeling */
+      .welcome-glow {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, 
+          rgba(255, 182, 193, 0.4) 0%,
+          transparent 70%);
+        border-radius: 50%;
+        animation: welcomePulse 2s ease-in-out infinite;
+      }
+
+      @keyframes welcomePulse {
+        0%, 100% {
+          transform: scale(1);
+          opacity: 0.6;
+        }
+        50% {
+          transform: scale(1.5);
+          opacity: 0.3;
+        }
+      }
+
+      /* Old door animation end */
+      @keyframes doorOpen-old {
+        0% {
+          transform: rotateY(0deg);
+        }
+        100% {
+          transform: rotateY(-120deg);
+        }
+      }
+
+      .door-knob {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        width: 15px;
+        height: 15px;
+        background: gold;
+        border-radius: 50%;
+      }
+
+      /* Character */
+      .character {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 10;
+      }
+
+      .character-face {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #ffb6c1;
+        box-shadow: 0 8px 30px rgba(255, 182, 193, 0.4);
+        margin-bottom: 15px;
+      }
+
+      /* Relief animation */
+      .relief-face {
+        animation: reliefBreathe 3s ease-in-out infinite;
+      }
+
+      @keyframes reliefBreathe {
+        0%,
+        100% {
+          transform: scale(1);
+          filter: brightness(1);
+        }
+        50% {
+          transform: scale(1.05);
+          filter: brightness(1.1);
+        }
+      }
+
+      /* Happy face */
+      .happy-face {
+        animation: happyBounce 0.8s ease-in-out infinite;
+      }
+
+      @keyframes happyBounce {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          transform: translateY(-5px) scale(1.03);
+        }
+      }
+
+      /* Showering face */
+      .shower-face {
+        animation: showerMove 2s ease-in-out infinite;
+      }
+
+      @keyframes showerMove {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        50% {
+          transform: translateX(10px);
+        }
+      }
+
+      /* Eating face */
+      .eating-face {
+        animation: eatingMotion 1s ease-in-out infinite;
+      }
+
+      @keyframes eatingMotion {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+
+      /* Relaxing face */
+      .relaxing-face {
+        animation: relaxSway 4s ease-in-out infinite;
+        filter: brightness(1.1);
+      }
+
+      @keyframes relaxSway {
+        0%,
+        100% {
+          transform: rotate(-2deg);
+        }
+        50% {
+          transform: rotate(2deg);
+        }
+      }
+
+      /* Anime body */
+      .anime-body {
+        position: relative;
+        width: 100px;
+        height: 120px;
+      }
+
+      .body-torso {
+        width: 70px;
+        height: 90px;
+        background: linear-gradient(180deg, #ffb6c1 0%, #ffc0cb 100%);
+        border-radius: 35px 35px 15px 15px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .body-arms {
+        position: absolute;
+        top: 20px;
+        width: 100%;
+      }
+
+      .arm {
+        position: absolute;
+        width: 20px;
+        height: 60px;
+        background: linear-gradient(180deg, #ffb6c1 0%, #ffc0cb 100%);
+        border-radius: 12px;
+      }
+
+      .arm.left {
+        left: -18px;
+        transform-origin: top center;
+      }
+
+      .arm.right {
+        right: -18px;
+        transform-origin: top center;
+      }
+
+      /* Relief sigh */
+      .relief-sigh {
+        position: absolute;
+        top: -50px;
+        font-size: 40px;
+        opacity: 0;
+        animation: sighFloat 3s ease-out forwards;
+      }
+
+      @keyframes sighFloat {
+        0% {
+          opacity: 0;
+          transform: translateY(0) scale(0.5);
+        }
+        50% {
+          opacity: 1;
+          transform: translateY(-30px) scale(1.2);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-60px) scale(0.8);
+        }
+      }
+
+      /* Phone */
+      .phone {
+        position: absolute;
+        width: 180px;
+        height: 320px;
+        background: #1a1a1a;
+        border-radius: 25px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        padding: 12px;
+        z-index: 30;
+      }
+
+      .phone.show {
+        animation: phonePopIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+      }
+
+      @keyframes phonePopIn {
+        to {
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+
+      .phone-screen {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #e6f3ff 0%, #ffffff 100%);
+        border-radius: 18px;
+        padding: 15px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .messenger-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .sender-name {
+        font-weight: bold;
+        font-size: 13px;
+        color: #333;
+      }
+
+      .messages-container {
+        height: 230px;
+        overflow-y: auto;
+        padding: 5px;
+      }
+
+      .message-bubble {
+        padding: 10px 14px;
+        border-radius: 18px;
+        font-size: 13px;
+        margin-bottom: 8px;
+        max-width: 85%;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      .message-bubble.sent {
+        background: linear-gradient(135deg, #ffb6c1 0%, #ffc0cb 100%);
+        color: #fff;
+        margin-left: auto;
+        border-radius: 18px 18px 5px 18px;
+        text-align: right;
+      }
+
+      .message-bubble.received {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        margin-right: auto;
+        border-radius: 18px 18px 18px 5px;
+      }
+
+      .message-bubble.show {
+        animation: messagePop 0.4s ease-out forwards;
+      }
+
+      @keyframes messagePop {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Shower water droplets */
+      .shower-water {
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        width: 4px;
+        height: 0;
+        background: linear-gradient(180deg, 
+          rgba(100, 200, 255, 0.8) 0%,
+          rgba(100, 200, 255, 0.4) 100%);
+        border-radius: 2px;
+        animation: waterFall 1s linear infinite;
+      }
+
+      @keyframes waterFall {
+        0% {
+          height: 0;
+          opacity: 0;
+        }
+        50% {
+          height: 150px;
+          opacity: 1;
+        }
+        100% {
+          height: 200px;
+          opacity: 0;
+        }
+      }
+
+      /* Water splash */
+      .water-splash {
+        position: absolute;
+        bottom: 20%;
+        font-size: 25px;
+        opacity: 0;
+        animation: splashEffect 0.8s ease-out infinite;
+      }
+
+      @keyframes splashEffect {
+        0% {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        50% {
+          opacity: 0.8;
+          transform: scale(1.2);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.5);
+        }
+      }
+
+      /* Steam from shower */
+      .shower-steam {
+        position: absolute;
+        font-size: 35px;
+        opacity: 0;
+        animation: steamFloat 3s ease-out infinite;
+      }
+
+      @keyframes steamFloat {
+        0% {
+          opacity: 0;
+          transform: translateY(0) scale(0.8);
+        }
+        50% {
+          opacity: 0.7;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-120px) scale(1.5);
+        }
+      }
+
+      /* Cooking pot */
+      .cooking-pot {
+        position: absolute;
+        bottom: 30%;
+        left: 40%;
+        font-size: 80px;
+        animation: potBubble 1s ease-in-out infinite;
+      }
+
+      @keyframes potBubble {
+        0%, 100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      /* Cooking steam */
+      .cooking-steam {
+        position: absolute;
+        font-size: 30px;
+        opacity: 0;
+        animation: cookingSteamRise 2.5s ease-out infinite;
+      }
+
+      @keyframes cookingSteamRise {
+        0% {
+          opacity: 0;
+          transform: translateY(0) translateX(0) scale(0.8);
+        }
+        50% {
+          opacity: 0.8;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-100px) translateX(var(--steam-x, 0px)) scale(1.5);
+        }
+      }
+
+      /* Fridge opening */
+      .fridge {
+        position: absolute;
+        bottom: 30%;
+        right: 25%;
+        font-size: 100px;
+        animation: fridgeShake 0.5s ease-out;
+      }
+
+      @keyframes fridgeShake {
+        0%, 100% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(-2deg);
+        }
+        75% {
+          transform: rotate(2deg);
+        }
+      }
+
+      /* Fridge light */
+      .fridge-light {
+        position: absolute;
+        bottom: 35%;
+        right: 23%;
+        width: 80px;
+        height: 120px;
+        background: radial-gradient(circle,
+          rgba(255, 255, 200, 0.6) 0%,
+          transparent 70%);
+        opacity: 0;
+        animation: fridgeLightOn 0.5s ease-out forwards;
+      }
+
+      @keyframes fridgeLightOn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Food items appearing */
+      .food-item {
+        position: absolute;
+        font-size: 40px;
+        opacity: 0;
+        animation: foodAppear 0.6s ease-out forwards;
+      }
+
+      @keyframes foodAppear {
+        0% {
+          opacity: 0;
+          transform: scale(0) rotate(0deg);
+        }
+        60% {
+          transform: scale(1.2) rotate(180deg);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1) rotate(360deg);
+        }
+      }
+
+      /* TV screen */
+      .tv-screen {
+        position: absolute;
+        bottom: 35%;
+        right: 20%;
+        width: 200px;
+        height: 140px;
+        background: linear-gradient(180deg, #000 0%, #222 100%);
+        border-radius: 8px;
+        border: 8px solid #333;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+      }
+
+      /* TV content flickering */
+      .tv-content {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg,
+          #4a90e2 0%, #764ba2 50%, #f093fb 100%);
+        animation: tvFlicker 3s ease-in-out infinite;
+      }
+
+      @keyframes tvFlicker {
+        0%, 100% {
+          opacity: 0.9;
+          filter: brightness(1);
+        }
+        50% {
+          opacity: 1;
+          filter: brightness(1.2);
+        }
+      }
+
+      /* TV static lines */
+      .tv-static {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.5);
+        animation: staticMove 0.1s linear infinite;
+      }
+
+      @keyframes staticMove {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(140px);
+        }
+      }
+
+      /* Remote control */
+      .tv-remote {
+        position: absolute;
+        bottom: 28%;
+        right: 27%;
+        font-size: 35px;
+        animation: remoteClick 2s ease-in-out infinite;
+      }
+
+      @keyframes remoteClick {
+        0%, 90%, 100% {
+          transform: rotate(0deg);
+        }
+        95% {
+          transform: rotate(-15deg);
+        }
+      }
+
+      /* Couch/Sofa */
+      .couch {
+        position: absolute;
+        bottom: 22%;
+        left: 35%;
+        font-size: 100px;
+        animation: couchSink 3s ease-in-out infinite;
+      }
+
+      @keyframes couchSink {
+        0%, 100% {
+          transform: scaleY(1);
+        }
+        50% {
+          transform: scaleY(0.95);
+        }
+      }
+
+      /* Book pages turning */
+      .book {
+        position: absolute;
+        bottom: 32%;
+        left: 35%;
+        font-size: 70px;
+        animation: bookOpen 2s ease-in-out infinite;
+      }
+
+      @keyframes bookOpen {
+        0%, 100% {
+          transform: rotateY(0deg);
+        }
+        50% {
+          transform: rotateY(15deg);
+        }
+      }
+
+      /* Reading lamp */
+      .reading-lamp {
+        position: absolute;
+        bottom: 45%;
+        left: 25%;
+        font-size: 60px;
+        animation: lampGlow 2s ease-in-out infinite;
+      }
+
+      @keyframes lampGlow {
+        0%, 100% {
+          filter: brightness(1) drop-shadow(0 0 10px rgba(255, 200, 100, 0.5));
+        }
+        50% {
+          filter: brightness(1.3) drop-shadow(0 0 20px rgba(255, 200, 100, 0.8));
+        }
+      }
+
+      /* Lamp light cone */
+      .lamp-light {
+        position: absolute;
+        bottom: 35%;
+        left: 28%;
+        width: 120px;
+        height: 100px;
+        background: radial-gradient(ellipse at top,
+          rgba(255, 240, 200, 0.4) 0%,
+          transparent 70%);
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        opacity: 0.8;
+      }
+
+      /* Comfort sparkles */
+      .comfort-sparkle {
+        position: absolute;
+        font-size: 30px;
+        opacity: 0;
+        animation: comfortTwinkle 2s ease-in-out infinite;
+      }
+
+      @keyframes comfortTwinkle {
+        0%, 100% {
+          opacity: 0;
+          transform: scale(0) rotate(0deg);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.2) rotate(180deg);
+        }
+      }
+
+      .message-time {
+        font-size: 9px;
+        color: rgba(255, 255, 255, 0.8);
+        margin-top: 3px;
+      }
+
+      /* Typing indicator */
+      .typing-indicator {
+        display: none;
+        align-items: center;
+        gap: 4px;
+        padding: 10px 14px;
+        background: #e0e0e0;
+        border-radius: 18px;
+        width: fit-content;
+        margin-bottom: 8px;
+      }
+
+      .typing-indicator.show {
+        display: flex;
+        animation: messagePop 0.3s ease-out forwards;
+      }
+
+      .typing-dot {
+        width: 6px;
+        height: 6px;
+        background: #666;
+        border-radius: 50%;
+        animation: typingDot 1.2s ease-in-out infinite;
+      }
+
+      .typing-dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .typing-dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes typingDot {
+        0%,
+        60%,
+        100% {
+          transform: translateY(0);
+        }
+        30% {
+          transform: translateY(-8px);
+        }
+      }
+
+      /* Home decorations */
+      .music-note {
+        position: absolute;
+        font-size: 30px;
+        opacity: 0;
+        animation: musicFloat 3s ease-in-out infinite;
+      }
+
+      @keyframes musicFloat {
+        0%,
+        100% {
+          opacity: 0;
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          opacity: 0.8;
+          transform: translateY(-40px) rotate(20deg);
+        }
+      }
+
+      .pet {
+        position: absolute;
+        bottom: 20%;
+        right: 20%;
+        font-size: 60px;
+        animation: petWiggle 2s ease-in-out infinite;
+      }
+
+      @keyframes petWiggle {
+        0%,
+        100% {
+          transform: rotate(-5deg);
+        }
+        50% {
+          transform: rotate(5deg);
+        }
+      }
+
+      .flower {
+        position: absolute;
+        font-size: 40px;
+        animation: flowerGlow 3s ease-in-out infinite;
+      }
+
+      @keyframes flowerGlow {
+        0%,
+        100% {
+          filter: brightness(1);
+          transform: scale(1);
+        }
+        50% {
+          filter: brightness(1.3);
+          transform: scale(1.1);
+        }
+      }
+
+      /* Shower head */
+      .shower-head {
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 50px;
+      }
+
+      /* Water drops */
+      .water-drop {
+        position: absolute;
+        width: 8px;
+        height: 12px;
+        background: linear-gradient(180deg, #4fc3f7 0%, #29b6f6 100%);
+        border-radius: 50% 50% 50% 0;
+        opacity: 0.7;
+        animation: dropFall 1.5s linear infinite;
+      }
+
+      @keyframes dropFall {
+        0% {
+          transform: translateY(0) rotate(45deg);
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateY(400px) rotate(45deg);
+          opacity: 0;
+        }
+      }
+
+      /* Bubbles */
+      .bubble {
+        position: absolute;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(255, 255, 255, 0.8),
+          rgba(173, 216, 230, 0.4)
+        );
+        animation: bubbleRise 4s ease-in-out infinite;
+      }
+
+      @keyframes bubbleRise {
+        0% {
+          transform: translateY(0) scale(1);
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(-500px) scale(0.5);
+          opacity: 0;
+        }
+      }
+
+      /* Steam */
+      .steam {
+        position: absolute;
+        font-size: 25px;
+        opacity: 0.6;
+        animation: steamRise 3s ease-in-out infinite;
+      }
+
+      @keyframes steamRise {
+        0% {
+          transform: translateY(0) scale(1);
+          opacity: 0.6;
+        }
+        100% {
+          transform: translateY(-150px) scale(1.5);
+          opacity: 0;
+        }
+      }
+
+      /* Cooking pot */
+      .cooking-pot {
+        position: absolute;
+        bottom: 30%;
+        left: 35%;
+        font-size: 80px;
+        animation: potShake 0.5s ease-in-out infinite;
+      }
+
+      @keyframes potShake {
+        0%,
+        100% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(-2deg);
+        }
+        75% {
+          transform: rotate(2deg);
+        }
+      }
+
+      /* Food steam */
+      .food-steam {
+        position: absolute;
+        bottom: 50%;
+        left: 40%;
+        font-size: 30px;
+        opacity: 0.8;
+        animation: foodSteamRise 2.5s ease-in-out infinite;
+      }
+
+      @keyframes foodSteamRise {
+        0% {
+          transform: translateY(0) translateX(0);
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(-100px) translateX(20px);
+          opacity: 0;
+        }
+      }
+
+      /* Bowl */
+      .bowl {
+        position: absolute;
+        bottom: 35%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 60px;
+      }
+
+      /* Chopsticks animation */
+      .chopsticks {
+        position: absolute;
+        bottom: 40%;
+        left: 55%;
+        font-size: 40px;
+        transform-origin: bottom center;
+        animation: chopsticksPick 1s ease-in-out infinite;
+      }
+
+      @keyframes chopsticksPick {
+        0%,
+        100% {
+          transform: rotate(-30deg) translateY(0);
+        }
+        50% {
+          transform: rotate(-10deg) translateY(-15px);
+        }
+      }
+
+      /* TV */
+      .tv {
+        position: absolute;
+        top: 25%;
+        left: 30%;
+        width: 250px;
+        height: 180px;
+        background: #222;
+        border-radius: 15px;
+        padding: 10px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .tv-screen {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        border-radius: 10px;
+        animation: tvFlicker 5s ease-in-out infinite;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+      }
+
+      @keyframes tvFlicker {
+        0%,
+        100% {
+          filter: brightness(1);
+        }
+        50% {
+          filter: brightness(1.2);
+        }
+      }
+
+      /* Couch */
+      .couch {
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 100px;
+      }
+
+      /* Book */
+      .book {
+        position: absolute;
+        bottom: 30%;
+        right: 25%;
+        font-size: 50px;
+        animation: bookOpen 2s ease-in-out infinite;
+      }
+
+      @keyframes bookOpen {
+        0%,
+        100% {
+          transform: rotateY(0deg);
+        }
+        50% {
+          transform: rotateY(20deg);
+        }
+      }
+
+      /* Smile emoji floating */
+      .smile-float {
+        position: absolute;
+        font-size: 40px;
+        opacity: 0;
+        animation: smileAppear 3s ease-out forwards;
+      }
+
+      @keyframes smileAppear {
+        0% {
+          opacity: 0;
+          transform: scale(0) rotate(0deg);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.3) rotate(10deg);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0.8) rotate(20deg);
+        }
+      }
+
+      /* Sparkles around face */
+      .sparkle {
+        position: absolute;
+        font-size: 25px;
+        animation: sparkleRotate 2s ease-in-out infinite;
+      }
+
+      @keyframes sparkleRotate {
+        0%,
+        100% {
+          transform: rotate(0deg) scale(1);
+          opacity: 0.6;
+        }
+        50% {
+          transform: rotate(180deg) scale(1.3);
+          opacity: 1;
+        }
+      }
+
+      /* Toothbrush */
+      .toothbrush {
+        position: absolute;
+        bottom: 45%;
+        left: 45%;
+        font-size: 50px;
+        transform-origin: bottom left;
+        animation: brushing 0.8s ease-in-out infinite;
+      }
+
+      @keyframes brushing {
+        0%,
+        100% {
+          transform: rotate(-10deg);
+        }
+        50% {
+          transform: rotate(10deg);
+        }
+      }
+
+      /* Pillow */
+      .pillow {
+        position: absolute;
+        bottom: 25%;
+        left: 40%;
+        font-size: 80px;
+        animation: pillowSoft 3s ease-in-out infinite;
+      }
+
+      @keyframes pillowSoft {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      /* Moon through window */
+      .window {
+        position: absolute;
+        top: 15%;
+        right: 15%;
+        width: 120px;
+        height: 150px;
+        background: rgba(135, 206, 250, 0.3);
+        border-radius: 10px;
+        border: 5px solid #8b4513;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 50px;
+        animation: windowGlow 4s ease-in-out infinite;
+      }
+
+      @keyframes windowGlow {
+        0%,
+        100% {
+          filter: brightness(1);
+        }
+        50% {
+          filter: brightness(1.3);
+        }
+      }
+
+      /* Progress dots */
+      .progress {
+        position: fixed;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 12px;
+        z-index: 1000;
+      }
+
+      .progress-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        transition: all 0.3s;
+      }
+
+      .progress-dot.active {
+        background: #ffb6c1;
+        transform: scale(1.5);
+        box-shadow: 0 0 10px #ffb6c1;
+      }
+
+      /* Next button */
+      .next-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 15px 35px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
+        opacity: 0;
+        transform: scale(0);
+        z-index: 1000;
+      }
+
+      .next-button.show {
+        animation: buttonPop 0.5s ease-out forwards;
+      }
+
+      @keyframes buttonPop {
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .next-button:hover {
+        transform: scale(1.1);
+      }
+
+      /* Props */
+      .prop {
+        position: absolute;
+        font-size: 30px;
+        animation: propFloat 3s ease-in-out infinite;
+      }
+
+      @keyframes propFloat {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0.8;
+        }
+        50% {
+          transform: translateY(-15px) rotate(10deg);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scene-container">
+      <!-- Sub-scene 1: Arriving home -->
+      <div class="sub-scene" id="arrivingHome">
+        <div class="home-bg">
+          <div class="scene-title">🏠 Về đến nhà rồi!</div>
+
+          <!-- Door -->
+          <div class="door">
+            <div class="door-knob"></div>
+          </div>
+
+          <!-- Door creak sound -->
+          <div class="door-creak">🔊</div>
+
+          <!-- Keys dropping -->
+          <div class="keys-drop" id="keys">🔑</div>
+
+          <!-- Shoes kicking off -->
+          <div class="shoe-kick" id="shoe1" style="left: 30%; animation-delay: 0.5s;">👟</div>
+          <div class="shoe-kick" id="shoe2" style="left: 35%; animation-delay: 0.8s;">👟</div>
+
+          <!-- Backpack dropping -->
+          <div class="backpack-drop" id="backpack">🎒</div>
+
+          <!-- Light switch -->
+          <div class="light-switch" id="lightSwitch">💡</div>
+
+          <!-- Room brightness overlay -->
+          <div class="room-brightness" id="roomLight"></div>
+
+          <!-- Welcome glow -->
+          <div class="welcome-glow" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+
+          <!-- Character -->
+          <div class="character">
+            <div style="position: relative">
+              <img
+                src="AnhKhuonMatCuaCoAy.jpg"
+                alt="Dương"
+                class="character-face relief-face"
+                id="face1"
+              />
+              <div class="relief-sigh">😮‍💨</div>
+            </div>
+            <div class="anime-body">
+              <div class="body-torso">
+                <div class="body-arms">
+                  <div class="arm left"></div>
+                  <div class="arm right"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pet -->
+          <div class="pet">🐱</div>
+
+          <!-- Flowers -->
+          <div class="flower" style="top: 20%; left: 10%">🌸</div>
+          <div class="flower" style="top: 25%; right: 12%; animation-delay: 1s">🌺</div>
+
+          <!-- Music notes -->
+          <div class="music-note" style="top: 15%; left: 20%; animation-delay: 0.5s">🎵</div>
+          <div class="music-note" style="top: 18%; left: 25%; animation-delay: 1.5s">🎶</div>
+          <div class="music-note" style="top: 20%; left: 22%; animation-delay: 2.5s">🎵</div>
+        </div>
+      </div>
+
+      <!-- Sub-scene 2: Checking phone -->
+      <div class="sub-scene" id="checkingPhone">
+        <div class="home-bg">
+          <div class="scene-title">📱 Có tin nhắn mới!</div>
+
+          <div class="character">
+            <img
+              src="AnhKhuonMatCuaCoAy.jpg"
+              alt="Dương"
+              class="character-face happy-face"
+              id="face2"
+            />
+            <div class="anime-body">
+              <div class="body-torso">
+                <div class="body-arms">
+                  <div class="arm left"></div>
+                  <div class="arm right"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="phone" id="phone1">
+            <div class="phone-screen">
+              <div class="messenger-header">
+                <img src="AnhKhuonMatCuaToi.jpg" alt="Đạt" class="avatar" />
+                <div class="sender-name">Đạt</div>
+              </div>
+              <div class="messages-container">
+                <div class="message-bubble received" id="msg1">
+                  Dương về tới nhà chưa? 🏠
+                  <div class="message-time">19:30</div>
+                </div>
+                <div class="typing-indicator" id="typing1">
+                  <div class="typing-dot"></div>
+                  <div class="typing-dot"></div>
+                  <div class="typing-dot"></div>
+                </div>
+                <div class="message-bubble sent" id="reply1">
+                  Mình về rồi nha! 😊💕
+                  <div class="message-time">19:31</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="smile-float" style="top: 20%; right: 15%" id="smile1">😍</div>
+
+          <div class="prop" style="bottom: 15%; left: 10%">🏠</div>
+          <div class="prop" style="bottom: 18%; right: 12%; animation-delay: 1s">✨</div>
+        </div>
+      </div>
+
+      <!-- Sub-scene 3: Showering -->
+      <div class="sub-scene" id="showering">
+        <div class="bathroom-bg">
+          <div class="scene-title">🚿 Tắm rửa thư giãn</div>
+
+          <!-- Shower head -->
+          <div class="shower-head">🚿</div>
+
+          <!-- Shower water particles -->
+          <div class="shower-water" style="left: 44%; animation-delay: 0s">💧</div>
+          <div class="shower-water" style="left: 46%; animation-delay: 0.1s">💧</div>
+          <div class="shower-water" style="left: 48%; animation-delay: 0.2s">💧</div>
+          <div class="shower-water" style="left: 50%; animation-delay: 0.3s">💧</div>
+          <div class="shower-water" style="left: 52%; animation-delay: 0.4s">💧</div>
+          <div class="shower-water" style="left: 54%; animation-delay: 0.5s">💧</div>
+          <div class="shower-water" style="left: 56%; animation-delay: 0.6s">💧</div>
+
+          <!-- Water splash effects -->
+          <div class="water-splash" style="bottom: 20%; left: 45%">💦</div>
+          <div class="water-splash" style="bottom: 22%; left: 50%; animation-delay: 0.3s">💦</div>
+          <div class="water-splash" style="bottom: 21%; left: 55%; animation-delay: 0.6s">💦</div>
+
+          <!-- Shower steam -->
+          <div class="shower-steam" style="--steam-x: -30px; bottom: 25%; left: 43%">💨</div>
+          <div class="shower-steam" style="--steam-x: 20px; bottom: 28%; left: 52%; animation-delay: 1s">💨</div>
+          <div class="shower-steam" style="--steam-x: -15px; bottom: 30%; left: 48%; animation-delay: 2s">💨</div>
+
+          <!-- Water drops -->
+          <div class="water-drop" style="left: 45%; animation-delay: 0s"></div>
+          <div class="water-drop" style="left: 48%; animation-delay: 0.2s"></div>
+          <div class="water-drop" style="left: 50%; animation-delay: 0.4s"></div>
+          <div class="water-drop" style="left: 52%; animation-delay: 0.6s"></div>
+          <div class="water-drop" style="left: 55%; animation-delay: 0.8s"></div>
+
+          <!-- Bubbles -->
+          <div
+            class="bubble"
+            style="bottom: 10%; left: 30%; width: 40px; height: 40px; animation-delay: 0s"
+          ></div>
+          <div
+            class="bubble"
+            style="bottom: 15%; left: 40%; width: 30px; height: 30px; animation-delay: 1s"
+          ></div>
+          <div
+            class="bubble"
+            style="bottom: 12%; right: 35%; width: 35px; height: 35px; animation-delay: 2s"
+          ></div>
+          <div
+            class="bubble"
+            style="bottom: 18%; right: 25%; width: 25px; height: 25px; animation-delay: 1.5s"
+          ></div>
+
+          <!-- Character -->
+          <div class="character">
+            <img
+              src="AnhKhuonMatCuaCoAy.jpg"
+              alt="Dương"
+              class="character-face shower-face"
+              id="face3"
+            />
+            <div class="anime-body">
+              <div class="body-torso">
+                <div class="body-arms">
+                  <div class="arm left"></div>
+                  <div class="arm right"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Steam -->
+          <div class="steam" style="bottom: 20%; left: 25%; animation-delay: 0s">💨</div>
+          <div class="steam" style="bottom: 25%; left: 30%; animation-delay: 1s">💨</div>
+          <div class="steam" style="bottom: 22%; right: 28%; animation-delay: 0.5s">💨</div>
+
+          <div class="prop" style="top: 15%; left: 10%">🧴</div>
+          <div class="prop" style="top: 20%; left: 15%; animation-delay: 1s">🧼</div>
+          <div class="prop" style="top: 18%; right: 12%; animation-delay: 0.5s">🛁</div>
+        </div>
+      </div>
+
+      <!-- Sub-scene 4: Cooking & eating -->
+      <div class="sub-scene" id="eating">
+        <div class="kitchen-bg">
+          <div class="scene-title">🍜 Ăn tối ngon lành</div>
+
+          <!-- Cooking pot with bubbling effect -->
+          <div class="cooking-pot" style="position: absolute; top: 25%; left: 50%; transform: translateX(-50%);">🍲</div>
+
+          <!-- Cooking steam particles with CSS variables -->
+          <div class="cooking-steam" style="--steam-x: -20px; top: 18%; left: 48%; animation-delay: 0s">💨</div>
+          <div class="cooking-steam" style="--steam-x: 15px; top: 20%; left: 52%; animation-delay: 0.5s">💨</div>
+          <div class="cooking-steam" style="--steam-x: -10px; top: 19%; left: 50%; animation-delay: 1s">💨</div>
+          <div class="cooking-steam" style="--steam-x: 25px; top: 21%; left: 49%; animation-delay: 1.5s">💨</div>
+
+          <!-- Fridge -->
+          <div class="fridge" style="position: absolute; top: 30%; left: 15%; font-size: 60px;">🚪</div>
+          
+          <!-- Fridge light -->
+          <div class="fridge-light" style="top: 30%; left: 15%; width: 80px; height: 100px;"></div>
+
+          <!-- Food items appearing from fridge -->
+          <div class="food-item" style="top: 35%; left: 20%; animation-delay: 0.5s;">🥬</div>
+          <div class="food-item" style="top: 40%; left: 18%; animation-delay: 0.8s;">🥕</div>
+          <div class="food-item" style="top: 38%; left: 22%; animation-delay: 1.1s;">🥩</div>
+
+          <!-- Food steam -->
+          <div class="food-steam" style="animation-delay: 0s">💨</div>
+          <div class="food-steam" style="left: 45%; animation-delay: 0.8s">💨</div>
+          <div class="food-steam" style="left: 38%; animation-delay: 1.5s">💨</div>
+
+          <!-- Bowl -->
+          <div class="bowl">🍜</div>
+
+          <!-- Chopsticks -->
+          <div class="chopsticks">🥢</div>
+
+          <!-- Character -->
+          <div class="character" style="top: 55%">
+            <img
+              src="AnhKhuonMatCuaCoAy.jpg"
+              alt="Dương"
+              class="character-face eating-face"
+              id="face4"
+            />
+            <div class="anime-body">
+              <div class="body-torso">
+                <div class="body-arms">
+                  <div class="arm left"></div>
+                  <div class="arm right"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="prop" style="top: 15%; left: 12%">🥗</div>
+          <div class="prop" style="top: 18%; right: 10%; animation-delay: 0.8s">🥤</div>
+          <div class="prop" style="bottom: 15%; left: 10%; animation-delay: 1.2s">🍚</div>
+        </div>
+      </div>
+
+      <!-- Sub-scene 5: Relaxing (watching TV, thinking) -->
+      <div class="sub-scene" id="relaxing">
+        <div class="home-bg">
+          <div class="scene-title">😌 Thư giãn & nhớ lại...</div>
+
+          <!-- TV -->
+          <div class="tv">
+            <div class="tv-screen" style="position: relative;">
+              📺
+              <!-- TV content flickering -->
+              <div class="tv-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px;">
+                🎬
+              </div>
+              <!-- TV static lines -->
+              <div class="tv-static" style="position: absolute; top: 30%; left: 20%; width: 60%; height: 2px;"></div>
+              <div class="tv-static" style="position: absolute; top: 50%; left: 15%; width: 70%; height: 2px; animation-delay: 0.05s;"></div>
+              <div class="tv-static" style="position: absolute; top: 70%; left: 25%; width: 50%; height: 2px; animation-delay: 0.08s;"></div>
+            </div>
+          </div>
+
+          <!-- TV Remote -->
+          <div class="tv-remote" style="position: absolute; bottom: 35%; left: 60%; font-size: 30px;">🎮</div>
+
+          <!-- Couch with sinking effect -->
+          <div class="couch" style="position: relative;">
+            🛋️
+            <div class="couch-sink" style="position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); width: 80%; height: 10px;"></div>
+          </div>
+
+          <!-- Reading book -->
+          <div class="book" style="position: absolute; bottom: 38%; left: 55%; font-size: 35px; transform-origin: left center;">📕</div>
+
+          <!-- Reading lamp -->
+          <div class="reading-lamp" style="position: absolute; top: 20%; right: 15%; font-size: 40px;">🪔</div>
+          
+          <!-- Lamp light cone -->
+          <div class="lamp-light" style="top: 25%; right: 12%; width: 120px; height: 150px;"></div>
+
+          <!-- Comfort sparkles -->
+          <div class="comfort-sparkle" style="top: 30%; left: 25%; animation-delay: 0s;">✨</div>
+          <div class="comfort-sparkle" style="top: 35%; left: 30%; animation-delay: 0.8s;">💫</div>
+          <div class="comfort-sparkle" style="top: 28%; right: 30%; animation-delay: 1.5s;">⭐</div>
+
+          <!-- Character -->
+          <div class="character" style="bottom: 28%">
+            <img
+              src="AnhKhuonMatCuaCoAy.jpg"
+              alt="Dương"
+              class="character-face relaxing-face"
+              id="face5"
+            />
+
+            <!-- Sparkles around face -->
+            <div class="sparkle" style="top: -20px; left: -30px; animation-delay: 0s">✨</div>
+            <div class="sparkle" style="top: -15px; right: -30px; animation-delay: 0.5s">⭐</div>
+            <div class="sparkle" style="top: 10px; left: -40px; animation-delay: 1s">💫</div>
+            <div class="sparkle" style="top: 15px; right: -40px; animation-delay: 1.5s">✨</div>
+
+            <div class="anime-body">
+              <div class="body-torso">
+                <div class="body-arms">
+                  <div class="arm left"></div>
+                  <div class="arm right"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Book -->
+          <div class="book">📖</div>
+
+          <!-- Phone with message thought -->
+          <div class="phone" id="phone2" style="width: 150px; height: 280px; top: 35%; left: 70%">
+            <div class="phone-screen">
+              <div class="messenger-header">
+                <img src="AnhKhuonMatCuaToi.jpg" alt="Đạt" class="avatar" />
+                <div class="sender-name">Đạt</div>
+              </div>
+              <div class="messages-container" style="height: 190px">
+                <div class="message-bubble received show">
+                  Chúc ngủ ngon nhé! 💕
+                  <div class="message-time">21:00</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="smile-float" style="top: 18%; left: 20%" id="smile2">🥰</div>
+
+          <div class="prop" style="bottom: 12%; right: 15%">☕</div>
+          <div class="prop" style="top: 22%; left: 12%; animation-delay: 0.8s">🎵</div>
+        </div>
+      </div>
+
+      <!-- Sub-scene 6: Preparing to sleep -->
+      <div class="sub-scene" id="sleeping">
+        <div class="bedroom-bg">
+          <div class="scene-title">😴 Chuẩn bị ngủ...</div>
+
+          <!-- Window with moon -->
+          <div class="window">🌙</div>
+
+          <!-- Toothbrush -->
+          <div class="toothbrush">🪥</div>
+
+          <!-- Pillow -->
+          <div class="pillow">🛏️</div>
+
+          <!-- Character -->
+          <div class="character" style="bottom: 30%">
+            <img
+              src="AnhKhuonMatCuaCoAy.jpg"
+              alt="Dương"
+              class="character-face"
+              id="face6"
+              style="animation: reliefBreathe 4s ease-in-out infinite; filter: brightness(0.9)"
+            />
+            <div class="anime-body">
+              <div
+                class="body-torso"
+                style="background: linear-gradient(180deg, #e8eaf6 0%, #c5cae9 100%)"
+              >
+                <div class="body-arms">
+                  <div
+                    class="arm left"
+                    style="background: linear-gradient(180deg, #e8eaf6 0%, #c5cae9 100%)"
+                  ></div>
+                  <div
+                    class="arm right"
+                    style="background: linear-gradient(180deg, #e8eaf6 0%, #c5cae9 100%)"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="prop" style="top: 18%; left: 10%">💤</div>
+          <div class="prop" style="top: 22%; left: 15%; animation-delay: 1s">💤</div>
+          <div class="prop" style="top: 25%; left: 12%; animation-delay: 2s">💤</div>
+          <div class="prop" style="bottom: 15%; right: 12%">⭐</div>
+          <div class="prop" style="bottom: 20%; right: 18%; animation-delay: 1.5s">✨</div>
+        </div>
+      </div>
+
+      <!-- Progress indicator -->
+      <div class="progress">
+        <div class="progress-dot" id="dot1"></div>
+        <div class="progress-dot" id="dot2"></div>
+        <div class="progress-dot" id="dot3"></div>
+        <div class="progress-dot" id="dot4"></div>
+        <div class="progress-dot" id="dot5"></div>
+        <div class="progress-dot" id="dot6"></div>
+      </div>
+
+      <!-- Next button -->
+      <button class="next-button" id="nextButton">Scene 7: Chúc ngủ ngon 💤</button>
+    </div>
+
+    <script>
+      const subScenes = [
+        'arrivingHome',
+        'checkingPhone',
+        'showering',
+        'eating',
+        'relaxing',
+        'sleeping',
+      ];
+      const dots = ['dot1', 'dot2', 'dot3', 'dot4', 'dot5', 'dot6'];
+      let currentScene = 0;
+
+      const nextButton = document.getElementById('nextButton');
+
+      // Start scene
+      function startScene(index) {
+        subScenes.forEach((sceneId) => {
+          document.getElementById(sceneId).classList.remove('active');
+        });
+
+        dots.forEach((dotId, i) => {
+          document.getElementById(dotId).classList.toggle('active', i === index);
+        });
+
+        document.getElementById(subScenes[index]).classList.add('active');
+
+        if (index === 0) {
+          animateArrivingHome();
+        } else if (index === 1) {
+          animateCheckingPhone();
+        } else if (index === 2) {
+          animateShowering();
+        } else if (index === 3) {
+          animateEating();
+        } else if (index === 4) {
+          animateRelaxing();
+        } else if (index === 5) {
+          animateSleeping();
+        }
+      }
+
+      // Scene 1: Arriving home
+      function animateArrivingHome() {
+        setTimeout(() => {
+          currentScene++;
+          autoProgress();
+        }, 4000);
+      }
+
+      // Scene 2: Checking phone
+      function animateCheckingPhone() {
+        const phone1 = document.getElementById('phone1');
+        const msg1 = document.getElementById('msg1');
+        const typing1 = document.getElementById('typing1');
+        const reply1 = document.getElementById('reply1');
+        const smile1 = document.getElementById('smile1');
+
+        setTimeout(() => {
+          phone1.classList.add('show');
+        }, 500);
+
+        setTimeout(() => {
+          msg1.classList.add('show');
+        }, 1500);
+
+        setTimeout(() => {
+          typing1.classList.add('show');
+        }, 2500);
+
+        setTimeout(() => {
+          typing1.classList.remove('show');
+          reply1.classList.add('show');
+        }, 4000);
+
+        setTimeout(() => {
+          smile1.style.display = 'block';
+        }, 4500);
+
+        setTimeout(() => {
+          currentScene++;
+          autoProgress();
+        }, 6500);
+      }
+
+      // Scene 3: Showering
+      function animateShowering() {
+        setTimeout(() => {
+          currentScene++;
+          autoProgress();
+        }, 5000);
+      }
+
+      // Scene 4: Eating
+      function animateEating() {
+        setTimeout(() => {
+          currentScene++;
+          autoProgress();
+        }, 5000);
+      }
+
+      // Scene 5: Relaxing
+      function animateRelaxing() {
+        const phone2 = document.getElementById('phone2');
+        const smile2 = document.getElementById('smile2');
+
+        setTimeout(() => {
+          phone2.classList.add('show');
+        }, 1000);
+
+        setTimeout(() => {
+          smile2.style.display = 'block';
+        }, 2500);
+
+        setTimeout(() => {
+          currentScene++;
+          autoProgress();
+        }, 5500);
+      }
+
+      // Scene 6: Sleeping
+      function animateSleeping() {
+        setTimeout(() => {
+          nextButton.classList.add('show');
+        }, 4000);
+      }
+
+      // Auto progress
+      function autoProgress() {
+        if (currentScene < subScenes.length) {
+          startScene(currentScene);
+        }
+      }
+
+      // Start on load
+      window.addEventListener('load', () => {
+        autoProgress();
+      });
+
+      // Next button - go to scene 7
+      nextButton.addEventListener('click', () => {
+        document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
+        setTimeout(() => {
+          window.location.href = 'scene7_good_night.html';
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>

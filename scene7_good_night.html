@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scene 7: Chúc Ngủ Ngon - Cao Thùy Dương</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+        background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+        position: relative;
+        animation: sceneTransitionIn 1.5s ease-out forwards;
+        opacity: 0;
+      }
+
+      @keyframes sceneTransitionIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+          filter: blur(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+          filter: blur(0px);
+        }
+      }
+
+      @keyframes sceneTransitionOut {
+        0% {
+          opacity: 1;
+          transform: scale(1);
+          filter: blur(0px);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.2);
+          filter: blur(20px);
+        }
+      }
+
+      /* Scene container */
+      .scene-container {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+      }
+
+      /* Sub scenes */
+      .sub-scene {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        opacity: 0;
+      }
+
+      .sub-scene.active {
+        display: block;
+        animation: fadeIn 0.5s ease-out forwards;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Scene title */
+      .scene-title {
+        position: absolute;
+        top: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 28px;
+        font-weight: bold;
+        color: #ffb6c1;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        z-index: 100;
+      }
+
+      /* Night bedroom background */
+      .night-bedroom-bg {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Stars */
+      .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: starTwinkle 3s ease-in-out infinite;
+      }
+
+      @keyframes starTwinkle {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.5);
+        }
+      }
+
+      /* Moon */
+      .moon {
+        position: absolute;
+        top: 12%;
+        right: 15%;
+        width: 80px;
+        height: 80px;
+        background: #fff8dc;
+        border-radius: 50%;
+        box-shadow: 0 0 50px rgba(255, 248, 220, 0.8);
+        animation: moonGlow 4s ease-in-out infinite;
+      }
+
+      @keyframes moonGlow {
+        0%,
+        100% {
+          box-shadow: 0 0 40px rgba(255, 248, 220, 0.6);
+        }
+        50% {
+          box-shadow: 0 0 70px rgba(255, 248, 220, 1);
+        }
+      }
+
+      /* Character in bed */
+      .character-in-bed {
+        position: absolute;
+        bottom: 25%;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .character-face {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #ffb6c1;
+        box-shadow: 0 8px 30px rgba(255, 182, 193, 0.3);
+        margin-bottom: 15px;
+        z-index: 5;
+      }
+
+      /* Chatting face */
+      .chatting-face {
+        animation: chattingExcited 0.6s ease-in-out infinite;
+        filter: brightness(1.1);
+      }
+
+      @keyframes chattingExcited {
+        0%,
+        100% {
+          transform: scale(1) rotate(-2deg);
+        }
+        50% {
+          transform: scale(1.05) rotate(2deg);
+        }
+      }
+
+      /* Sleepy face */
+      .sleepy-face {
+        animation: sleepyBlink 4s ease-in-out infinite;
+        filter: brightness(0.85);
+      }
+
+      @keyframes sleepyBlink {
+        0%,
+        45%,
+        55%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1, 0.1);
+          opacity: 0.8;
+        }
+      }
+
+      /* Sleeping face */
+      .sleeping-face {
+        animation: sleepingBreathe 3s ease-in-out infinite;
+        filter: brightness(0.7);
+      }
+
+      @keyframes sleepingBreathe {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.02);
+        }
+      }
+
+      /* Bed */
+      .bed {
+        position: absolute;
+        bottom: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 150px;
+        z-index: 1;
+      }
+
+      /* Blanket */
+      .blanket {
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 80px;
+        background: linear-gradient(180deg, #9c27b0 0%, #7b1fa2 100%);
+        border-radius: 50% 50% 20% 20%;
+        z-index: 3;
+        animation: blanketMove 3s ease-in-out infinite;
+      }
+
+      @keyframes blanketMove {
+        0%,
+        100% {
+          transform: translateX(-50%) scaleY(1);
+        }
+        50% {
+          transform: translateX(-50%) scaleY(1.05);
+        }
+      }
+
+      /* Pillow */
+      .pillow {
+        position: absolute;
+        bottom: 28%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 80px;
+        z-index: 2;
+      }
+
+      /* Phone in hand */
+      .phone {
+        position: absolute;
+        width: 200px;
+        height: 360px;
+        background: #1a1a1a;
+        border-radius: 25px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        padding: 12px;
+        z-index: 30;
+      }
+
+      .phone.show {
+        animation: phonePopIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+      }
+
+      @keyframes phonePopIn {
+        to {
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+
+      .phone-screen {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #e6f3ff 0%, #ffffff 100%);
+        border-radius: 18px;
+        padding: 15px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .messenger-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .avatar {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .sender-name {
+        font-weight: bold;
+        font-size: 14px;
+        color: #333;
+      }
+
+      .messages-container {
+        height: 280px;
+        overflow-y: auto;
+        padding: 5px;
+      }
+
+      .message-bubble {
+        padding: 10px 14px;
+        border-radius: 18px;
+        font-size: 13px;
+        margin-bottom: 8px;
+        max-width: 85%;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      .message-bubble.sent {
+        background: linear-gradient(135deg, #ffb6c1 0%, #ffc0cb 100%);
+        color: #fff;
+        margin-left: auto;
+        border-radius: 18px 18px 5px 18px;
+        text-align: right;
+      }
+
+      .message-bubble.received {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        margin-right: auto;
+        border-radius: 18px 18px 18px 5px;
+      }
+
+      .message-bubble.show {
+        animation: messagePop 0.4s ease-out forwards;
+      }
+
+      @keyframes messagePop {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .message-time {
+        font-size: 9px;
+        color: rgba(255, 255, 255, 0.8);
+        margin-top: 3px;
+      }
+
+      /* Typing indicator */
+      .typing-indicator {
+        display: none;
+        align-items: center;
+        gap: 4px;
+        padding: 10px 14px;
+        background: #e0e0e0;
+        border-radius: 18px;
+        width: fit-content;
+        margin-bottom: 8px;
+      }
+
+      .typing-indicator.show {
+        display: flex;
+        animation: messagePop 0.3s ease-out forwards;
+      }
+
+      .typing-dot {
+        width: 6px;
+        height: 6px;
+        background: #666;
+        border-radius: 50%;
+        animation: typingDot 1.2s ease-in-out infinite;
+      }
+
+      .typing-dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .typing-dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes typingDot {
+        0%,
+        60%,
+        100% {
+          transform: translateY(0);
+        }
+        30% {
+          transform: translateY(-8px);
+        }
+      }
+
+      /* Happy reactions */
+      .happy-emoji {
+        position: absolute;
+        font-size: 35px;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .happy-emoji.show {
+        animation: emojiFloat 2s ease-out forwards;
+      }
+
+      @keyframes emojiFloat {
+        0% {
+          opacity: 0;
+          transform: translateY(0) scale(0.5) rotate(0deg);
+        }
+        50% {
+          opacity: 1;
+          transform: translateY(-50px) scale(1.2) rotate(10deg);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-100px) scale(0.8) rotate(20deg);
+        }
+      }
+
+      /* Heart particles */
+      .heart-particle {
+        position: absolute;
+        font-size: 25px;
+        opacity: 0;
+        animation: heartRise 3s ease-out infinite;
+      }
+
+      @keyframes heartRise {
+        0% {
+          opacity: 0;
+          transform: translateY(0) scale(0);
+        }
+        30% {
+          opacity: 1;
+          transform: translateY(-80px) scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-200px) scale(0.5);
+        }
+      }
+
+      /* Sleep Z's */
+      .sleep-z {
+        position: absolute;
+        font-size: 40px;
+        opacity: 0;
+        animation: zFloat 4s ease-in-out infinite;
+      }
+
+      @keyframes zFloat {
+        0% {
+          opacity: 0;
+          transform: translateY(0) translateX(0) rotate(0deg);
+        }
+        30% {
+          opacity: 1;
+          transform: translateY(-80px) translateX(30px) rotate(10deg);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-200px) translateX(60px) rotate(20deg);
+        }
+      }
+
+      /* Lamp */
+      .lamp {
+        position: absolute;
+        top: 20%;
+        left: 15%;
+        font-size: 60px;
+        filter: brightness(1.2);
+        animation: lampGlow 3s ease-in-out infinite;
+      }
+
+      @keyframes lampGlow {
+        0%,
+        100% {
+          filter: brightness(1);
+        }
+        50% {
+          filter: brightness(1.4);
+        }
+      }
+
+      /* Lamp off */
+      .lamp.off {
+        animation: lampTurnOff 1s ease-out forwards;
+      }
+
+      @keyframes lampTurnOff {
+        to {
+          filter: brightness(0.3) grayscale(1);
+        }
+      }
+
+      /* Darkening effect */
+      .darkness {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0);
+        pointer-events: none;
+        z-index: 50;
+      }
+
+      .darkness.active {
+        animation: getDark 2s ease-out forwards;
+      }
+
+      @keyframes getDark {
+        to {
+          background: rgba(0, 0, 0, 0.7);
+        }
+      }
+
+      /* Good night text */
+      .good-night-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 48px;
+        font-weight: bold;
+        color: #ffd700;
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        opacity: 0;
+        z-index: 60;
+      }
+
+      .good-night-text.show {
+        animation: goodNightAppear 3s ease-out forwards;
+      }
+
+      @keyframes goodNightAppear {
+        0%,
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.5);
+        }
+        50% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1.2);
+        }
+      }
+
+      /* Progress dots */
+      .progress {
+        position: fixed;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 12px;
+        z-index: 1000;
+      }
+
+      .progress-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        transition: all 0.3s;
+      }
+
+      .progress-dot.active {
+        background: #ffb6c1;
+        transform: scale(1.5);
+        box-shadow: 0 0 10px #ffb6c1;
+      }
+
+      /* Next button */
+      .next-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 15px 35px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
+        opacity: 0;
+        transform: scale(0);
+        z-index: 1000;
+      }
+
+      .next-button.show {
+        animation: buttonPop 0.5s ease-out forwards;
+      }
+
+      @keyframes buttonPop {
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .next-button:hover {
+        transform: scale(1.1);
+      }
+
+      /* Props */
+      .prop {
+        position: absolute;
+        font-size: 30px;
+        animation: propFloat 3s ease-in-out infinite;
+      }
+
+      @keyframes propFloat {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0.7;
+        }
+        50% {
+          transform: translateY(-15px) rotate(10deg);
+          opacity: 1;
+        }
+      }
+
+      /* Enhanced star twinkling with variations */
+      @keyframes starTwinkleFast {
+        0%, 100% { opacity: 0.3; transform: scale(0.8); }
+        50% { opacity: 1; transform: scale(1.2); }
+      }
+
+      @keyframes starTwinkleSlow {
+        0%, 100% { opacity: 0.5; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.5); }
+      }
+
+      @keyframes starPulse {
+        0%, 100% { opacity: 0.6; filter: brightness(1); }
+        50% { opacity: 1; filter: brightness(1.8); }
+      }
+
+      /* Moon glow effect */
+      .moon-glow {
+        position: absolute;
+        top: 8%;
+        right: 8%;
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(circle, rgba(255,255,200,0.3) 0%, transparent 70%);
+        border-radius: 50%;
+        animation: moonGlow 4s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      @keyframes moonGlow {
+        0%, 100% { opacity: 0.5; transform: scale(1); }
+        50% { opacity: 0.8; transform: scale(1.1); }
+      }
+
+      /* Dream clouds */
+      .dream-cloud {
+        position: absolute;
+        font-size: 40px;
+        opacity: 0;
+        animation: dreamFloat 8s ease-in-out infinite;
+      }
+
+      @keyframes dreamFloat {
+        0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+        20% { opacity: 0.6; transform: translate(-20px, -30px) scale(1); }
+        50% { opacity: 0.8; transform: translate(-40px, -60px) scale(1.2); }
+        80% { opacity: 0.4; transform: translate(-60px, -90px) scale(0.8); }
+        100% { opacity: 0; transform: translate(-80px, -120px) scale(0.5); }
+      }
+
+      /* Sleep Z's variations */
+      .sleep-z {
+        position: absolute;
+        font-size: 35px;
+        opacity: 0;
+        color: #b8e6ff;
+        animation: sleepZFloat 3s ease-out infinite;
+      }
+
+      @keyframes sleepZFloat {
+        0% { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(0.5); }
+        30% { opacity: 0.8; transform: translate(-15px, -40px) rotate(-10deg) scale(1); }
+        70% { opacity: 0.5; transform: translate(-30px, -80px) rotate(-20deg) scale(1.2); }
+        100% { opacity: 0; transform: translate(-45px, -120px) rotate(-30deg) scale(0.8); }
+      }
+
+      /* Phone glow notification */
+      .phone-glow {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba(102,126,234,0.4) 0%, transparent 70%);
+        border-radius: 35px;
+        opacity: 0;
+        animation: phoneNotificationGlow 2s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      @keyframes phoneNotificationGlow {
+        0%, 100% { opacity: 0; transform: scale(1); }
+        50% { opacity: 0.6; transform: scale(1.05); }
+      }
+
+      /* Comfort sparkles */
+      .comfort-sparkle {
+        position: absolute;
+        font-size: 25px;
+        opacity: 0;
+        animation: comfortSparkle 3s ease-in-out infinite;
+      }
+
+      @keyframes comfortSparkle {
+        0%, 100% { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(0.5); }
+        50% { opacity: 1; transform: translate(10px, -20px) rotate(180deg) scale(1.2); }
+      }
+
+      /* Peaceful breathing indicator */
+      .breath-indicator {
+        position: absolute;
+        bottom: 22%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(173,216,230,0.2) 0%, transparent 70%);
+        animation: peacefulBreath 4s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      @keyframes peacefulBreath {
+        0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(1); }
+        50% { opacity: 0.6; transform: translateX(-50%) scale(1.15); }
+      }
+
+      /* Heart bubbles */
+      .heart-bubble {
+        position: absolute;
+        font-size: 30px;
+        opacity: 0;
+        animation: heartBubble 4s ease-out infinite;
+      }
+
+      @keyframes heartBubble {
+        0% { opacity: 0; transform: translate(0, 0) scale(0.5) rotate(0deg); }
+        30% { opacity: 0.8; transform: translate(20px, -50px) scale(1) rotate(15deg); }
+        70% { opacity: 0.5; transform: translate(40px, -100px) scale(1.1) rotate(30deg); }
+        100% { opacity: 0; transform: translate(60px, -150px) scale(0.7) rotate(45deg); }
+      }
+
+      /* Night sky shooting stars */
+      .shooting-star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 0 10px 2px rgba(255,255,255,0.8);
+        opacity: 0;
+        animation: shootingStar 3s ease-out infinite;
+      }
+
+      @keyframes shootingStar {
+        0% { opacity: 0; transform: translate(0, 0); }
+        10% { opacity: 1; }
+        100% { opacity: 0; transform: translate(-200px, 200px); }
+      }
+
+      /* Pillow comfort glow */
+      .pillow-glow {
+        position: absolute;
+        width: 100px;
+        height: 50px;
+        background: radial-gradient(ellipse, rgba(255,182,193,0.3) 0%, transparent 70%);
+        border-radius: 50%;
+        animation: pillowGlow 3s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      @keyframes pillowGlow {
+        0%, 100% { opacity: 0.4; }
+        50% { opacity: 0.7; }
+      }
+
+      /* Blanket warmth shimmer */
+      .blanket-shimmer {
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 80px;
+        background: linear-gradient(90deg, 
+          transparent 0%, 
+          rgba(255,255,255,0.1) 50%, 
+          transparent 100%);
+        animation: blanketShimmer 3s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 4;
+      }
+
+      @keyframes blanketShimmer {
+        0%, 100% { transform: translateX(-50%) translateX(-100%); opacity: 0; }
+        50% { transform: translateX(-50%) translateX(100%); opacity: 0.5; }
+      }
+
+      /* Lamp light flicker */
+      @keyframes lampFlicker {
+        0%, 100% { opacity: 1; filter: brightness(1); }
+        50% { opacity: 0.8; filter: brightness(0.9); }
+      }
+
+      .lamp {
+        animation: lampFlicker 2s ease-in-out infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scene-container">
+      <!-- Sub-scene 1: Chatting with Đạt (many messages) -->
+      <div class="sub-scene" id="chatting">
+        <div class="night-bedroom-bg">
+          <div class="scene-title">💬 Nhắn tin với Đạt</div>
+
+          <!-- Stars with variations -->
+          <div class="star" style="top: 10%; left: 15%; animation: starTwinkleFast 2s ease-in-out infinite; animation-delay: 0s"></div>
+          <div class="star" style="top: 15%; left: 25%; animation: starTwinkleSlow 3s ease-in-out infinite; animation-delay: 0.5s"></div>
+          <div class="star" style="top: 12%; left: 45%; animation: starPulse 2.5s ease-in-out infinite; animation-delay: 1s"></div>
+          <div class="star" style="top: 8%; left: 65%; animation: starTwinkleFast 2.2s ease-in-out infinite; animation-delay: 0.3s"></div>
+          <div class="star" style="top: 20%; left: 75%; animation: starTwinkleSlow 3.5s ease-in-out infinite; animation-delay: 0.8s"></div>
+          <div class="star" style="top: 18%; right: 10%; animation: starPulse 2.8s ease-in-out infinite; animation-delay: 1.2s"></div>
+          <!-- Additional stars -->
+          <div class="star" style="top: 5%; left: 35%; animation: starTwinkleFast 2.3s ease-in-out infinite; animation-delay: 0.2s"></div>
+          <div class="star" style="top: 25%; left: 55%; animation: starPulse 2.7s ease-in-out infinite; animation-delay: 1.5s"></div>
+          <div class="star" style="top: 22%; right: 25%; animation: starTwinkleSlow 3.2s ease-in-out infinite; animation-delay: 0.9s"></div>
+          <div class="star" style="top: 8%; right: 5%; animation: starTwinkleFast 2.1s ease-in-out infinite; animation-delay: 1.8s"></div>
+
+          <!-- Shooting stars -->
+          <div class="shooting-star" style="top: 15%; right: 20%; animation-delay: 2s"></div>
+          <div class="shooting-star" style="top: 10%; right: 40%; animation-delay: 5s"></div>
+          <div class="shooting-star" style="top: 20%; right: 60%; animation-delay: 8s"></div>
+
+          <!-- Moon -->
+          <div class="moon">🌙</div>
+          
+          <!-- Moon glow -->
+          <div class="moon-glow"></div>
+
+          <!-- Lamp -->
+          <div class="lamp" id="lamp">💡</div>
+
+          <!-- Bed -->
+          <div class="bed">🛏️</div>
+          <div class="pillow">😴</div>
+          <div class="pillow-glow" style="bottom: 28%; left: 50%; transform: translateX(-50%);"></div>
+          <div class="blanket"></div>
+          <div class="blanket-shimmer"></div>
+
+          <!-- Peaceful breathing indicator -->
+          <div class="breath-indicator"></div>
+
+          <!-- Character -->
+          <div class="character-in-bed">
+            <img
+              src="AnhKhuonMatCuaCoAy.jpg"
+              alt="Dương"
+              class="character-face chatting-face"
+              id="face1"
+            />
+          </div>
+
+          <!-- Heart bubbles -->
+          <div class="heart-bubble" style="bottom: 35%; left: 45%; animation-delay: 0s">💗</div>
+          <div class="heart-bubble" style="bottom: 35%; left: 55%; animation-delay: 1.5s">💕</div>
+          <div class="heart-bubble" style="bottom: 38%; left: 50%; animation-delay: 3s">💖</div>
+
+          <!-- Comfort sparkles -->
+          <div class="comfort-sparkle" style="top: 40%; left: 35%; animation-delay: 0s">✨</div>
+          <div class="comfort-sparkle" style="top: 45%; right: 35%; animation-delay: 1.2s">⭐</div>
+          <div class="comfort-sparkle" style="top: 50%; left: 30%; animation-delay: 2.4s">💫</div>
+
+          <!-- Phone -->
+          <div class="phone" id="phone1">
+            <div class="phone-glow"></div>
+            <div class="phone-screen">
+              <div class="messenger-header">
+                <img src="AnhKhuonMatCuaToi.jpg" alt="Đạt" class="avatar" />
+                <div class="sender-name">Đạt</div>
+              </div>
+              <div class="messages-container" id="msgContainer">
+                <!-- Messages will be added by JavaScript -->
+                <div class="typing-indicator" id="typing">
+                  <div class="typing-dot"></div>
+                  <div class="typing-dot"></div>
+                  <div class="typing-dot"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Happy emojis (will appear with messages) -->
+          <div class="happy-emoji" id="emoji1" style="top: 25%; right: 20%">😊</div>
+          <div class="happy-emoji" id="emoji2" style="top: 30%; right: 15%">🥰</div>
+          <div class="happy-emoji" id="emoji3" style="top: 28%; right: 25%">😄</div>
+
+          <!-- Heart particles -->
+          <div class="heart-particle" style="bottom: 35%; left: 20%; animation-delay: 0s">💕</div>
+          <div class="heart-particle" style="bottom: 32%; left: 25%; animation-delay: 1s">💖</div>
+          <div class="heart-particle" style="bottom: 38%; right: 22%; animation-delay: 2s">💗</div>
+          <div class="heart-particle" style="bottom: 35%; right: 18%; animation-delay: 1.5s">
+            💕
+          </div>
+
+          <div class="prop" style="top: 25%; left: 8%">✨</div>
+          <div class="prop" style="bottom: 12%; left: 10%; animation-delay: 1s">⭐</div>
+        </div>
+      </div>
+
+      <!-- Sub-scene 2: Good night message & sleeping -->
+      <div class="sub-scene" id="sleeping">
+        <div class="night-bedroom-bg">
+          <div class="scene-title">😴 Ngủ ngon...</div>
+
+          <!-- Stars with variations -->
+          <div class="star" style="top: 10%; left: 15%; animation: starTwinkleFast 2s ease-in-out infinite; animation-delay: 0s"></div>
+          <div class="star" style="top: 15%; left: 25%; animation: starTwinkleSlow 3s ease-in-out infinite; animation-delay: 0.5s"></div>
+          <div class="star" style="top: 12%; left: 45%; animation: starPulse 2.5s ease-in-out infinite; animation-delay: 1s"></div>
+          <div class="star" style="top: 8%; left: 65%; animation: starTwinkleFast 2.2s ease-in-out infinite; animation-delay: 0.3s"></div>
+          <div class="star" style="top: 20%; left: 75%; animation: starTwinkleSlow 3.5s ease-in-out infinite; animation-delay: 0.8s"></div>
+          <div class="star" style="top: 18%; right: 10%; animation: starPulse 2.8s ease-in-out infinite; animation-delay: 1.2s"></div>
+          <!-- Additional stars -->
+          <div class="star" style="top: 6%; left: 40%; animation: starTwinkleFast 2.4s ease-in-out infinite; animation-delay: 0.4s"></div>
+          <div class="star" style="top: 23%; left: 50%; animation: starPulse 2.6s ease-in-out infinite; animation-delay: 1.6s"></div>
+          <div class="star" style="top: 14%; right: 30%; animation: starTwinkleSlow 3.3s ease-in-out infinite; animation-delay: 1s"></div>
+          <div class="star" style="top: 9%; right: 8%; animation: starTwinkleFast 2.2s ease-in-out infinite; animation-delay: 2s"></div>
+
+          <!-- Shooting stars -->
+          <div class="shooting-star" style="top: 12%; right: 25%; animation-delay: 3s"></div>
+          <div class="shooting-star" style="top: 18%; right: 50%; animation-delay: 6s"></div>
+
+          <!-- Moon -->
+          <div class="moon">🌙</div>
+          
+          <!-- Moon glow -->
+          <div class="moon-glow"></div>
+
+          <!-- Lamp (off) -->
+          <div class="lamp off" id="lamp2">💡</div>
+
+          <!-- Bed -->
+          <div class="bed">🛏️</div>
+          <div class="pillow">😴</div>
+          <div class="pillow-glow" style="bottom: 28%; left: 50%; transform: translateX(-50%);"></div>
+          <div class="blanket"></div>
+          <div class="blanket-shimmer"></div>
+
+          <!-- Peaceful breathing indicator -->
+          <div class="breath-indicator"></div>
+
+          <!-- Character sleeping -->
+          <div class="character-in-bed">
+            <img
+              src="AnhKhuonMatCuaCoAy.jpg"
+              alt="Dương"
+              class="character-face sleeping-face"
+              id="face2"
+            />
+          </div>
+
+          <!-- Sleep Z's with variations -->
+          <div class="sleep-z" style="bottom: 50%; left: 45%; font-size: 32px; animation-delay: 0s">💤</div>
+          <div class="sleep-z" style="bottom: 48%; left: 48%; font-size: 28px; animation-delay: 1.5s">💤</div>
+          <div class="sleep-z" style="bottom: 52%; left: 42%; font-size: 35px; animation-delay: 3s">💤</div>
+          <div class="sleep-z" style="bottom: 55%; left: 40%; font-size: 30px; animation-delay: 4.5s">z</div>
+          <div class="sleep-z" style="bottom: 58%; left: 43%; font-size: 40px; animation-delay: 6s">Z</div>
+          <div class="sleep-z" style="bottom: 46%; right: 42%; font-size: 33px; animation-delay: 2s">z</div>
+          <div class="sleep-z" style="bottom: 54%; right: 40%; font-size: 38px; animation-delay: 5s">Z</div>
+
+          <!-- Dream clouds -->
+          <div class="dream-cloud" style="bottom: 42%; left: 32%; animation-delay: 0s">☁️</div>
+          <div class="dream-cloud" style="bottom: 48%; left: 37%; animation-delay: 2.5s">💭</div>
+          <div class="dream-cloud" style="bottom: 44%; right: 34%; animation-delay: 5s">☁️</div>
+          <div class="dream-cloud" style="bottom: 50%; right: 30%; animation-delay: 7.5s">💭</div>
+
+          <!-- Comfort sparkles -->
+          <div class="comfort-sparkle" style="top: 38%; left: 30%; animation-delay: 1s">✨</div>
+          <div class="comfort-sparkle" style="top: 44%; right: 32%; animation-delay: 2.5s">⭐</div>
+          <div class="comfort-sparkle" style="top: 50%; left: 28%; animation-delay: 4s">💫</div>
+          <div class="comfort-sparkle" style="top: 40%; right: 28%; animation-delay: 5.5s">✨</div>
+
+          <!-- Darkness overlay -->
+          <div class="darkness" id="darkness"></div>
+
+          <!-- Good night text -->
+          <div class="good-night-text" id="goodNightText">🌙 Chúc Ngủ Ngon 💕</div>
+
+          <div class="prop" style="top: 30%; right: 12%; animation-delay: 0.5s">⭐</div>
+          <div class="prop" style="bottom: 10%; right: 15%; animation-delay: 1.5s">✨</div>
+          <div class="prop" style="top: 35%; left: 10%; animation-delay: 1.2s">💫</div>
+          <div class="prop" style="bottom: 12%; left: 12%; animation-delay: 2s">🌟</div>
+        </div>
+      </div>
+
+      <!-- Progress indicator -->
+      <div class="progress">
+        <div class="progress-dot" id="dot1"></div>
+        <div class="progress-dot" id="dot2"></div>
+      </div>
+
+      <!-- Next button -->
+      <button class="next-button" id="nextButton">🎬 Xem lại từ đầu</button>
+    </div>
+
+    <script>
+      const subScenes = ['chatting', 'sleeping'];
+      const dots = ['dot1', 'dot2'];
+      let currentScene = 0;
+
+      const nextButton = document.getElementById('nextButton');
+
+      // Conversation messages (many messages!)
+      const messages = [
+        { type: 'received', text: 'Dương ơi, hôm nay vui không? 😊', time: '21:30' },
+        { type: 'sent', text: 'Vui lắm! Cảm ơn Đạt đã nhắn tin suốt ngày 💕', time: '21:31' },
+        { type: 'received', text: 'Hihi, vì muốn Dương vui vẻ mà 😄', time: '21:31' },
+        { type: 'sent', text: 'Ừa, mình thấy vui lắm nè! 🥰', time: '21:32' },
+        { type: 'received', text: 'Hôm nay làm việc có mệt không? 💪', time: '21:32' },
+        {
+          type: 'sent',
+          text: 'Có chút, nhưng thấy tin nhắn của Đạt là vui liền 😊',
+          time: '21:33',
+        },
+        { type: 'received', text: 'Yeyyy! Vậy thì tốt quá 🎉', time: '21:33' },
+        { type: 'sent', text: 'Còn Đạt thì sao? Hôm nay như thế nào? 🤔', time: '21:34' },
+        { type: 'received', text: 'Cũng bận, nhưng nghĩ đến bạn là vui rồi 😄', time: '21:34' },
+        { type: 'sent', text: 'Aww, Đạt dễ thương quá! 🥺💕', time: '21:35' },
+        { type: 'received', text: 'Hehe 😊 Mai đi làm nhớ nghỉ ngơi đủ nha', time: '21:35' },
+        { type: 'sent', text: 'Ừa, mình biết rồi! Đạt cũng vậy nhé 😊', time: '21:36' },
+        { type: 'received', text: 'Oke! Bây giờ muộn rồi, đi ngủ thôi 💤', time: '21:36' },
+        { type: 'sent', text: 'Ừa, mình cũng buồn ngủ rồi 😴', time: '21:37' },
+        { type: 'received', text: 'Vậy ngủ ngon nhé Dương! Chúc mơ đẹp 🌙💕', time: '21:37' },
+        { type: 'sent', text: 'Ngủ ngon Đạt! Chúc mơ đẹp nha! 😊✨💕', time: '21:38' },
+      ];
+
+      let messageIndex = 0;
+      let emojiIndex = 0;
+
+      // Start scene
+      function startScene(index) {
+        subScenes.forEach((sceneId) => {
+          document.getElementById(sceneId).classList.remove('active');
+        });
+
+        dots.forEach((dotId, i) => {
+          document.getElementById(dotId).classList.toggle('active', i === index);
+        });
+
+        document.getElementById(subScenes[index]).classList.add('active');
+
+        if (index === 0) {
+          animateChatting();
+        } else if (index === 1) {
+          animateSleeping();
+        }
+      }
+
+      // Scene 1: Chatting
+      function animateChatting() {
+        const phone1 = document.getElementById('phone1');
+        const msgContainer = document.getElementById('msgContainer');
+        const typing = document.getElementById('typing');
+
+        // Show phone
+        setTimeout(() => {
+          phone1.classList.add('show');
+        }, 500);
+
+        // Add messages one by one
+        function addMessage() {
+          if (messageIndex >= messages.length) {
+            // All messages done, move to next scene
+            setTimeout(() => {
+              currentScene++;
+              autoProgress();
+            }, 2000);
+            return;
+          }
+
+          const msg = messages[messageIndex];
+
+          // Show typing indicator
+          typing.classList.add('show');
+
+          setTimeout(
+            () => {
+              // Hide typing
+              typing.classList.remove('show');
+
+              // Add message
+              const bubble = document.createElement('div');
+              bubble.className = `message-bubble ${msg.type}`;
+              bubble.innerHTML = `
+                        ${msg.text}
+                        <div class="message-time">${msg.time}</div>
+                    `;
+              msgContainer.insertBefore(bubble, typing);
+
+              setTimeout(() => {
+                bubble.classList.add('show');
+
+                // Scroll to bottom
+                msgContainer.scrollTop = msgContainer.scrollHeight;
+
+                // Show happy emoji every few messages
+                if (messageIndex % 3 === 0) {
+                  const emojiId = (emojiIndex % 3) + 1;
+                  const emoji = document.getElementById(`emoji${emojiId}`);
+                  emoji.classList.add('show');
+                  setTimeout(() => {
+                    emoji.classList.remove('show');
+                  }, 2000);
+                  emojiIndex++;
+                }
+              }, 50);
+
+              messageIndex++;
+
+              // Add next message
+              setTimeout(addMessage, msg.type === 'received' ? 1200 : 800);
+            },
+            msg.type === 'received' ? 1000 : 600
+          );
+        }
+
+        // Start adding messages after phone appears
+        setTimeout(addMessage, 1500);
+      }
+
+      // Scene 2: Sleeping
+      function animateSleeping() {
+        const darkness = document.getElementById('darkness');
+        const goodNightText = document.getElementById('goodNightText');
+
+        // Darken the room
+        setTimeout(() => {
+          darkness.classList.add('active');
+        }, 1000);
+
+        // Show good night text
+        setTimeout(() => {
+          goodNightText.classList.add('show');
+        }, 2500);
+
+        // Show next button
+        setTimeout(() => {
+          nextButton.classList.add('show');
+        }, 6000);
+      }
+
+      // Auto progress
+      function autoProgress() {
+        if (currentScene < subScenes.length) {
+          startScene(currentScene);
+        }
+      }
+
+      // Start on load
+      window.addEventListener('load', () => {
+        autoProgress();
+      });
+
+      // Next button - restart from scene 1
+      nextButton.addEventListener('click', () => {
+        document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
+        setTimeout(() => {
+          window.location.href = 'scene1_wakeup.html';
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
