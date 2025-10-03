@@ -3,127 +3,449 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Một Ngày Của Cao Thùy Dương 💌</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Một Ngày Của Cao Thùy Dương 💕</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+      }
+
+      @keyframes gradientShift {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+      }
+
+      /* Animated background particles */
+      .bg-particle {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0.3;
+        animation: float 20s ease-in-out infinite;
+      }
+
+      .particle-1 {
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, transparent 70%);
+        top: 10%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+
+      .particle-2 {
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(255, 182, 193, 0.5) 0%, transparent 70%);
+        top: 60%;
+        right: 10%;
+        animation-delay: 5s;
+      }
+
+      .particle-3 {
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(circle, rgba(173, 216, 230, 0.6) 0%, transparent 70%);
+        bottom: 15%;
+        left: 20%;
+        animation-delay: 10s;
+      }
+
+      @keyframes float {
+        0%, 100% {
+          transform: translate(0, 0) scale(1);
+          opacity: 0.3;
+        }
+        25% {
+          transform: translate(100px, -80px) scale(1.3);
+          opacity: 0.5;
+        }
+        50% {
+          transform: translate(-50px, 100px) scale(0.8);
+          opacity: 0.2;
+        }
+        75% {
+          transform: translate(80px, 60px) scale(1.1);
+          opacity: 0.4;
+        }
+      }
+
+      /* Stars twinkling */
+      .star {
+        position: absolute;
+        color: white;
+        font-size: 20px;
+        animation: starTwinkle 3s ease-in-out infinite;
+      }
+
+      @keyframes starTwinkle {
+        0%, 100% { opacity: 0.3; transform: scale(0.8); }
+        50% { opacity: 1; transform: scale(1.2); }
+      }
+
+      /* Container */
+      .container {
+        max-width: 1200px;
+        padding: 40px;
+        text-align: center;
+        position: relative;
+        z-index: 10;
+      }
+
+      /* Title */
+      .main-title {
+        font-size: 56px;
+        font-weight: bold;
+        color: white;
+        text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        margin-bottom: 20px;
+        animation: titleBounce 2s ease-out;
+      }
+
+      @keyframes titleBounce {
+        0% {
+          transform: scale(0) rotate(-180deg);
+          opacity: 0;
+        }
+        50% {
+          transform: scale(1.1) rotate(10deg);
+        }
+        100% {
+          transform: scale(1) rotate(0deg);
+          opacity: 1;
+        }
+      }
+
+      .subtitle {
+        font-size: 24px;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 50px;
+        animation: fadeInUp 1.5s ease-out 0.5s backwards;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Scene grid */
+      .scenes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+      }
+
+      /* Scene card */
+      .scene-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 25px;
+        padding: 30px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        cursor: pointer;
+        text-decoration: none;
+        display: block;
+        position: relative;
+        overflow: hidden;
+        animation: cardFadeIn 0.8s ease-out backwards;
+      }
+
+      .scene-card:nth-child(1) { animation-delay: 0.2s; }
+      .scene-card:nth-child(2) { animation-delay: 0.4s; }
+      .scene-card:nth-child(3) { animation-delay: 0.6s; }
+      .scene-card:nth-child(4) { animation-delay: 0.8s; }
+      .scene-card:nth-child(5) { animation-delay: 1s; }
+      .scene-card:nth-child(6) { animation-delay: 1.2s; }
+      .scene-card:nth-child(7) { animation-delay: 1.4s; }
+
+      @keyframes cardFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(50px) scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .scene-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.5s;
+      }
+
+      .scene-card:hover::before {
+        left: 100%;
+      }
+
+      .scene-card:hover {
+        transform: translateY(-15px) scale(1.05);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      .scene-icon {
+        font-size: 80px;
+        margin-bottom: 15px;
+        animation: iconBounce 2s ease-in-out infinite;
+      }
+
+      @keyframes iconBounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+
+      .scene-card:hover .scene-icon {
+        animation: iconSpin 0.6s ease-in-out;
+      }
+
+      @keyframes iconSpin {
+        0% { transform: rotate(0deg) scale(1); }
+        50% { transform: rotate(180deg) scale(1.2); }
+        100% { transform: rotate(360deg) scale(1); }
+      }
+
+      .scene-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .scene-description {
+        font-size: 16px;
+        color: #666;
+        line-height: 1.5;
+      }
+
+      .scene-number {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 18px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Start button */
+      .start-button {
+        display: inline-block;
+        margin-top: 40px;
+        padding: 20px 50px;
+        background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        border-radius: 50px;
+        text-decoration: none;
+        box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+        transition: all 0.3s ease;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% {
+          transform: scale(1);
+          box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 15px 40px rgba(255, 107, 157, 0.6);
+        }
+      }
+
+      .start-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 15px 50px rgba(255, 107, 157, 0.7);
+        animation: none;
+      }
+
+      /* Footer */
+      .footer {
+        margin-top: 60px;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 16px;
+        animation: fadeInUp 2s ease-out 1.5s backwards;
+      }
+
+      .heart {
+        display: inline-block;
+        color: #ff6b9d;
+        animation: heartBeat 1.5s ease-in-out infinite;
+      }
+
+      @keyframes heartBeat {
+        0%, 100% { transform: scale(1); }
+        25% { transform: scale(1.2); }
+        50% { transform: scale(1); }
+      }
+
+      /* Floating hearts */
+      .floating-heart {
+        position: absolute;
+        font-size: 30px;
+        animation: floatHeart 8s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      @keyframes floatHeart {
+        0% {
+          opacity: 0;
+          transform: translateY(0) rotate(0deg);
+        }
+        20% {
+          opacity: 1;
+        }
+        80% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-600px) rotate(360deg);
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .main-title {
+          font-size: 36px;
+        }
+        .subtitle {
+          font-size: 18px;
+        }
+        .scenes-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
-    <!-- Video Player Container -->
-    <div class="video-player">
-      <!-- Video Display Area -->
-      <div class="video-screen" id="videoScreen">
-        <!-- Scene sẽ được hiển thị ở đây -->
-        <div class="scene" id="currentScene">
-          <div class="scene-image"></div>
-          <div class="scene-text"></div>
-          <div class="messenger-popup"></div>
-        </div>
+    <!-- Background particles -->
+    <div class="bg-particle particle-1"></div>
+    <div class="bg-particle particle-2"></div>
+    <div class="bg-particle particle-3"></div>
 
-        <!-- Time display -->
-        <div class="time-overlay" id="timeOverlay"></div>
+    <!-- Stars -->
+    <div class="star" style="top: 5%; left: 10%; animation-delay: 0s;">⭐</div>
+    <div class="star" style="top: 15%; right: 15%; animation-delay: 0.5s;">✨</div>
+    <div class="star" style="top: 25%; left: 25%; animation-delay: 1s;">💫</div>
+    <div class="star" style="bottom: 20%; right: 20%; animation-delay: 1.5s;">⭐</div>
+    <div class="star" style="bottom: 30%; left: 15%; animation-delay: 2s;">✨</div>
+    <div class="star" style="top: 40%; right: 10%; animation-delay: 2.5s;">💫</div>
+
+    <!-- Floating hearts -->
+    <div class="floating-heart" style="left: 10%; animation-delay: 0s;">💕</div>
+    <div class="floating-heart" style="left: 30%; animation-delay: 2s;">💖</div>
+    <div class="floating-heart" style="left: 50%; animation-delay: 4s;">💗</div>
+    <div class="floating-heart" style="left: 70%; animation-delay: 6s;">💕</div>
+    <div class="floating-heart" style="left: 90%; animation-delay: 8s;">💖</div>
+
+    <!-- Main content -->
+    <div class="container">
+      <h1 class="main-title">🌸 Một Ngày Của Cao Thùy Dương 🌸</h1>
+      <p class="subtitle">✨ 7 Khoảnh Khắc Đáng Nhớ - 195+ Animations ✨</p>
+
+      <!-- Start button -->
+      <a href="scene1_wakeup.html" class="start-button">🎬 Bắt Đầu Xem Ngay!</a>
+
+      <!-- Scenes grid -->
+      <div class="scenes-grid">
+        <!-- Scene 1 -->
+        <a href="scene1_wakeup.html" class="scene-card">
+          <div class="scene-number">1</div>
+          <div class="scene-icon">🌅</div>
+          <h2 class="scene-title">Thức Dậy</h2>
+          <p class="scene-description">Buổi sáng tươi mới với ánh nắng đầu tiên</p>
+        </a>
+
+        <!-- Scene 2 -->
+        <a href="scene2_morning_routine.html" class="scene-card">
+          <div class="scene-number">2</div>
+          <div class="scene-icon">🚿</div>
+          <h2 class="scene-title">Buổi Sáng</h2>
+          <p class="scene-description">Chuẩn bị cho một ngày mới năng động</p>
+        </a>
+
+        <!-- Scene 3 -->
+        <a href="scene3_going_to_work.html" class="scene-card">
+          <div class="scene-number">3</div>
+          <div class="scene-icon">🚗</div>
+          <h2 class="scene-title">Đi Làm</h2>
+          <p class="scene-description">Hành trình đến nơi làm việc với nhiều cảm xúc</p>
+        </a>
+
+        <!-- Scene 4 -->
+        <a href="scene4_at_work.html" class="scene-card">
+          <div class="scene-number">4</div>
+          <div class="scene-icon">💼</div>
+          <h2 class="scene-title">Ở Công Ty</h2>
+          <p class="scene-description">Làm việc chăm chỉ và nhận tin nhắn đặc biệt</p>
+        </a>
+
+        <!-- Scene 5 -->
+        <a href="scene5_going_home.html" class="scene-card">
+          <div class="scene-number">5</div>
+          <div class="scene-icon">🌆</div>
+          <h2 class="scene-title">Về Nhà</h2>
+          <p class="scene-description">Trở về trong buổi chiều tà mệt mỏi</p>
+        </a>
+
+        <!-- Scene 6 -->
+        <a href="scene6_at_home.html" class="scene-card">
+          <div class="scene-number">6</div>
+          <div class="scene-icon">🏠</div>
+          <h2 class="scene-title">Ở Nhà</h2>
+          <p class="scene-description">Thư giãn và tận hưởng không gian riêng</p>
+        </a>
+
+        <!-- Scene 7 -->
+        <a href="scene7_good_night.html" class="scene-card">
+          <div class="scene-number">7</div>
+          <div class="scene-icon">🌙</div>
+          <h2 class="scene-title">Chúc Ngủ Ngon</h2>
+          <p class="scene-description">Kết thúc ngày với những lời yêu thương</p>
+        </a>
       </div>
 
-      <!-- Video Controls -->
-      <div class="video-controls">
-        <div class="progress-container">
-          <div class="progress-bar" id="progressBar">
-            <div class="progress-fill" id="progressFill"></div>
-          </div>
-          <div class="time-info">
-            <span id="currentTime">0:00</span>
-            <span> / </span>
-            <span id="totalTime">0:32</span>
-          </div>
-        </div>
-
-        <div class="control-buttons">
-          <button class="btn-control" id="playBtn" title="Phát">
-            <span class="icon">▶️</span>
-            <span class="label">Phát Video</span>
-          </button>
-          <button class="btn-control" id="pauseBtn" title="Tạm dừng" style="display: none">
-            <span class="icon">⏸️</span>
-            <span class="label">Tạm dừng</span>
-          </button>
-          <button class="btn-control" id="resetBtn" title="Xem lại">
-            <span class="icon">🔄</span>
-            <span class="label">Xem Lại</span>
-          </button>
-          <button class="btn-control" id="skipBtn" title="Bỏ qua">
-            <span class="icon">⏭️</span>
-            <span class="label">Bỏ Qua</span>
-          </button>
-        </div>
-
-        <div class="scene-info" id="sceneInfo">
-          <strong>Sẵn sàng xem video</strong>
-          <p>Nhấn nút "Phát Video" để bắt đầu 🎬</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Video Info -->
-    <div class="video-info">
-      <h1>🎬 Một Ngày Của Cao Thùy Dương</h1>
-      <p class="subtitle">💌 From: Coder rảnh nhất quả đất</p>
-
-      <div class="video-description">
-        <h3>📝 Nội dung video:</h3>
-        <ul>
-          <li>🌅 <strong>07:00</strong> - Thức dậy với tin nhắn buổi sáng</li>
-          <li>🚶‍♀️ <strong>08:30</strong> - Trên đường đi làm</li>
-          <li>🍜 <strong>12:00</strong> - Nghỉ trưa với mì gói</li>
-          <li>💻 <strong>15:00</strong> - Chiều làm việc mệt mỏi</li>
-          <li>🏢 <strong>17:30</strong> - Tan làm về nhà</li>
-          <li>🍽️ <strong>20:00</strong> - Buổi tối thư giãn</li>
-          <li>🌙 <strong>23:00</strong> - Trước khi ngủ</li>
-        </ul>
-
-        <div class="features">
-          <h3>✨ Điểm đặc biệt:</h3>
-          <div class="feature-list">
-            <span class="badge">💬 Tin nhắn mọi lúc</span>
-            <span class="badge">😆 Vừa troll vừa dễ thương</span>
-            <span class="badge">👨‍💻 Phong cách coder</span>
-            <span class="badge">❤️ Kết thúc romantic</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="comments">
-        <h3>💬 Bình luận:</h3>
-        <div class="comment-list" id="commentList">
-          <div class="comment">
-            <span class="avatar">😂</span>
-            <div class="comment-content">
-              <strong>Viewer #1:</strong>
-              <p>Haha! Tin nhắn "debug tình cảm" hay quá! 🤣</p>
-            </div>
-          </div>
-          <div class="comment">
-            <span class="avatar">🥰</span>
-            <div class="comment-content">
-              <strong>Viewer #2:</strong>
-              <p>Ước gì có người spam tin nhắn dễ thương thế này! 💕</p>
-            </div>
-          </div>
-          <div class="comment">
-            <span class="avatar">😆</span>
-            <div class="comment-content">
-              <strong>Viewer #3:</strong>
-              <p>Coder rảnh nhất quả đất mà code tình cảm pro vậy 😆</p>
-            </div>
-          </div>
-        </div>
+      <!-- Footer -->
+      <div class="footer">
+        <p>Made with <span class="heart">💕</span> for Cao Thùy Dương</p>
+        <p style="margin-top: 10px; font-size: 14px;">© 2025 - Một món quà đặc biệt</p>
       </div>
     </div>
-
-    <!-- Footer -->
-    <div class="footer">
-      <p>💝 Video được tạo dành riêng cho Cao Thùy Dương</p>
-      <p>⚠️ Cảnh báo: Có thể gây cười và cảm động! 😭😂</p>
-      <p class="small">© 2025 - Made with ❤️ by Coder Rảnh Nhất Quả Đất</p>
-    </div>
-
-    <script src="script.js"></script>
   </body>
 </html>
