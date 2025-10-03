@@ -545,22 +545,12 @@
         font-size: 52px;
         font-weight: bold;
         color: #ffd700;
-        text-shadow: 
-          0 0 10px rgba(255, 215, 0, 0.8),
-          0 0 20px rgba(255, 182, 193, 0.6),
-          0 0 30px rgba(255, 105, 180, 0.4),
-          0 0 40px rgba(186, 85, 211, 0.3);
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 182, 193, 0.6),
+          0 0 30px rgba(255, 105, 180, 0.4), 0 0 40px rgba(186, 85, 211, 0.3);
         opacity: 0;
         z-index: 60;
         text-align: center;
-        background: linear-gradient(45deg, 
-          #ffd700, 
-          #ffb6c1, 
-          #ff69b4, 
-          #ba55d3, 
-          #9370db,
-          #ffd700
-        );
+        background: linear-gradient(45deg, #ffd700, #ffb6c1, #ff69b4, #ba55d3, #9370db, #ffd700);
         background-size: 300% 300%;
         -webkit-background-clip: text;
         background-clip: text;
@@ -568,9 +558,7 @@
       }
 
       .good-night-text.show {
-        animation: 
-          goodNightSpectacular 6s ease-in-out infinite,
-          rainbowGlow 3s ease-in-out infinite,
+        animation: goodNightSpectacular 6s ease-in-out infinite, rainbowGlow 3s ease-in-out infinite,
           gentleFloat 4s ease-in-out infinite;
         opacity: 1;
       }
@@ -601,29 +589,24 @@
       @keyframes rainbowGlow {
         0% {
           background-position: 0% 50%;
-          text-shadow: 
-            0 0 15px rgba(255, 215, 0, 1),
-            0 0 25px rgba(255, 182, 193, 0.8),
+          text-shadow: 0 0 15px rgba(255, 215, 0, 1), 0 0 25px rgba(255, 182, 193, 0.8),
             0 0 35px rgba(255, 105, 180, 0.6);
         }
         50% {
           background-position: 100% 50%;
-          text-shadow: 
-            0 0 20px rgba(186, 85, 211, 1),
-            0 0 30px rgba(147, 112, 219, 0.8),
+          text-shadow: 0 0 20px rgba(186, 85, 211, 1), 0 0 30px rgba(147, 112, 219, 0.8),
             0 0 40px rgba(255, 105, 180, 0.6);
         }
         100% {
           background-position: 0% 50%;
-          text-shadow: 
-            0 0 15px rgba(255, 215, 0, 1),
-            0 0 25px rgba(255, 182, 193, 0.8),
+          text-shadow: 0 0 15px rgba(255, 215, 0, 1), 0 0 25px rgba(255, 182, 193, 0.8),
             0 0 35px rgba(255, 105, 180, 0.6);
         }
       }
 
       @keyframes gentleFloat {
-        0%, 100% {
+        0%,
+        100% {
           transform: translate(-50%, -50%) translateY(0px);
         }
         50% {
@@ -1094,6 +1077,270 @@
       .lamp {
         animation: lampFlicker 2s ease-in-out infinite;
       }
+
+      /* ===== MOBILE RESPONSIVE DESIGN ===== */
+      @media screen and (max-width: 768px) {
+        /* Scene title */
+        .scene-title {
+          font-size: 20px;
+          top: 20px;
+        }
+
+        /* Character face */
+        .character-face {
+          width: 100px;
+          height: 100px;
+          margin-bottom: 10px;
+        }
+
+        /* Phone optimization for mobile */
+        .phone {
+          width: 280px;
+          height: 500px;
+          transform: translate(-50%, -50%) scale(0.8);
+        }
+
+        .phone.show {
+          animation: phonePopInMobile 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        @keyframes phonePopInMobile {
+          to {
+            transform: translate(-50%, -50%) scale(0.9);
+          }
+        }
+
+        .phone-screen {
+          padding: 12px;
+        }
+
+        .messenger-header {
+          margin-bottom: 10px;
+        }
+
+        .avatar {
+          width: 30px;
+          height: 30px;
+        }
+
+        .sender-name {
+          font-size: 12px;
+        }
+
+        .messages-container {
+          height: 380px;
+        }
+
+        .message-bubble {
+          padding: 8px 12px;
+          font-size: 12px;
+          max-width: 90%;
+        }
+
+        .message-time {
+          font-size: 8px;
+        }
+
+        /* Good night text mobile */
+        .good-night-text {
+          font-size: 28px;
+          line-height: 1.2;
+          text-align: center;
+          padding: 0 20px;
+        }
+
+        /* Bed and bedroom elements */
+        .bed {
+          font-size: 100px;
+          bottom: 10%;
+        }
+
+        .pillow {
+          font-size: 60px;
+          bottom: 22%;
+        }
+
+        .blanket {
+          width: 150px;
+          height: 60px;
+          bottom: 15%;
+        }
+
+        .blanket-shimmer {
+          width: 150px;
+          height: 60px;
+          bottom: 15%;
+        }
+
+        .character-in-bed {
+          bottom: 18%;
+        }
+
+        /* Moon */
+        .moon {
+          width: 60px;
+          height: 60px;
+          font-size: 50px;
+          top: 8%;
+          right: 10%;
+        }
+
+        .moon-glow {
+          width: 80px;
+          height: 80px;
+          top: 5%;
+          right: 7%;
+        }
+
+        /* Lamp */
+        .lamp {
+          font-size: 40px;
+          top: 15%;
+          left: 10%;
+        }
+
+        /* Stars */
+        .star {
+          width: 1.5px;
+          height: 1.5px;
+        }
+
+        /* Magic sparkles around text */
+        .magic-sparkle {
+          font-size: 25px;
+        }
+
+        .floating-heart {
+          font-size: 22px;
+        }
+
+        /* Sleep Z's */
+        .sleep-z {
+          font-size: 28px;
+        }
+
+        /* Dream clouds */
+        .dream-cloud {
+          font-size: 30px;
+        }
+
+        /* Props */
+        .prop {
+          font-size: 20px;
+        }
+
+        /* Progress dots */
+        .progress {
+          bottom: 60px;
+          gap: 8px;
+        }
+
+        .progress-dot {
+          width: 8px;
+          height: 8px;
+        }
+
+        /* Next button */
+        .next-button {
+          bottom: 20px;
+          right: 20px;
+          font-size: 14px;
+          padding: 12px 25px;
+        }
+
+        /* Heart particles and other effects */
+        .heart-particle,
+        .heart-bubble,
+        .comfort-sparkle {
+          font-size: 20px;
+        }
+
+        /* Breathing indicator */
+        .breath-indicator {
+          width: 120px;
+          height: 120px;
+          bottom: 18%;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        /* Extra small mobile devices */
+        .scene-title {
+          font-size: 16px;
+          top: 15px;
+        }
+
+        .phone {
+          width: 240px;
+          height: 420px;
+          transform: translate(-50%, -50%) scale(0.7);
+        }
+
+        .phone.show {
+          animation: phonePopInSmall 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        @keyframes phonePopInSmall {
+          to {
+            transform: translate(-50%, -50%) scale(0.8);
+          }
+        }
+
+        .messages-container {
+          height: 300px;
+        }
+
+        .good-night-text {
+          font-size: 22px;
+          padding: 0 15px;
+        }
+
+        .character-face {
+          width: 80px;
+          height: 80px;
+        }
+
+        .bed {
+          font-size: 80px;
+        }
+
+        .pillow {
+          font-size: 50px;
+        }
+
+        .blanket {
+          width: 120px;
+          height: 50px;
+        }
+
+        .blanket-shimmer {
+          width: 120px;
+          height: 50px;
+        }
+
+        .moon {
+          width: 50px;
+          height: 50px;
+          font-size: 40px;
+        }
+
+        .lamp {
+          font-size: 35px;
+        }
+
+        .magic-sparkle {
+          font-size: 20px;
+        }
+
+        .floating-heart {
+          font-size: 18px;
+        }
+
+        .next-button {
+          font-size: 12px;
+          padding: 10px 20px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1465,7 +1712,7 @@
           <div class="darkness" id="darkness"></div>
 
           <!-- Good night text -->
-          <div class="good-night-text" id="goodNightText">🌙 Chúc Ngủ Ngon 💕</div>
+          <div class="good-night-text" id="goodNightText">🌙 Chúc Thuỳ Dương Ngủ Ngonnnnnn 💕</div>
 
           <!-- Magical sparkles around good night text -->
           <div class="magic-sparkle" style="top: 45%; left: 35%; animation-delay: 0s">✨</div>
@@ -1510,7 +1757,7 @@
       // Conversation messages (many messages!)
       const messages = [
         { type: 'received', text: 'Dương ơi, hôm nay vui không? 😊', time: '21:30' },
-        { type: 'sent', text: 'Vui lắm! Cảm ơn Đạt đã nhắn tin suốt ngày 💕', time: '21:31' },
+        { type: 'sent', text: 'Vui lắm! Cảm ơn Đạt đã quan tâm tuii 💕', time: '21:31' },
         { type: 'received', text: 'Hihi, vì muốn Dương vui vẻ mà 😄', time: '21:31' },
         { type: 'sent', text: 'Ừa, mình thấy vui lắm nè! 🥰', time: '21:32' },
         { type: 'received', text: 'Hôm nay làm việc có mệt không? 💪', time: '21:32' },

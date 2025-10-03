@@ -1244,6 +1244,159 @@
       .next-button:hover {
         transform: scale(1.1);
       }
+
+      /* ===== MOBILE RESPONSIVE DESIGN ===== */
+      @media screen and (max-width: 768px) {
+        .scene-title {
+          font-size: 20px;
+          top: 20px;
+        }
+
+        .character {
+          width: 100px;
+          height: 100px;
+        }
+
+        /* Phone */
+        .phone {
+          width: 280px;
+          height: 500px;
+          font-size: 280px;
+        }
+
+        .phone.show {
+          transform: translate(-50%, -50%) scale(0.8);
+        }
+
+        /* Transportation */
+        .bus {
+          font-size: 80px;
+        }
+
+        .bus-stop {
+          font-size: 60px;
+        }
+
+        /* Buildings and environment */
+        .building {
+          font-size: 70px;
+        }
+
+        .tree {
+          font-size: 50px;
+        }
+
+        .cloud {
+          font-size: 35px;
+        }
+
+        .sun {
+          width: 60px;
+          height: 60px;
+          font-size: 50px;
+        }
+
+        /* Road elements */
+        .road {
+          height: 60px;
+        }
+
+        .sidewalk {
+          height: 40px;
+        }
+
+        /* Props */
+        .prop {
+          font-size: 18px;
+        }
+
+        .heart-particle {
+          font-size: 18px;
+        }
+
+        /* Progress and controls */
+        .progress {
+          bottom: 60px;
+          gap: 8px;
+        }
+
+        .progress-dot {
+          width: 8px;
+          height: 8px;
+        }
+
+        .next-button {
+          bottom: 20px;
+          right: 20px;
+          font-size: 14px;
+          padding: 12px 25px;
+        }
+
+        /* Messenger on phone */
+        .phone-screen {
+          padding: 12px;
+        }
+
+        .message-bubble {
+          padding: 8px 12px;
+          font-size: 12px;
+          max-width: 90%;
+        }
+
+        .avatar {
+          width: 30px;
+          height: 30px;
+        }
+
+        .sender-name {
+          font-size: 12px;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        .scene-title {
+          font-size: 16px;
+          top: 15px;
+        }
+
+        .character {
+          width: 80px;
+          height: 80px;
+        }
+
+        .phone {
+          width: 240px;
+          height: 420px;
+          font-size: 240px;
+        }
+
+        .phone.show {
+          transform: translate(-50%, -50%) scale(0.7);
+        }
+
+        .bus {
+          font-size: 60px;
+        }
+
+        .building {
+          font-size: 50px;
+        }
+
+        .tree {
+          font-size: 40px;
+        }
+
+        .sun {
+          width: 50px;
+          height: 50px;
+          font-size: 40px;
+        }
+
+        .next-button {
+          font-size: 12px;
+          padding: 10px 20px;
+        }
+      }
     </style>
   </head>
   <body>
