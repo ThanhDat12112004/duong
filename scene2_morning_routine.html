@@ -1327,6 +1327,23 @@
 
           <div class="action-icon">🪥</div>
 
+          <!-- Water tap and sink -->
+          <div class="water-tap">🚰</div>
+          <div class="water-stream"></div>
+          <div class="sink">🚿</div>
+
+          <!-- Toothbrush and paste -->
+          <div class="toothbrush-item">🪥</div>
+          <div class="toothpaste-tube">🧴</div>
+          <div class="toothpaste-blob"></div>
+
+          <!-- Splash particles -->
+          <div class="splash-particle" style="--splash-x: -20px"></div>
+          <div class="splash-particle" style="--splash-x: 15px"></div>
+          <div class="splash-particle" style="--splash-x: -10px"></div>
+          <div class="splash-particle" style="--splash-x: 25px"></div>
+          <div class="splash-particle" style="--splash-x: -30px"></div>
+
           <div class="props prop-1">💦</div>
           <div class="props prop-2">✨</div>
           <div class="props prop-3">🦷</div>
@@ -1401,6 +1418,23 @@
           </div>
 
           <div class="action-icon">🧼</div>
+
+          <!-- Water tap and sink for washing -->
+          <div class="water-tap">🚰</div>
+          <div class="water-stream"></div>
+          <div class="sink">🚿</div>
+
+          <!-- More splash particles for washing face -->
+          <div class="splash-particle" style="--splash-x: -25px; left: 16%"></div>
+          <div class="splash-particle" style="--splash-x: 20px; left: 17%"></div>
+          <div class="splash-particle" style="--splash-x: -15px; left: 18%"></div>
+          <div class="splash-particle" style="--splash-x: 30px; left: 19%"></div>
+          <div class="splash-particle" style="--splash-x: -35px; left: 20%"></div>
+          <div class="splash-particle" style="--splash-x: 25px; left: 15%"></div>
+          <div class="splash-particle" style="--splash-x: -20px; left: 17.5%"></div>
+          <div class="splash-particle" style="--splash-x: 18px; left: 19.5%"></div>
+          <div class="splash-particle" style="--splash-x: -28px; left: 16.5%"></div>
+          <div class="splash-particle" style="--splash-x: 22px; left: 18.5%"></div>
 
           <div class="props prop-1">💧</div>
           <div class="props prop-2">🧴</div>
@@ -1532,6 +1566,8 @@
 
       // Start first scene
       function startScene(index) {
+        console.log('🎬 Scene 2 - Starting:', scenes[index]);
+
         // Hide all scenes
         scenes.forEach((sceneId) => {
           document.getElementById(sceneId).classList.remove('active');
@@ -1545,9 +1581,66 @@
         // Show current scene
         document.getElementById(scenes[index]).classList.add('active');
 
-        // Special animations for breakfast scene
-        if (scenes[index] === 'breakfast') {
+        // Special animations for each scene
+        if (scenes[index] === 'brushTeeth') {
+          triggerBrushTeethAnimations();
+        } else if (scenes[index] === 'washFace') {
+          triggerWashFaceAnimations();
+        } else if (scenes[index] === 'breakfast') {
           triggerBreakfastAnimations();
+        }
+      }
+
+      // Brush teeth detailed animations
+      function triggerBrushTeethAnimations() {
+        console.log('🪥 Triggering brush teeth animations...');
+        // Toothpaste squeeze animation
+        setTimeout(() => {
+          const pasteBlob = document.querySelector('.toothpaste-blob');
+          if (pasteBlob) {
+            pasteBlob.classList.add('squeeze');
+          }
+        }, 500);
+
+        // Water tap drip
+        setTimeout(() => {
+          const waterStream = document.querySelector('.water-stream');
+          if (waterStream) {
+            waterStream.classList.add('active');
+          }
+        }, 1000);
+
+        // Splash particles
+        for (let i = 0; i < 5; i++) {
+          setTimeout(() => {
+            const splash = document.querySelectorAll('.splash-particle')[i];
+            if (splash) {
+              splash.classList.add('active');
+            }
+          }, 1500 + i * 200);
+        }
+      }
+
+      // Wash face detailed animations
+      function triggerWashFaceAnimations() {
+        console.log('💧 Triggering wash face animations...');
+        // Turn on water tap
+        setTimeout(() => {
+          const waterStream = document.querySelector('.water-stream');
+          if (waterStream) {
+            waterStream.classList.add('active');
+          }
+        }, 300);
+
+        // Multiple splash effects
+        const splashCount = 10;
+        for (let i = 0; i < splashCount; i++) {
+          setTimeout(() => {
+            const splash = document.querySelectorAll('.splash-particle')[i];
+            if (splash) {
+              splash.classList.add('active');
+            }
+          }, 800 + i * 150);
         }
       }
 

@@ -1428,121 +1428,61 @@
       const unlockSwipe = document.getElementById('unlockSwipe');
       const swipeTrail = document.getElementById('swipeTrail');
 
-      // Auto start animation after page loads
-      window.addEventListener('load', function () {
-        // Wait 2 seconds (sleeping peacefully with Z's)
+      // Turn off alarm - function riêng để có thể gọi tự động - PHẢI KHAI BÁO TRƯỚC!
+      function turnOffAlarmAndWakeUp() {
+        console.log('🔴 turnOffAlarmAndWakeUp() called!');
+        // SUPER FAST - Skip all animations!
+        alarmButton.classList.add('hidden');
+        alarmClock.style.animation = 'fadeOut 0.3s ease-out forwards';
+        phoneOnBed.style.animation = 'fadeOut 0.3s ease-out forwards';
+        screenFlash.style.animation = 'fadeOut 0.3s ease-out forwards';
+        timeDisplay.classList.remove('alarm-active');
+
+        // SUPER FAST - Show phone immediately!
         setTimeout(() => {
-          // Stage 1: Sunrise begins - trời bừng sáng từ từ
-          bedroom.classList.add('morning');
-          windowEl.classList.add('sunrise');
+          console.log('📱 Showing phone...');
+          character.classList.add('waking-up');
+          character.classList.add('sitting-up');
+          phone.classList.add('show');
+          unlockSwipe.classList.add('show');
+          notification.classList.add('show');
 
-          // Birds start flying and singing
-          bird1.classList.add('show');
-          bird2.classList.add('show');
-          bird3.classList.add('show');
-          note1.classList.add('show');
-          note2.classList.add('show');
-          note3.classList.add('show');
-
-          // After 3 seconds of peaceful sunrise, alarm rings
+          // SUPER FAST - Auto unlock after 0.5s!
           setTimeout(() => {
-            // Stage 2: Alarm starts - LOUD!
-            alarmClock.classList.add('ringing');
-            timeDisplay.classList.add('alarm-active');
+            console.log('🔓 Auto-unlocking phone...');
+            autoUnlockPhone();
+          }, 500);
+        }, 500);
+      }
 
-            // Sound waves expand
-            wave1.classList.add('show');
-            wave2.classList.add('show');
-            wave3.classList.add('show');
+      // EMERGENCY TEST - Skip everything, redirect after 2s!
+      window.addEventListener('load', function () {
+        console.log('🟢 Scene 1 loaded!');
+        console.log('⚠️ EMERGENCY MODE - Redirecting in 2 seconds...');
 
-            // Phone on bed starts vibrating
-            phoneOnBed.classList.add('vibrating');
-            screenFlash.classList.add('show');
-
-            // Notification icons fly up
-            setTimeout(() => {
-              notifIcon1.classList.add('show');
-            }, 300);
-            setTimeout(() => {
-              notifIcon2.classList.add('show');
-            }, 600);
-            setTimeout(() => {
-              notifIcon3.classList.add('show');
-            }, 900);
-
-            // Show alarm button
-            setTimeout(() => {
-              alarmButton.classList.add('show');
-            }, 1000);
-          }, 3000);
+        setTimeout(() => {
+          console.log('🚀 Redirecting to Scene 2 NOW!');
+          window.location.href = 'scene2_morning_routine.html';
         }, 2000);
       });
 
-      // Turn off alarm
+      // Vẫn giữ event listener cho alarm button nếu người dùng muốn nhấn nhanh
+      let alarmTriggered = false;
       alarmButton.addEventListener('click', function () {
-        // Stage 3: Turn off alarm
-        alarmButton.classList.add('hidden');
-
-        // Stop all alarm effects
-        alarmClock.style.animation = 'fadeOut 1s ease-out forwards';
-        phoneOnBed.style.animation = 'fadeOut 0.5s ease-out forwards';
-        screenFlash.style.animation = 'fadeOut 0.5s ease-out forwards';
-        timeDisplay.classList.remove('alarm-active');
-
-        // Stage 4: Wake up sequence (detailed!)
-        setTimeout(() => {
-          // Step 1: First movement - slight stir
-          character.style.animation = 'breathe 1s ease-in-out 3';
-        }, 500);
-
-        setTimeout(() => {
-          // Step 2: Yawn
-          yawnBubble.classList.add('show');
-        }, 1500);
-
-        setTimeout(() => {
-          // Step 3: Start waking up - stretch arms
-          character.classList.add('waking-up');
-        }, 3000);
-
-        setTimeout(() => {
-          // Step 4: Rub eyes
-          rubEyes.classList.add('show');
-        }, 5000);
-
-        setTimeout(() => {
-          // Step 5: Sit up
-          character.classList.add('sitting-up');
-        }, 6500);
-
-        setTimeout(() => {
-          // Step 6: Hand reaching for phone
-          handReaching.classList.add('show');
-        }, 8000);
-
-        // Stage 5: Show phone (fully awake now)
-        setTimeout(() => {
-          phone.classList.add('show');
-
-          // Show unlock swipe hint
-          setTimeout(() => {
-            unlockSwipe.classList.add('show');
-          }, 500);
-
-          // Show notification sliding down
-          setTimeout(() => {
-            notification.classList.add('show');
-          }, 1000);
-        }, 9500);
+        if (!alarmTriggered) {
+          alarmTriggered = true;
+          turnOffAlarmAndWakeUp();
+        }
       });
 
-      // Click on phone to unlock and open messenger
-      phone.addEventListener('click', function (e) {
-        if (e.target.closest('#messengerScreen') || e.target.closest('#backButton')) {
-          return; // Don't handle clicks inside messenger
-        }
+      // TỰ ĐỘNG unlock phone
+      let phoneUnlocked = false;
+      function autoUnlockPhone() {
+        console.log('📱 autoUnlockPhone() called!');
+        if (phoneUnlocked) return; // Prevent double trigger
+        phoneUnlocked = true;
 
-        // Stage 6: Unlock phone with swipe effect
+        // Stage 6: Unlock phone with swipe effect - TỰ ĐỘNG!
         unlockSwipe.style.display = 'none';
 
         // Swipe trail animation
@@ -1553,22 +1493,32 @@
           notification.style.animation = 'slideOutUp 0.5s ease-out forwards';
         }, 300);
 
-        // Open messenger
+        // SUPER FAST - Open messenger and reply instantly!
         setTimeout(() => {
+          console.log('💬 Opening messenger...');
           messengerScreen.classList.add('show');
 
-          // Stage 7: Show reply after thinking
           setTimeout(() => {
+            console.log('💬 Sending reply...');
             const replyMessage = document.getElementById('replyMessage');
             replyMessage.style.display = 'block';
-            replyMessage.style.animation = 'messagePop 0.5s ease-out forwards';
+            replyMessage.style.animation = 'messagePop 0.3s ease-out forwards';
 
-            // After reply, close phone and transition to next scene
+            // SUPER FAST - Transition immediately!
             setTimeout(() => {
               closePhoneAndGetUp();
-            }, 2000);
-          }, 2000);
-        }, 800);
+            }, 300);
+          }, 300);
+        }, 300);
+      }
+
+      // Click on phone to unlock (optional - vẫn cho phép nhấn nhanh)
+      phone.addEventListener('click', function (e) {
+        if (phoneUnlocked) return; // Already unlocked
+        if (e.target.closest('#messengerScreen') || e.target.closest('#backButton')) {
+          return;
+        }
+        autoUnlockPhone();
       });
 
       // Add slideOutUp animation
@@ -1595,6 +1545,18 @@
             opacity: 1;
           }
         }
+        @keyframes sceneTransitionOut {
+          0% {
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0px);
+          }
+          100% {
+            opacity: 0;
+            transform: scale(1.2);
+            filter: blur(20px);
+          }
+        }
       `;
       document.head.appendChild(style);
 
@@ -1606,27 +1568,14 @@
 
       // After replying, close phone and get up
       function closePhoneAndGetUp() {
-        // Close phone animation
-        phone.style.transition = 'all 1s ease-out';
-        phone.style.opacity = '0';
-        phone.style.transform = 'translate(-50%, -50%) scale(0) rotateY(90deg)';
+        console.log('🚀 Transitioning to Scene 2...');
+        // SUPER FAST - Transition immediately!
+        document.body.style.animation = 'sceneTransitionOut 0.5s ease-out forwards';
 
-        // Character gets up animation
         setTimeout(() => {
-          bedroom.style.transition = 'opacity 1s ease-out';
-          bedroom.style.opacity = '0';
-
-          // TỰ ĐỘNG chuyển sang Scene 2 sau 2 giây
-          setTimeout(() => {
-            // Fade out entire scene
-            document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
-
-            // Navigate to Scene 2
-            setTimeout(() => {
-              window.location.href = 'scene2_morning_routine.html';
-            }, 1000);
-          }, 2000); // Tăng thời gian để người xem thấy rõ animation
-        }, 1000);
+          console.log('✅ Navigating to Scene 2!');
+          window.location.href = 'scene2_morning_routine.html';
+        }, 500);
       }
 
       // Next scene with smooth transition
@@ -1639,31 +1588,6 @@
           window.location.href = 'scene2_morning_routine.html';
         }, 1000);
       });
-
-      // Add transition animations
-      const style = document.createElement('style');
-      style.textContent = `
-            @keyframes fadeOut {
-                to {
-                    opacity: 0;
-                    transform: scale(0.5);
-                }
-            }
-
-            @keyframes sceneTransitionOut {
-                0% {
-                    opacity: 1;
-                    transform: scale(1);
-                    filter: blur(0px);
-                }
-                100% {
-                    opacity: 0;
-                    transform: scale(1.2);
-                    filter: blur(20px);
-                }
-            }
-        `;
-      document.head.appendChild(style);
     </script>
   </body>
 </html>

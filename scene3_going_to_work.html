@@ -1273,7 +1273,7 @@
       <!-- Sub-scene 1: Reading message and blushing -->
       <div class="sub-scene" id="readingMessage">
         <div class="room-bg">
-          <div class="scene-title">📱 Nhận tin nhắn từ anh</div>
+          <div class="scene-title">📱 Nhận tin nhắn từ Đạt</div>
 
           <!-- Phone unlock effects -->
           <div class="phone-glow"></div>
@@ -1500,34 +1500,13 @@
       const subScenes = ['readingMessage', 'gettingReady', 'runningToWork'];
       const dots = ['dot1', 'dot2', 'dot3'];
       let currentScene = 0;
+      let isTransitioning = false;
 
       const nextButton = document.getElementById('nextButton');
 
-      // Start scene
-      function startScene(index) {
-        // Hide all scenes
-        subScenes.forEach((sceneId) => {
-          document.getElementById(sceneId).classList.remove('active');
-        });
-
-        // Update progress dots
-        dots.forEach((dotId, i) => {
-          document.getElementById(dotId).classList.toggle('active', i === index);
-        });
-
-        // Show current scene
-        document.getElementById(subScenes[index]).classList.add('active');
-
-        // Scene-specific animations
-        if (index === 0) {
-          animateReadingMessage();
-        } else if (index === 1) {
-          animateGettingReady();
-        }
-      }
-
       // Scene 1: Reading message and blushing
       function animateReadingMessage() {
+        console.log('💌 Animating reading message...');
         const characterFace = document.getElementById('characterFace');
         const blushLeft = document.getElementById('blushLeft');
         const blushRight = document.getElementById('blushRight');
@@ -1553,6 +1532,7 @@
 
         // Move to next scene after blushing
         setTimeout(() => {
+          console.log('📱 Message read, moving to next scene...');
           currentScene++;
           autoProgress();
         }, 5000);
@@ -1560,6 +1540,7 @@
 
       // Scene 2: Grabbing items
       function animateGettingReady() {
+        console.log('🎒 Animating getting ready...');
         const laptop = document.getElementById('laptop');
         const bag = document.getElementById('bag');
         const phone2 = document.getElementById('phone2');
@@ -1614,33 +1595,83 @@
 
         // Move to next scene
         setTimeout(() => {
+          console.log('🎒 Ready! Moving to next scene...');
           currentScene++;
           autoProgress();
         }, 5000);
       }
 
-      // Auto progress
+      // Scene 3: Running to work
+      function animateRunningToWork() {
+        console.log('🏃 Animating running to work...');
+        // This scene already has CSS animations, just wait and move on
+        setTimeout(() => {
+          console.log('🏃 Finished running! Moving to Scene 4...');
+          currentScene++;
+          autoProgress();
+        }, 5000);
+      }
+
+      // Auto progress - KHAI BÁO TRƯỚC!
       function autoProgress() {
+        console.log('🔄 autoProgress called, currentScene:', currentScene);
         if (currentScene < subScenes.length) {
           startScene(currentScene);
         } else {
+          if (isTransitioning) {
+            console.log('⚠️ Already transitioning, skipping...');
+            return;
+          }
+          isTransitioning = true;
+          console.log('✅ All scenes done, transitioning to Scene 4 in 3s...');
+
           // Tự động chuyển sang Scene 4 sau khi xong tất cả
           setTimeout(() => {
             document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
             setTimeout(() => {
               window.location.href = 'scene4_at_work.html';
             }, 1000);
-          }, 3000); // Chờ 3 giây
+          }, 3000);
+        }
+      }
+
+      // Start scene
+      function startScene(index) {
+        console.log('🎬 Starting scene:', index, subScenes[index]);
+        // Hide all scenes
+        subScenes.forEach((sceneId) => {
+          document.getElementById(sceneId).classList.remove('active');
+        });
+
+        // Update progress dots
+        dots.forEach((dotId, i) => {
+          document.getElementById(dotId).classList.toggle('active', i === index);
+        });
+
+        // Show current scene
+        document.getElementById(subScenes[index]).classList.add('active');
+
+        // Scene-specific animations
+        if (index === 0) {
+          animateReadingMessage();
+        } else if (index === 1) {
+          animateGettingReady();
+        } else if (index === 2) {
+          animateRunningToWork();
         }
       }
 
       // Start on load
       window.addEventListener('load', () => {
+        console.log('🟢 Scene 3 loaded!');
         autoProgress();
       });
 
-      // Next button - go to Scene 4
+      // Next button - go to Scene 4 (disabled during auto-progress)
       nextButton.addEventListener('click', () => {
+        if (isTransitioning) return; // Prevent conflict with auto-progress
+        isTransitioning = true;
+
         document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
         setTimeout(() => {
           window.location.href = 'scene4_at_work.html';

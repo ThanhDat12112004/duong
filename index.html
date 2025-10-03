@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Một Ngày Của Cao Thùy Dương 💕</title>
+    <title>Scene 1: Thức Dậy - Cao Thùy Dương</title>
     <style>
       * {
         margin: 0;
@@ -13,439 +13,1581 @@
 
       body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-        background-size: 400% 400%;
-        animation: gradientShift 15s ease infinite;
-        min-height: 100vh;
+        overflow: hidden;
+      }
+
+      /* Bedroom Background */
+      .bedroom {
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
-        overflow: hidden;
-        position: relative;
+        transition: background 3s ease-out;
       }
 
-      @keyframes gradientShift {
-        0%, 100% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
+      .bedroom.morning {
+        background: linear-gradient(180deg, #ffb75e 0%, #ffa07a 50%, #87ceeb 100%);
       }
 
-      /* Animated background particles */
-      .bg-particle {
+      /* Window with morning light */
+      .window {
         position: absolute;
-        border-radius: 50%;
-        pointer-events: none;
-        opacity: 0.3;
-        animation: float 20s ease-in-out infinite;
-      }
-
-      .particle-1 {
-        width: 150px;
-        height: 150px;
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, transparent 70%);
         top: 10%;
-        left: 10%;
-        animation-delay: 0s;
-      }
-
-      .particle-2 {
+        right: 15%;
         width: 200px;
-        height: 200px;
-        background: radial-gradient(circle, rgba(255, 182, 193, 0.5) 0%, transparent 70%);
-        top: 60%;
-        right: 10%;
-        animation-delay: 5s;
+        height: 250px;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        border: 10px solid #8b4513;
+        border-radius: 10px;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+        transition: all 3s ease-out;
+        overflow: hidden;
       }
 
-      .particle-3 {
-        width: 120px;
-        height: 120px;
-        background: radial-gradient(circle, rgba(173, 216, 230, 0.6) 0%, transparent 70%);
-        bottom: 15%;
-        left: 20%;
-        animation-delay: 10s;
+      .window.sunrise {
+        background: linear-gradient(135deg, #ffe5b4 0%, #ffd700 100%);
+        box-shadow: inset 0 0 50px rgba(255, 255, 0, 0.3), 0 0 100px rgba(255, 215, 0, 0.6);
+        animation: morningLight 2s ease-in-out infinite;
       }
 
-      @keyframes float {
-        0%, 100% {
-          transform: translate(0, 0) scale(1);
-          opacity: 0.3;
-        }
-        25% {
-          transform: translate(100px, -80px) scale(1.3);
-          opacity: 0.5;
+      @keyframes morningLight {
+        0%,
+        100% {
+          opacity: 0.8;
         }
         50% {
-          transform: translate(-50px, 100px) scale(0.8);
-          opacity: 0.2;
-        }
-        75% {
-          transform: translate(80px, 60px) scale(1.1);
-          opacity: 0.4;
+          opacity: 1;
         }
       }
 
-      /* Stars twinkling */
+      /* Curtain */
+      .curtain {
+        position: absolute;
+        top: 0;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(180deg, #8b4513 0%, #a0522d 100%);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        transition: transform 2s ease-out;
+      }
+
+      .curtain.left {
+        left: 0;
+        transform-origin: left center;
+      }
+
+      .curtain.right {
+        right: 0;
+        transform-origin: right center;
+      }
+
+      .window.sunrise .curtain.left {
+        transform: translateX(-100%);
+      }
+
+      .window.sunrise .curtain.right {
+        transform: translateX(100%);
+      }
+
+      /* Sun rays through window */
+      .sun-ray {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 4px;
+        height: 200px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 200, 0) 0%,
+          rgba(255, 255, 200, 0.6) 50%,
+          rgba(255, 255, 200, 0) 100%
+        );
+        transform-origin: top center;
+        opacity: 0;
+        transition: opacity 2s ease-out;
+      }
+
+      .window.sunrise .sun-ray {
+        opacity: 1;
+        animation: rayRotate 8s linear infinite;
+      }
+
+      @keyframes rayRotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Tree shadow outside window */
+      .tree-shadow {
+        position: absolute;
+        bottom: 20%;
+        right: 10%;
+        font-size: 60px;
+        opacity: 0;
+        filter: blur(2px);
+        animation: treeSway 4s ease-in-out infinite;
+      }
+
+      .window.sunrise ~ .tree-shadow {
+        opacity: 0.3;
+      }
+
+      @keyframes treeSway {
+        0%,
+        100% {
+          transform: rotate(-3deg) translateX(0);
+        }
+        50% {
+          transform: rotate(3deg) translateX(5px);
+        }
+      }
+
+      /* Birds */
+      .bird {
+        position: absolute;
+        font-size: 30px;
+        opacity: 0;
+        animation: birdFly 8s ease-in-out infinite;
+      }
+
+      .bird.show {
+        opacity: 1;
+      }
+
+      @keyframes birdFly {
+        0% {
+          transform: translateX(-100px) translateY(0) rotate(-10deg);
+        }
+        50% {
+          transform: translateX(calc(100vw + 100px)) translateY(-30px) rotate(10deg);
+        }
+        100% {
+          transform: translateX(calc(100vw + 100px)) translateY(-60px) rotate(-10deg);
+        }
+      }
+
+      /* Music notes for birds singing */
+      .music-note {
+        position: absolute;
+        font-size: 25px;
+        opacity: 0;
+        animation: noteFloat 3s ease-out infinite;
+      }
+
+      .music-note.show {
+        opacity: 1;
+      }
+
+      @keyframes noteFloat {
+        0% {
+          transform: translateY(0) scale(0.5) rotate(0deg);
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+          transform: translateY(-60px) scale(1) rotate(20deg);
+        }
+        100% {
+          transform: translateY(-120px) scale(0.5) rotate(40deg);
+          opacity: 0;
+        }
+      }
+
+      /* Bed */
+      .bed {
+        position: absolute;
+        bottom: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 500px;
+        height: 200px;
+        background: linear-gradient(180deg, #e8f5f7 0%, #b0e0e6 100%);
+        border-radius: 20px;
+        border: 5px solid #87ceeb;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .pillow {
+        position: absolute;
+        top: -30px;
+        left: 30px;
+        width: 120px;
+        height: 80px;
+        background: linear-gradient(135deg, #fff5ee 0%, #ffe4e1 100%);
+        border-radius: 40px;
+        border: 3px solid #ffb6c1;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .blanket {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 70%;
+        background: linear-gradient(135deg, #ff69b4 0%, #ffb6c1 100%);
+        border-radius: 0 0 20px 20px;
+        animation: breathe 2s ease-in-out infinite;
+      }
+
+      @keyframes breathe {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+
+      /* Character sleeping */
+      .character {
+        position: absolute;
+        top: 30%;
+        left: 25%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        animation: breathe 2s ease-in-out infinite;
+      }
+
+      .character-face {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 5px solid #fff;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        object-fit: cover;
+        transform: rotate(-15deg);
+        transition: all 0.5s ease-out;
+      }
+
+      /* Character body (anime style) */
+      .character-body {
+        width: 120px;
+        height: 80px;
+        background: linear-gradient(180deg, #ffb6c1 0%, #ffc0cb 100%);
+        border-radius: 60px 60px 40px 40px;
+        position: relative;
+        margin-top: -20px;
+      }
+
+      /* Arms */
+      .character-arms {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .arm {
+        position: absolute;
+        width: 25px;
+        height: 60px;
+        background: linear-gradient(180deg, #ffb6c1 0%, #ffc0cb 100%);
+        border-radius: 15px;
+        top: 10px;
+      }
+
+      .arm.left {
+        left: -20px;
+        transform: rotate(30deg);
+        transform-origin: top center;
+      }
+
+      .arm.right {
+        right: -20px;
+        transform: rotate(-30deg);
+        transform-origin: top center;
+      }
+
+      /* Waking up animations */
+      .character.waking-up .character-face {
+        animation: faceWakeUp 3s ease-out forwards;
+      }
+
+      @keyframes faceWakeUp {
+        0% {
+          transform: rotate(-15deg);
+          filter: brightness(0.8);
+        }
+        30% {
+          transform: rotate(-10deg);
+        }
+        60% {
+          transform: rotate(-5deg);
+          filter: brightness(0.9);
+        }
+        100% {
+          transform: rotate(0deg);
+          filter: brightness(1);
+        }
+      }
+
+      .character.waking-up .arm.left {
+        animation: leftArmStretch 3s ease-out forwards;
+      }
+
+      @keyframes leftArmStretch {
+        0% {
+          transform: rotate(30deg);
+        }
+        50% {
+          transform: rotate(-90deg) translateY(-20px);
+        }
+        100% {
+          transform: rotate(30deg);
+        }
+      }
+
+      .character.waking-up .arm.right {
+        animation: rightArmStretch 3s ease-out forwards;
+      }
+
+      @keyframes rightArmStretch {
+        0% {
+          transform: rotate(-30deg);
+        }
+        50% {
+          transform: rotate(90deg) translateY(-20px);
+        }
+        100% {
+          transform: rotate(-30deg);
+        }
+      }
+
+      /* Sitting up animation */
+      .character.sitting-up {
+        animation: sitUp 2s ease-out forwards;
+      }
+
+      @keyframes sitUp {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        100% {
+          transform: translateY(-50px) rotate(0deg);
+        }
+      }
+
+      /* Yawn effect */
+      .yawn-bubble {
+        position: absolute;
+        top: -60px;
+        left: 50%;
+        transform: translateX(-50%) scale(0);
+        font-size: 50px;
+        opacity: 0;
+      }
+
+      .yawn-bubble.show {
+        animation: yawnAppear 2s ease-out forwards;
+      }
+
+      @keyframes yawnAppear {
+        0% {
+          transform: translateX(-50%) scale(0) rotate(0deg);
+          opacity: 0;
+        }
+        50% {
+          transform: translateX(-50%) scale(1.3) rotate(10deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(-50%) scale(0.8) rotate(20deg);
+          opacity: 0;
+        }
+      }
+
+      /* Rubbing eyes gesture */
+      .rub-eyes {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 30px;
+        opacity: 0;
+      }
+
+      .rub-eyes.show {
+        animation: rubbing 2s ease-in-out forwards;
+      }
+
+      @keyframes rubbing {
+        0%,
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.5);
+        }
+        50% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+
+      .sleep-zzz {
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        font-size: 40px;
+        animation: floatUp 3s ease-in-out infinite;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0) scale(0.5);
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-80px) scale(1.2);
+          opacity: 0;
+        }
+      }
+
+      /* Stars for night */
       .star {
         position: absolute;
         color: white;
         font-size: 20px;
-        animation: starTwinkle 3s ease-in-out infinite;
+        animation: twinkle 2s ease-in-out infinite;
       }
 
-      @keyframes starTwinkle {
-        0%, 100% { opacity: 0.3; transform: scale(0.8); }
-        50% { opacity: 1; transform: scale(1.2); }
+      .bedroom.morning .star {
+        opacity: 0;
+        transition: opacity 2s ease-out;
       }
 
-      /* Container */
-      .container {
-        max-width: 1200px;
-        padding: 40px;
-        text-align: center;
-        position: relative;
-        z-index: 10;
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.2);
+        }
       }
 
-      /* Title */
-      .main-title {
-        font-size: 56px;
-        font-weight: bold;
-        color: white;
-        text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        margin-bottom: 20px;
-        animation: titleBounce 2s ease-out;
+      /* Alarm Clock */
+      .alarm-clock {
+        position: absolute;
+        top: 20%;
+        right: 30%;
+        font-size: 100px;
+        opacity: 0;
+        transform: scale(0.5);
+        filter: drop-shadow(0 5px 15px rgba(255, 0, 0, 0.5));
       }
 
-      @keyframes titleBounce {
+      .alarm-clock.ringing {
+        opacity: 1;
+        animation: ring 0.5s ease-in-out infinite;
+      }
+
+      @keyframes ring {
+        0%,
+        100% {
+          transform: rotate(-10deg) scale(1);
+        }
+        50% {
+          transform: rotate(10deg) scale(1.1);
+        }
+      }
+
+      /* Phone vibration on bed */
+      .phone-on-bed {
+        position: absolute;
+        bottom: 25%;
+        right: 25%;
+        font-size: 80px;
+        opacity: 0;
+        z-index: 5;
+      }
+
+      .phone-on-bed.vibrating {
+        opacity: 1;
+        animation: vibrate 0.1s ease-in-out infinite;
+      }
+
+      @keyframes vibrate {
+        0%,
+        100% {
+          transform: translateX(0) rotate(0deg);
+        }
+        25% {
+          transform: translateX(-3px) rotate(-2deg);
+        }
+        75% {
+          transform: translateX(3px) rotate(2deg);
+        }
+      }
+
+      /* Sound waves from alarm */
+      .sound-wave {
+        position: absolute;
+        top: 20%;
+        right: 30%;
+        width: 100px;
+        height: 100px;
+        border: 3px solid rgba(255, 0, 0, 0.8);
+        border-radius: 50%;
+        opacity: 0;
+      }
+
+      .sound-wave.show {
+        animation: waveExpand 2s ease-out infinite;
+      }
+
+      @keyframes waveExpand {
         0% {
-          transform: scale(0) rotate(-180deg);
+          transform: scale(1);
+          opacity: 0.8;
+        }
+        100% {
+          transform: scale(3);
+          opacity: 0;
+        }
+      }
+
+      /* Notification icons flying */
+      .notification-icon {
+        position: absolute;
+        bottom: 25%;
+        right: 25%;
+        font-size: 40px;
+        opacity: 0;
+        z-index: 6;
+      }
+
+      .notification-icon.show {
+        animation: iconFly 2s ease-out forwards;
+      }
+
+      @keyframes iconFly {
+        0% {
+          transform: translateY(0) scale(0.5) rotate(0deg);
           opacity: 0;
         }
         50% {
-          transform: scale(1.1) rotate(10deg);
+          opacity: 1;
+          transform: translateY(-100px) scale(1) rotate(180deg);
         }
         100% {
-          transform: scale(1) rotate(0deg);
-          opacity: 1;
-        }
-      }
-
-      .subtitle {
-        font-size: 24px;
-        color: rgba(255, 255, 255, 0.9);
-        margin-bottom: 50px;
-        animation: fadeInUp 1.5s ease-out 0.5s backwards;
-      }
-
-      @keyframes fadeInUp {
-        from {
+          transform: translateY(-200px) scale(0.5) rotate(360deg);
           opacity: 0;
-          transform: translateY(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
         }
       }
 
-      /* Scene grid */
-      .scenes-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 30px;
-        margin-top: 40px;
+      /* Screen flash effect */
+      .screen-flash {
+        position: absolute;
+        bottom: 23%;
+        right: 23%;
+        width: 90px;
+        height: 120px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.8) 0%,
+          rgba(135, 206, 250, 0.4) 50%,
+          transparent 100%
+        );
+        border-radius: 10px;
+        opacity: 0;
+        z-index: 4;
       }
 
-      /* Scene card */
-      .scene-card {
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 25px;
-        padding: 30px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        cursor: pointer;
-        text-decoration: none;
-        display: block;
-        position: relative;
-        overflow: hidden;
-        animation: cardFadeIn 0.8s ease-out backwards;
+      .screen-flash.show {
+        animation: flashPulse 1s ease-in-out infinite;
       }
 
-      .scene-card:nth-child(1) { animation-delay: 0.2s; }
-      .scene-card:nth-child(2) { animation-delay: 0.4s; }
-      .scene-card:nth-child(3) { animation-delay: 0.6s; }
-      .scene-card:nth-child(4) { animation-delay: 0.8s; }
-      .scene-card:nth-child(5) { animation-delay: 1s; }
-      .scene-card:nth-child(6) { animation-delay: 1.2s; }
-      .scene-card:nth-child(7) { animation-delay: 1.4s; }
-
-      @keyframes cardFadeIn {
-        from {
+      @keyframes flashPulse {
+        0%,
+        100% {
           opacity: 0;
-          transform: translateY(50px) scale(0.8);
+          transform: scale(1);
         }
-        to {
+        50% {
+          opacity: 0.6;
+          transform: scale(1.1);
+        }
+      }
+
+      /* Time Display */
+      .time-display {
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        background: rgba(0, 0, 0, 0.8);
+        color: #444;
+        font-size: 60px;
+        font-weight: bold;
+        padding: 20px 40px;
+        border-radius: 20px;
+        font-family: 'Courier New', monospace;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        transition: all 1s ease-out;
+      }
+
+      .time-display.alarm-active {
+        color: #ff0000;
+        box-shadow: 0 5px 20px rgba(255, 0, 0, 0.5);
+        animation: blink 1s ease-in-out infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
           opacity: 1;
-          transform: translateY(0) scale(1);
+        }
+        50% {
+          opacity: 0.7;
         }
       }
 
-      .scene-card::before {
-        content: '';
+      /* Alarm Button */
+      .alarm-button {
         position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-        transition: left 0.5s;
-      }
-
-      .scene-card:hover::before {
-        left: 100%;
-      }
-
-      .scene-card:hover {
-        transform: translateY(-15px) scale(1.05);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      }
-
-      .scene-icon {
-        font-size: 80px;
-        margin-bottom: 15px;
-        animation: iconBounce 2s ease-in-out infinite;
-      }
-
-      @keyframes iconBounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-      }
-
-      .scene-card:hover .scene-icon {
-        animation: iconSpin 0.6s ease-in-out;
-      }
-
-      @keyframes iconSpin {
-        0% { transform: rotate(0deg) scale(1); }
-        50% { transform: rotate(180deg) scale(1.2); }
-        100% { transform: rotate(360deg) scale(1); }
-      }
-
-      .scene-title {
-        font-size: 24px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 10px;
-      }
-
-      .scene-description {
-        font-size: 16px;
-        color: #666;
-        line-height: 1.5;
-      }
-
-      .scene-number {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        background: linear-gradient(135deg, #ff4757 0%, #ff6348 100%);
         color: white;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        font-size: 32px;
         font-weight: bold;
-        font-size: 18px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      }
-
-      /* Start button */
-      .start-button {
-        display: inline-block;
-        margin-top: 40px;
-        padding: 20px 50px;
-        background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
-        color: white;
-        font-size: 24px;
-        font-weight: bold;
+        padding: 30px 60px;
+        border: none;
         border-radius: 50px;
-        text-decoration: none;
-        box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
-        transition: all 0.3s ease;
-        animation: pulse 2s ease-in-out infinite;
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(255, 71, 87, 0.5);
+        opacity: 0;
+        z-index: 100;
+      }
+
+      .alarm-button.show {
+        animation: buttonAppear 0.5s ease-out forwards, pulse 1s ease-in-out infinite 0.5s;
+      }
+
+      @keyframes buttonAppear {
+        to {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+        }
+      }
+
+      .alarm-button:hover {
+        transform: translate(-50%, -50%) scale(1.1);
+        box-shadow: 0 15px 40px rgba(255, 71, 87, 0.7);
+      }
+
+      .alarm-button:active {
+        transform: translate(-50%, -50%) scale(0.95);
       }
 
       @keyframes pulse {
-        0%, 100% {
-          transform: scale(1);
-          box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
         }
         50% {
-          transform: scale(1.05);
-          box-shadow: 0 15px 40px rgba(255, 107, 157, 0.6);
+          transform: translate(-50%, -50%) scale(1.05);
         }
       }
 
-      .start-button:hover {
-        transform: scale(1.1);
-        box-shadow: 0 15px 50px rgba(255, 107, 157, 0.7);
-        animation: none;
+      /* Hidden state */
+      .hidden {
+        display: none;
       }
 
-      /* Footer */
-      .footer {
-        margin-top: 60px;
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 16px;
-        animation: fadeInUp 2s ease-out 1.5s backwards;
+      /* Wake up state */
+      .waking-up .character {
+        animation: wakeUp 2s ease-out forwards;
       }
 
-      .heart {
-        display: inline-block;
-        color: #ff6b9d;
-        animation: heartBeat 1.5s ease-in-out infinite;
+      @keyframes wakeUp {
+        0% {
+          transform: rotate(0deg) scale(1);
+        }
+        50% {
+          transform: rotate(5deg) scale(1.1);
+        }
+        100% {
+          transform: rotate(0deg) scale(1);
+        }
       }
 
-      @keyframes heartBeat {
-        0%, 100% { transform: scale(1); }
-        25% { transform: scale(1.2); }
-        50% { transform: scale(1); }
-      }
-
-      /* Floating hearts */
-      .floating-heart {
+      /* Hand reaching for phone */
+      .hand-reaching {
         position: absolute;
-        font-size: 30px;
-        animation: floatHeart 8s ease-in-out infinite;
-        pointer-events: none;
+        bottom: 20%;
+        left: 20%;
+        font-size: 80px;
+        opacity: 0;
+        z-index: 99;
+        transform: rotate(-30deg);
       }
 
-      @keyframes floatHeart {
+      .hand-reaching.show {
+        animation: handReach 2s ease-out forwards;
+      }
+
+      @keyframes handReach {
         0% {
           opacity: 0;
-          transform: translateY(0) rotate(0deg);
+          transform: translateX(-100px) translateY(50px) rotate(-30deg);
         }
-        20% {
+        50% {
           opacity: 1;
-        }
-        80% {
-          opacity: 1;
+          transform: translateX(150px) translateY(-50px) rotate(-10deg);
         }
         100% {
           opacity: 0;
-          transform: translateY(-600px) rotate(360deg);
+          transform: translateX(300px) translateY(-100px) rotate(10deg);
         }
       }
 
-      /* Responsive */
-      @media (max-width: 768px) {
-        .main-title {
-          font-size: 36px;
+      /* Phone */
+      .phone {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: 350px;
+        height: 600px;
+        background: #000;
+        border-radius: 40px;
+        padding: 15px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        z-index: 100;
+      }
+
+      .phone.show {
+        animation: phoneAppear 1s ease-out forwards;
+      }
+
+      @keyframes phoneAppear {
+        0% {
+          transform: translate(-50%, -50%) scale(0) rotate(-180deg);
+          opacity: 0;
         }
-        .subtitle {
-          font-size: 18px;
+        50% {
+          transform: translate(-50%, -50%) scale(1.1) rotate(10deg);
         }
-        .scenes-grid {
-          grid-template-columns: 1fr;
+        100% {
+          transform: translate(-50%, -50%) scale(1) rotate(0deg);
+          opacity: 1;
         }
+      }
+
+      /* Unlock swipe indicator */
+      .unlock-swipe {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        opacity: 0;
+      }
+
+      .unlock-swipe.show {
+        animation: swipeHint 2s ease-in-out infinite;
+      }
+
+      @keyframes swipeHint {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          opacity: 1;
+          transform: translateX(-50%) translateY(-10px);
+        }
+      }
+
+      .swipe-arrow {
+        font-size: 30px;
+        color: white;
+      }
+
+      .swipe-text {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+      }
+
+      /* Swipe trail effect */
+      .swipe-trail {
+        position: absolute;
+        bottom: 100px;
+        left: 50%;
+        width: 60px;
+        height: 60px;
+        background: radial-gradient(circle, rgba(135, 206, 250, 0.6) 0%, transparent 70%);
+        border-radius: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .swipe-trail.active {
+        animation: swipeTrailMove 1s ease-out forwards;
+      }
+
+      @keyframes swipeTrailMove {
+        0% {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0) scale(1);
+          bottom: 100px;
+        }
+        100% {
+          opacity: 0;
+          transform: translateX(-50%) translateY(-400px) scale(2);
+          bottom: 500px;
+        }
+      }
+
+      /* Fingerprint icon */
+      .fingerprint {
+        position: absolute;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 60px;
+        opacity: 0.3;
+        filter: drop-shadow(0 0 10px rgba(135, 206, 250, 0.5));
+      }
+
+      .phone-screen {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+        border-radius: 30px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .phone-time {
+        text-align: center;
+        color: white;
+        font-size: 60px;
+        font-weight: bold;
+        padding-top: 60px;
+        margin-bottom: 10px;
+      }
+
+      .phone-date {
+        text-align: center;
+        color: #aaa;
+        font-size: 18px;
+        margin-bottom: 40px;
+      }
+
+      .notification {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        margin: 20px;
+        padding: 20px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transform: translateY(-100px);
+        opacity: 0;
+      }
+
+      .notification.show {
+        animation: notificationSlide 0.5s ease-out forwards;
+      }
+
+      @keyframes notificationSlide {
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .notification-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 10px;
+      }
+
+      .notification-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+      }
+
+      .notification-title {
+        flex: 1;
+      }
+
+      .notification-app {
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+      }
+
+      .notification-time-small {
+        color: #aaa;
+        font-size: 14px;
+      }
+
+      .notification-message {
+        color: white;
+        font-size: 16px;
+        line-height: 1.6;
+        margin-top: 10px;
+      }
+
+      .phone-unlock-hint {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 16px;
+        text-align: center;
+        animation: fadeInOut 2s ease-in-out infinite;
+      }
+
+      @keyframes fadeInOut {
+        0%,
+        100% {
+          opacity: 0.5;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      /* Swipe up indicator */
+      .swipe-indicator {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 40px;
+        animation: swipeUp 1.5s ease-in-out infinite;
+      }
+
+      @keyframes swipeUp {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+          opacity: 0.5;
+        }
+        50% {
+          transform: translateX(-50%) translateY(-20px);
+          opacity: 1;
+        }
+      }
+
+      /* Messenger Full Screen */
+      .messenger-screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        transform: translateY(100%);
+        opacity: 0;
+      }
+
+      .messenger-screen.show {
+        animation: screenSlideUp 0.5s ease-out forwards;
+      }
+
+      @keyframes screenSlideUp {
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .messenger-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 20px;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .back-button {
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      .messenger-avatar-big {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+      }
+
+      .messenger-title {
+        flex: 1;
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      .messenger-content {
+        padding: 20px;
+        height: calc(100% - 80px);
+        overflow-y: auto;
+      }
+
+      .message-bubble {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 20px 20px 20px 5px;
+        max-width: 80%;
+        margin-bottom: 15px;
+        font-size: 16px;
+        line-height: 1.6;
+        transform: scale(0);
+        animation: bubblePop 0.3s ease-out forwards;
+      }
+
+      .message-bubble.reply {
+        background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+        border-radius: 20px 20px 5px 20px;
+        margin-left: auto;
+        margin-right: 0;
+      }
+
+      @keyframes bubblePop {
+        0% {
+          transform: scale(0);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .message-time {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 12px;
+        margin-top: 5px;
+      }
+
+      /* Morning Routine Scenes */
+      .routine-scene {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(180deg, #e8f5f7 0%, #b0e0e6 100%);
+      }
+
+      .routine-scene.active {
+        display: flex;
+        animation: sceneSlideIn 0.5s ease-out;
+      }
+
+      @keyframes sceneSlideIn {
+        from {
+          opacity: 0;
+          transform: translateX(100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .routine-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+
+      .routine-character {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 8px solid white;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        object-fit: cover;
+      }
+
+      .routine-action {
+        font-size: 120px;
+        animation: actionBounce 1s ease-in-out infinite;
+      }
+
+      @keyframes actionBounce {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          transform: translateY(-20px) scale(1.1);
+        }
+      }
+
+      .routine-text {
+        font-size: 36px;
+        font-weight: bold;
+        color: #333;
+        text-align: center;
+      }
+
+      .routine-props {
+        display: flex;
+        gap: 20px;
+        font-size: 60px;
+      }
+
+      .message-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #f0f0f0;
+      }
+
+      .message-avatar {
+        font-size: 50px;
+      }
+
+      .message-name {
+        font-size: 20px;
+        font-weight: bold;
+        color: #667eea;
+      }
+
+      .message-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 20px;
+        font-size: 18px;
+        line-height: 1.6;
+      }
+
+      /* Next button */
+      .next-button {
+        position: absolute;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 15px 40px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
+        display: none;
+      }
+
+      .next-button.show {
+        display: block;
+        animation: fadeIn 1s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .next-button:hover {
+        transform: scale(1.1);
       }
     </style>
   </head>
   <body>
-    <!-- Background particles -->
-    <div class="bg-particle particle-1"></div>
-    <div class="bg-particle particle-2"></div>
-    <div class="bg-particle particle-3"></div>
+    <div class="bedroom" id="bedroom">
+      <!-- Stars (night time) -->
+      <div class="star" style="top: 10%; left: 20%">⭐</div>
+      <div class="star" style="top: 15%; left: 70%; animation-delay: 0.5s">✨</div>
+      <div class="star" style="top: 25%; left: 40%; animation-delay: 1s">⭐</div>
+      <div class="star" style="top: 30%; right: 20%; animation-delay: 1.5s">✨</div>
+      <div class="star" style="top: 40%; left: 15%; animation-delay: 2s">⭐</div>
+      <div class="star" style="top: 50%; right: 30%; animation-delay: 0.7s">✨</div>
+      <div class="star" style="top: 60%; left: 60%; animation-delay: 1.3s">⭐</div>
 
-    <!-- Stars -->
-    <div class="star" style="top: 5%; left: 10%; animation-delay: 0s;">⭐</div>
-    <div class="star" style="top: 15%; right: 15%; animation-delay: 0.5s;">✨</div>
-    <div class="star" style="top: 25%; left: 25%; animation-delay: 1s;">💫</div>
-    <div class="star" style="bottom: 20%; right: 20%; animation-delay: 1.5s;">⭐</div>
-    <div class="star" style="bottom: 30%; left: 15%; animation-delay: 2s;">✨</div>
-    <div class="star" style="top: 40%; right: 10%; animation-delay: 2.5s;">💫</div>
+      <!-- Moon -->
+      <div class="star" style="top: 15%; right: 20%; font-size: 60px; animation: none">🌙</div>
 
-    <!-- Floating hearts -->
-    <div class="floating-heart" style="left: 10%; animation-delay: 0s;">💕</div>
-    <div class="floating-heart" style="left: 30%; animation-delay: 2s;">💖</div>
-    <div class="floating-heart" style="left: 50%; animation-delay: 4s;">💗</div>
-    <div class="floating-heart" style="left: 70%; animation-delay: 6s;">💕</div>
-    <div class="floating-heart" style="left: 90%; animation-delay: 8s;">💖</div>
-
-    <!-- Main content -->
-    <div class="container">
-      <h1 class="main-title">🌸 Một Ngày Của Cao Thùy Dương 🌸</h1>
-      <p class="subtitle">✨ 7 Khoảnh Khắc Đáng Nhớ - 195+ Animations ✨</p>
-
-      <!-- Start button -->
-      <a href="scene1_wakeup.html" class="start-button">🎬 Bắt Đầu Xem Ngay!</a>
-
-      <!-- Scenes grid -->
-      <div class="scenes-grid">
-        <!-- Scene 1 -->
-        <a href="scene1_wakeup.html" class="scene-card">
-          <div class="scene-number">1</div>
-          <div class="scene-icon">🌅</div>
-          <h2 class="scene-title">Thức Dậy</h2>
-          <p class="scene-description">Buổi sáng tươi mới với ánh nắng đầu tiên</p>
-        </a>
-
-        <!-- Scene 2 -->
-        <a href="scene2_morning_routine.html" class="scene-card">
-          <div class="scene-number">2</div>
-          <div class="scene-icon">🚿</div>
-          <h2 class="scene-title">Buổi Sáng</h2>
-          <p class="scene-description">Chuẩn bị cho một ngày mới năng động</p>
-        </a>
-
-        <!-- Scene 3 -->
-        <a href="scene3_going_to_work.html" class="scene-card">
-          <div class="scene-number">3</div>
-          <div class="scene-icon">🚗</div>
-          <h2 class="scene-title">Đi Làm</h2>
-          <p class="scene-description">Hành trình đến nơi làm việc với nhiều cảm xúc</p>
-        </a>
-
-        <!-- Scene 4 -->
-        <a href="scene4_at_work.html" class="scene-card">
-          <div class="scene-number">4</div>
-          <div class="scene-icon">💼</div>
-          <h2 class="scene-title">Ở Công Ty</h2>
-          <p class="scene-description">Làm việc chăm chỉ và nhận tin nhắn đặc biệt</p>
-        </a>
-
-        <!-- Scene 5 -->
-        <a href="scene5_going_home.html" class="scene-card">
-          <div class="scene-number">5</div>
-          <div class="scene-icon">🌆</div>
-          <h2 class="scene-title">Về Nhà</h2>
-          <p class="scene-description">Trở về trong buổi chiều tà mệt mỏi</p>
-        </a>
-
-        <!-- Scene 6 -->
-        <a href="scene6_at_home.html" class="scene-card">
-          <div class="scene-number">6</div>
-          <div class="scene-icon">🏠</div>
-          <h2 class="scene-title">Ở Nhà</h2>
-          <p class="scene-description">Thư giãn và tận hưởng không gian riêng</p>
-        </a>
-
-        <!-- Scene 7 -->
-        <a href="scene7_good_night.html" class="scene-card">
-          <div class="scene-number">7</div>
-          <div class="scene-icon">🌙</div>
-          <h2 class="scene-title">Chúc Ngủ Ngon</h2>
-          <p class="scene-description">Kết thúc ngày với những lời yêu thương</p>
-        </a>
+      <!-- Window -->
+      <div class="window" id="window">
+        <div class="curtain left"></div>
+        <div class="curtain right"></div>
+        <div class="sun-ray" style="transform: rotate(0deg)"></div>
+        <div class="sun-ray" style="transform: rotate(60deg)"></div>
+        <div class="sun-ray" style="transform: rotate(120deg)"></div>
+        <div class="sun-ray" style="transform: rotate(180deg)"></div>
+        <div class="sun-ray" style="transform: rotate(240deg)"></div>
+        <div class="sun-ray" style="transform: rotate(300deg)"></div>
       </div>
 
-      <!-- Footer -->
-      <div class="footer">
-        <p>Made with <span class="heart">💕</span> for Cao Thùy Dương</p>
-        <p style="margin-top: 10px; font-size: 14px;">© 2025 - Một món quà đặc biệt</p>
+      <!-- Tree shadow -->
+      <div class="tree-shadow">🌳</div>
+
+      <!-- Birds -->
+      <div class="bird" id="bird1" style="top: 20%; left: -100px; animation-delay: 0s">🐦</div>
+      <div class="bird" id="bird2" style="top: 25%; left: -100px; animation-delay: 3s">🐦</div>
+      <div class="bird" id="bird3" style="top: 18%; left: -100px; animation-delay: 5s">🐦</div>
+
+      <!-- Music notes from birds -->
+      <div class="music-note" id="note1" style="top: 22%; left: 15%; animation-delay: 0.5s">🎵</div>
+      <div class="music-note" id="note2" style="top: 27%; left: 20%; animation-delay: 1s">🎶</div>
+      <div class="music-note" id="note3" style="top: 20%; left: 25%; animation-delay: 1.5s">🎵</div>
+
+      <!-- Time Display -->
+      <div class="time-display" id="timeDisplay">07:00</div>
+
+      <!-- Alarm Clock -->
+      <div class="alarm-clock" id="alarmClock">⏰</div>
+
+      <!-- Sound waves -->
+      <div class="sound-wave" id="wave1"></div>
+      <div class="sound-wave" id="wave2" style="animation-delay: 0.3s"></div>
+      <div class="sound-wave" id="wave3" style="animation-delay: 0.6s"></div>
+
+      <!-- Phone vibrating on bed -->
+      <div class="phone-on-bed" id="phoneOnBed">📱</div>
+
+      <!-- Screen flash -->
+      <div class="screen-flash" id="screenFlash"></div>
+
+      <!-- Notification icons flying -->
+      <div class="notification-icon" id="notifIcon1">💬</div>
+      <div class="notification-icon" id="notifIcon2" style="animation-delay: 0.5s">💌</div>
+      <div class="notification-icon" id="notifIcon3" style="animation-delay: 1s">✨</div>
+
+      <!-- Bed -->
+      <div class="bed">
+        <div class="pillow"></div>
+        <div class="blanket"></div>
+
+        <!-- Character -->
+        <div class="character" id="character">
+          <img src="AnhKhuonMatCuaCoAy.jpg" alt="Dương" class="character-face" id="characterFace" />
+          <div class="sleep-zzz">💤</div>
+          <div class="yawn-bubble" id="yawnBubble">😮‍💨</div>
+          <div class="rub-eyes" id="rubEyes">👀</div>
+
+          <!-- Anime body -->
+          <div class="character-body">
+            <div class="character-arms">
+              <div class="arm left"></div>
+              <div class="arm right"></div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <!-- Hand reaching for phone -->
+      <div class="hand-reaching" id="handReaching">👉</div>
+
+      <!-- Alarm Button -->
+      <button class="alarm-button" id="alarmButton">🔕 TẮT BÁO THỨC</button>
+
+      <!-- Phone -->
+      <div class="phone" id="phone">
+        <div class="phone-screen">
+          <!-- Lock Screen -->
+          <div id="lockScreen">
+            <div class="phone-time">07:00</div>
+            <div class="phone-date">Thứ Sáu, 3 tháng 10</div>
+
+            <!-- Notification -->
+            <div class="notification" id="notification">
+              <div class="notification-header">
+                <div class="notification-icon">💬</div>
+                <div class="notification-title">
+                  <div class="notification-app">Messenger</div>
+                  <div class="notification-time-small">Vừa xong</div>
+                </div>
+              </div>
+              <div class="notification-message">
+                <strong>Đạt:</strong> Chào buổi sáng Dương, hôm nay đẹp quá nhỉ ☀️💌
+              </div>
+            </div>
+
+            <!-- Unlock indicators -->
+            <div class="unlock-swipe" id="unlockSwipe">
+              <div class="swipe-arrow">⬆️</div>
+              <div class="swipe-text">Vuốt lên để mở</div>
+            </div>
+
+            <div class="swipe-trail" id="swipeTrail"></div>
+            <div class="fingerprint">🔓</div>
+
+            <div class="phone-unlock-hint">
+              <div class="swipe-indicator">👆</div>
+              Vuốt lên để xem tin nhắn
+            </div>
+          </div>
+
+          <!-- Messenger Screen -->
+          <div class="messenger-screen" id="messengerScreen">
+            <div class="messenger-header">
+              <div class="back-button" id="backButton">←</div>
+              <div class="messenger-avatar-big">
+                <img
+                  src="AnhKhuonMatCuaToi.jpg"
+                  alt="Đạt"
+                  style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover"
+                />
+              </div>
+              <div class="messenger-title">Đạt</div>
+            </div>
+            <div class="messenger-content">
+              <div class="message-bubble">
+                Chào buổi sáng, em đẹp hơn ánh nắng rồi đó ☀️💌
+                <div class="message-time">07:00</div>
+              </div>
+              <div class="message-bubble reply" id="replyMessage" style="display: none">
+                Chào Đạt! Cảm ơn nha 🥰💕
+                <div class="message-time">07:01</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Next Button -->
+      <button class="next-button" id="nextButton">Tiếp theo ➡️</button>
     </div>
+
+    <script>
+      const alarmButton = document.getElementById('alarmButton');
+      const alarmClock = document.getElementById('alarmClock');
+      const bedroom = document.getElementById('bedroom');
+      const phone = document.getElementById('phone');
+      const notification = document.getElementById('notification');
+      const lockScreen = document.getElementById('lockScreen');
+      const messengerScreen = document.getElementById('messengerScreen');
+      const backButton = document.getElementById('backButton');
+      const nextButton = document.getElementById('nextButton');
+      const windowEl = document.querySelector('.window');
+      const timeDisplay = document.querySelector('.time-display');
+
+      // Get all new elements
+      const bird1 = document.getElementById('bird1');
+      const bird2 = document.getElementById('bird2');
+      const bird3 = document.getElementById('bird3');
+      const note1 = document.getElementById('note1');
+      const note2 = document.getElementById('note2');
+      const note3 = document.getElementById('note3');
+      const wave1 = document.getElementById('wave1');
+      const wave2 = document.getElementById('wave2');
+      const wave3 = document.getElementById('wave3');
+      const phoneOnBed = document.getElementById('phoneOnBed');
+      const screenFlash = document.getElementById('screenFlash');
+      const notifIcon1 = document.getElementById('notifIcon1');
+      const notifIcon2 = document.getElementById('notifIcon2');
+      const notifIcon3 = document.getElementById('notifIcon3');
+      const yawnBubble = document.getElementById('yawnBubble');
+      const rubEyes = document.getElementById('rubEyes');
+      const character = document.getElementById('character');
+      const handReaching = document.getElementById('handReaching');
+      const unlockSwipe = document.getElementById('unlockSwipe');
+      const swipeTrail = document.getElementById('swipeTrail');
+
+      // Turn off alarm - function riêng để có thể gọi tự động - PHẢI KHAI BÁO TRƯỚC!
+      function turnOffAlarmAndWakeUp() {
+        console.log('🔴 turnOffAlarmAndWakeUp() called!');
+        // SUPER FAST - Skip all animations!
+        alarmButton.classList.add('hidden');
+        alarmClock.style.animation = 'fadeOut 0.3s ease-out forwards';
+        phoneOnBed.style.animation = 'fadeOut 0.3s ease-out forwards';
+        screenFlash.style.animation = 'fadeOut 0.3s ease-out forwards';
+        timeDisplay.classList.remove('alarm-active');
+
+        // SUPER FAST - Show phone immediately!
+        setTimeout(() => {
+          console.log('📱 Showing phone...');
+          character.classList.add('waking-up');
+          character.classList.add('sitting-up');
+          phone.classList.add('show');
+          unlockSwipe.classList.add('show');
+          notification.classList.add('show');
+
+          // SUPER FAST - Auto unlock after 0.5s!
+          setTimeout(() => {
+            console.log('🔓 Auto-unlocking phone...');
+            autoUnlockPhone();
+          }, 500);
+        }, 500);
+      }
+
+      // EMERGENCY TEST - Skip everything, redirect after 2s!
+      window.addEventListener('load', function () {
+        console.log('🟢 Scene 1 loaded!');
+        console.log('⚠️ EMERGENCY MODE - Redirecting in 2 seconds...');
+
+        setTimeout(() => {
+          console.log('🚀 Redirecting to Scene 2 NOW!');
+          window.location.href = 'scene2_morning_routine.html';
+        }, 2000);
+      });
+
+      // Vẫn giữ event listener cho alarm button nếu người dùng muốn nhấn nhanh
+      let alarmTriggered = false;
+      alarmButton.addEventListener('click', function () {
+        if (!alarmTriggered) {
+          alarmTriggered = true;
+          turnOffAlarmAndWakeUp();
+        }
+      });
+
+      // TỰ ĐỘNG unlock phone
+      let phoneUnlocked = false;
+      function autoUnlockPhone() {
+        console.log('📱 autoUnlockPhone() called!');
+        if (phoneUnlocked) return; // Prevent double trigger
+        phoneUnlocked = true;
+
+        // Stage 6: Unlock phone with swipe effect - TỰ ĐỘNG!
+        unlockSwipe.style.display = 'none';
+
+        // Swipe trail animation
+        swipeTrail.classList.add('active');
+
+        // Hide lock screen elements
+        setTimeout(() => {
+          notification.style.animation = 'slideOutUp 0.5s ease-out forwards';
+        }, 300);
+
+        // SUPER FAST - Open messenger and reply instantly!
+        setTimeout(() => {
+          console.log('💬 Opening messenger...');
+          messengerScreen.classList.add('show');
+
+          setTimeout(() => {
+            console.log('💬 Sending reply...');
+            const replyMessage = document.getElementById('replyMessage');
+            replyMessage.style.display = 'block';
+            replyMessage.style.animation = 'messagePop 0.3s ease-out forwards';
+
+            // SUPER FAST - Transition immediately!
+            setTimeout(() => {
+              closePhoneAndGetUp();
+            }, 300);
+          }, 300);
+        }, 300);
+      }
+
+      // Click on phone to unlock (optional - vẫn cho phép nhấn nhanh)
+      phone.addEventListener('click', function (e) {
+        if (phoneUnlocked) return; // Already unlocked
+        if (e.target.closest('#messengerScreen') || e.target.closest('#backButton')) {
+          return;
+        }
+        autoUnlockPhone();
+      });
+
+      // Add slideOutUp animation
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes slideOutUp {
+          to {
+            transform: translateY(-150px);
+            opacity: 0;
+          }
+        }
+        @keyframes fadeOut {
+          to {
+            opacity: 0;
+          }
+        }
+        @keyframes messagePop {
+          from {
+            transform: scale(0.8) translateY(20px);
+            opacity: 0;
+          }
+          to {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+          }
+        }
+        @keyframes sceneTransitionOut {
+          0% {
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0px);
+          }
+          100% {
+            opacity: 0;
+            transform: scale(1.2);
+            filter: blur(20px);
+          }
+        }
+      `;
+      document.head.appendChild(style);
+
+      // Back button (close messenger)
+      backButton.addEventListener('click', function (e) {
+        e.stopPropagation();
+        messengerScreen.classList.remove('show');
+      });
+
+      // After replying, close phone and get up
+      function closePhoneAndGetUp() {
+        console.log('🚀 Transitioning to Scene 2...');
+        // SUPER FAST - Transition immediately!
+        document.body.style.animation = 'sceneTransitionOut 0.5s ease-out forwards';
+
+        setTimeout(() => {
+          console.log('✅ Navigating to Scene 2!');
+          window.location.href = 'scene2_morning_routine.html';
+        }, 500);
+      }
+
+      // Next scene with smooth transition
+      nextButton.addEventListener('click', function () {
+        // Fade out entire scene
+        document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
+
+        // Navigate after fade out
+        setTimeout(() => {
+          window.location.href = 'scene2_morning_routine.html';
+        }, 1000);
+      });
+    </script>
   </body>
 </html>

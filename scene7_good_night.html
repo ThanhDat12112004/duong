@@ -542,27 +542,92 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 48px;
+        font-size: 52px;
         font-weight: bold;
         color: #ffd700;
-        text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        text-shadow: 
+          0 0 10px rgba(255, 215, 0, 0.8),
+          0 0 20px rgba(255, 182, 193, 0.6),
+          0 0 30px rgba(255, 105, 180, 0.4),
+          0 0 40px rgba(186, 85, 211, 0.3);
         opacity: 0;
         z-index: 60;
+        text-align: center;
+        background: linear-gradient(45deg, 
+          #ffd700, 
+          #ffb6c1, 
+          #ff69b4, 
+          #ba55d3, 
+          #9370db,
+          #ffd700
+        );
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
 
       .good-night-text.show {
-        animation: goodNightAppear 3s ease-out forwards;
+        animation: 
+          goodNightSpectacular 6s ease-in-out infinite,
+          rainbowGlow 3s ease-in-out infinite,
+          gentleFloat 4s ease-in-out infinite;
+        opacity: 1;
       }
 
-      @keyframes goodNightAppear {
-        0%,
-        100% {
-          opacity: 0;
-          transform: translate(-50%, -50%) scale(0.5);
+      @keyframes goodNightSpectacular {
+        0% {
+          transform: translate(-50%, -50%) scale(0.8) rotate(-5deg);
+          filter: brightness(1);
+        }
+        25% {
+          transform: translate(-50%, -50%) scale(1.1) rotate(2deg);
+          filter: brightness(1.3);
         }
         50% {
-          opacity: 1;
-          transform: translate(-50%, -50%) scale(1.2);
+          transform: translate(-50%, -50%) scale(1.2) rotate(-2deg);
+          filter: brightness(1.5);
+        }
+        75% {
+          transform: translate(-50%, -50%) scale(1.05) rotate(3deg);
+          filter: brightness(1.2);
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(0.8) rotate(-5deg);
+          filter: brightness(1);
+        }
+      }
+
+      @keyframes rainbowGlow {
+        0% {
+          background-position: 0% 50%;
+          text-shadow: 
+            0 0 15px rgba(255, 215, 0, 1),
+            0 0 25px rgba(255, 182, 193, 0.8),
+            0 0 35px rgba(255, 105, 180, 0.6);
+        }
+        50% {
+          background-position: 100% 50%;
+          text-shadow: 
+            0 0 20px rgba(186, 85, 211, 1),
+            0 0 30px rgba(147, 112, 219, 0.8),
+            0 0 40px rgba(255, 105, 180, 0.6);
+        }
+        100% {
+          background-position: 0% 50%;
+          text-shadow: 
+            0 0 15px rgba(255, 215, 0, 1),
+            0 0 25px rgba(255, 182, 193, 0.8),
+            0 0 35px rgba(255, 105, 180, 0.6);
+        }
+      }
+
+      @keyframes gentleFloat {
+        0%, 100% {
+          transform: translate(-50%, -50%) translateY(0px);
+        }
+        50% {
+          transform: translate(-50%, -50%) translateY(-8px);
         }
       }
 
@@ -646,18 +711,39 @@
 
       /* Enhanced star twinkling with variations */
       @keyframes starTwinkleFast {
-        0%, 100% { opacity: 0.3; transform: scale(0.8); }
-        50% { opacity: 1; transform: scale(1.2); }
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: scale(0.8);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.2);
+        }
       }
 
       @keyframes starTwinkleSlow {
-        0%, 100% { opacity: 0.5; transform: scale(1); }
-        50% { opacity: 1; transform: scale(1.5); }
+        0%,
+        100% {
+          opacity: 0.5;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.5);
+        }
       }
 
       @keyframes starPulse {
-        0%, 100% { opacity: 0.6; filter: brightness(1); }
-        50% { opacity: 1; filter: brightness(1.8); }
+        0%,
+        100% {
+          opacity: 0.6;
+          filter: brightness(1);
+        }
+        50% {
+          opacity: 1;
+          filter: brightness(1.8);
+        }
       }
 
       /* Moon glow effect */
@@ -667,15 +753,22 @@
         right: 8%;
         width: 120px;
         height: 120px;
-        background: radial-gradient(circle, rgba(255,255,200,0.3) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(255, 255, 200, 0.3) 0%, transparent 70%);
         border-radius: 50%;
         animation: moonGlow 4s ease-in-out infinite;
         pointer-events: none;
       }
 
       @keyframes moonGlow {
-        0%, 100% { opacity: 0.5; transform: scale(1); }
-        50% { opacity: 0.8; transform: scale(1.1); }
+        0%,
+        100% {
+          opacity: 0.5;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.8;
+          transform: scale(1.1);
+        }
       }
 
       /* Dream clouds */
@@ -687,11 +780,26 @@
       }
 
       @keyframes dreamFloat {
-        0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
-        20% { opacity: 0.6; transform: translate(-20px, -30px) scale(1); }
-        50% { opacity: 0.8; transform: translate(-40px, -60px) scale(1.2); }
-        80% { opacity: 0.4; transform: translate(-60px, -90px) scale(0.8); }
-        100% { opacity: 0; transform: translate(-80px, -120px) scale(0.5); }
+        0% {
+          opacity: 0;
+          transform: translate(0, 0) scale(0.5);
+        }
+        20% {
+          opacity: 0.6;
+          transform: translate(-20px, -30px) scale(1);
+        }
+        50% {
+          opacity: 0.8;
+          transform: translate(-40px, -60px) scale(1.2);
+        }
+        80% {
+          opacity: 0.4;
+          transform: translate(-60px, -90px) scale(0.8);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-80px, -120px) scale(0.5);
+        }
       }
 
       /* Sleep Z's variations */
@@ -704,10 +812,22 @@
       }
 
       @keyframes sleepZFloat {
-        0% { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(0.5); }
-        30% { opacity: 0.8; transform: translate(-15px, -40px) rotate(-10deg) scale(1); }
-        70% { opacity: 0.5; transform: translate(-30px, -80px) rotate(-20deg) scale(1.2); }
-        100% { opacity: 0; transform: translate(-45px, -120px) rotate(-30deg) scale(0.8); }
+        0% {
+          opacity: 0;
+          transform: translate(0, 0) rotate(0deg) scale(0.5);
+        }
+        30% {
+          opacity: 0.8;
+          transform: translate(-15px, -40px) rotate(-10deg) scale(1);
+        }
+        70% {
+          opacity: 0.5;
+          transform: translate(-30px, -80px) rotate(-20deg) scale(1.2);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-45px, -120px) rotate(-30deg) scale(0.8);
+        }
       }
 
       /* Phone glow notification */
@@ -715,7 +835,7 @@
         position: absolute;
         width: 100%;
         height: 100%;
-        background: radial-gradient(circle, rgba(102,126,234,0.4) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(102, 126, 234, 0.4) 0%, transparent 70%);
         border-radius: 35px;
         opacity: 0;
         animation: phoneNotificationGlow 2s ease-in-out infinite;
@@ -723,8 +843,15 @@
       }
 
       @keyframes phoneNotificationGlow {
-        0%, 100% { opacity: 0; transform: scale(1); }
-        50% { opacity: 0.6; transform: scale(1.05); }
+        0%,
+        100% {
+          opacity: 0;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.6;
+          transform: scale(1.05);
+        }
       }
 
       /* Comfort sparkles */
@@ -736,8 +863,15 @@
       }
 
       @keyframes comfortSparkle {
-        0%, 100% { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(0.5); }
-        50% { opacity: 1; transform: translate(10px, -20px) rotate(180deg) scale(1.2); }
+        0%,
+        100% {
+          opacity: 0;
+          transform: translate(0, 0) rotate(0deg) scale(0.5);
+        }
+        50% {
+          opacity: 1;
+          transform: translate(10px, -20px) rotate(180deg) scale(1.2);
+        }
       }
 
       /* Peaceful breathing indicator */
@@ -749,14 +883,21 @@
         width: 150px;
         height: 150px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(173,216,230,0.2) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(173, 216, 230, 0.2) 0%, transparent 70%);
         animation: peacefulBreath 4s ease-in-out infinite;
         pointer-events: none;
       }
 
       @keyframes peacefulBreath {
-        0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(1); }
-        50% { opacity: 0.6; transform: translateX(-50%) scale(1.15); }
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: translateX(-50%) scale(1);
+        }
+        50% {
+          opacity: 0.6;
+          transform: translateX(-50%) scale(1.15);
+        }
       }
 
       /* Heart bubbles */
@@ -768,10 +909,95 @@
       }
 
       @keyframes heartBubble {
-        0% { opacity: 0; transform: translate(0, 0) scale(0.5) rotate(0deg); }
-        30% { opacity: 0.8; transform: translate(20px, -50px) scale(1) rotate(15deg); }
-        70% { opacity: 0.5; transform: translate(40px, -100px) scale(1.1) rotate(30deg); }
-        100% { opacity: 0; transform: translate(60px, -150px) scale(0.7) rotate(45deg); }
+        0% {
+          opacity: 0;
+          transform: translate(0, 0) scale(0.5) rotate(0deg);
+        }
+        30% {
+          opacity: 0.8;
+          transform: translate(20px, -50px) scale(1) rotate(15deg);
+        }
+        70% {
+          opacity: 0.5;
+          transform: translate(40px, -100px) scale(1.1) rotate(30deg);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(60px, -150px) scale(0.7) rotate(45deg);
+        }
+      }
+
+      /* Magic sparkles around good night text */
+      .magic-sparkle {
+        position: absolute;
+        font-size: 35px;
+        opacity: 0;
+        animation: magicSparkle 4s ease-in-out infinite;
+        z-index: 65;
+      }
+
+      @keyframes magicSparkle {
+        0% {
+          opacity: 0;
+          transform: scale(0.3) rotate(0deg);
+          filter: brightness(1);
+        }
+        25% {
+          opacity: 1;
+          transform: scale(1.2) rotate(90deg);
+          filter: brightness(1.8);
+        }
+        50% {
+          opacity: 0.8;
+          transform: scale(0.8) rotate(180deg);
+          filter: brightness(1.5);
+        }
+        75% {
+          opacity: 1;
+          transform: scale(1.4) rotate(270deg);
+          filter: brightness(2);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0.3) rotate(360deg);
+          filter: brightness(1);
+        }
+      }
+
+      /* Floating hearts around good night text */
+      .floating-heart {
+        position: absolute;
+        font-size: 32px;
+        opacity: 0;
+        animation: floatingHeartMagic 5s ease-in-out infinite;
+        z-index: 65;
+      }
+
+      @keyframes floatingHeartMagic {
+        0% {
+          opacity: 0;
+          transform: scale(0.5) translateY(0px) rotate(0deg);
+        }
+        20% {
+          opacity: 0.8;
+          transform: scale(1.1) translateY(-10px) rotate(15deg);
+        }
+        40% {
+          opacity: 1;
+          transform: scale(1.3) translateY(-20px) rotate(-10deg);
+        }
+        60% {
+          opacity: 0.9;
+          transform: scale(1.1) translateY(-15px) rotate(20deg);
+        }
+        80% {
+          opacity: 0.7;
+          transform: scale(0.9) translateY(-8px) rotate(-5deg);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0.5) translateY(0px) rotate(0deg);
+        }
       }
 
       /* Night sky shooting stars */
@@ -781,15 +1007,23 @@
         height: 2px;
         background: white;
         border-radius: 50%;
-        box-shadow: 0 0 10px 2px rgba(255,255,255,0.8);
+        box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
         opacity: 0;
         animation: shootingStar 3s ease-out infinite;
       }
 
       @keyframes shootingStar {
-        0% { opacity: 0; transform: translate(0, 0); }
-        10% { opacity: 1; }
-        100% { opacity: 0; transform: translate(-200px, 200px); }
+        0% {
+          opacity: 0;
+          transform: translate(0, 0);
+        }
+        10% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-200px, 200px);
+        }
       }
 
       /* Pillow comfort glow */
@@ -797,15 +1031,20 @@
         position: absolute;
         width: 100px;
         height: 50px;
-        background: radial-gradient(ellipse, rgba(255,182,193,0.3) 0%, transparent 70%);
+        background: radial-gradient(ellipse, rgba(255, 182, 193, 0.3) 0%, transparent 70%);
         border-radius: 50%;
         animation: pillowGlow 3s ease-in-out infinite;
         pointer-events: none;
       }
 
       @keyframes pillowGlow {
-        0%, 100% { opacity: 0.4; }
-        50% { opacity: 0.7; }
+        0%,
+        100% {
+          opacity: 0.4;
+        }
+        50% {
+          opacity: 0.7;
+        }
       }
 
       /* Blanket warmth shimmer */
@@ -816,24 +1055,40 @@
         transform: translateX(-50%);
         width: 200px;
         height: 80px;
-        background: linear-gradient(90deg, 
-          transparent 0%, 
-          rgba(255,255,255,0.1) 50%, 
-          transparent 100%);
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.1) 50%,
+          transparent 100%
+        );
         animation: blanketShimmer 3s ease-in-out infinite;
         pointer-events: none;
         z-index: 4;
       }
 
       @keyframes blanketShimmer {
-        0%, 100% { transform: translateX(-50%) translateX(-100%); opacity: 0; }
-        50% { transform: translateX(-50%) translateX(100%); opacity: 0.5; }
+        0%,
+        100% {
+          transform: translateX(-50%) translateX(-100%);
+          opacity: 0;
+        }
+        50% {
+          transform: translateX(-50%) translateX(100%);
+          opacity: 0.5;
+        }
       }
 
       /* Lamp light flicker */
       @keyframes lampFlicker {
-        0%, 100% { opacity: 1; filter: brightness(1); }
-        50% { opacity: 0.8; filter: brightness(0.9); }
+        0%,
+        100% {
+          opacity: 1;
+          filter: brightness(1);
+        }
+        50% {
+          opacity: 0.8;
+          filter: brightness(0.9);
+        }
       }
 
       .lamp {
@@ -849,17 +1104,97 @@
           <div class="scene-title">💬 Nhắn tin với Đạt</div>
 
           <!-- Stars with variations -->
-          <div class="star" style="top: 10%; left: 15%; animation: starTwinkleFast 2s ease-in-out infinite; animation-delay: 0s"></div>
-          <div class="star" style="top: 15%; left: 25%; animation: starTwinkleSlow 3s ease-in-out infinite; animation-delay: 0.5s"></div>
-          <div class="star" style="top: 12%; left: 45%; animation: starPulse 2.5s ease-in-out infinite; animation-delay: 1s"></div>
-          <div class="star" style="top: 8%; left: 65%; animation: starTwinkleFast 2.2s ease-in-out infinite; animation-delay: 0.3s"></div>
-          <div class="star" style="top: 20%; left: 75%; animation: starTwinkleSlow 3.5s ease-in-out infinite; animation-delay: 0.8s"></div>
-          <div class="star" style="top: 18%; right: 10%; animation: starPulse 2.8s ease-in-out infinite; animation-delay: 1.2s"></div>
+          <div
+            class="star"
+            style="
+              top: 10%;
+              left: 15%;
+              animation: starTwinkleFast 2s ease-in-out infinite;
+              animation-delay: 0s;
+            "
+          ></div>
+          <div
+            class="star"
+            style="
+              top: 15%;
+              left: 25%;
+              animation: starTwinkleSlow 3s ease-in-out infinite;
+              animation-delay: 0.5s;
+            "
+          ></div>
+          <div
+            class="star"
+            style="
+              top: 12%;
+              left: 45%;
+              animation: starPulse 2.5s ease-in-out infinite;
+              animation-delay: 1s;
+            "
+          ></div>
+          <div
+            class="star"
+            style="
+              top: 8%;
+              left: 65%;
+              animation: starTwinkleFast 2.2s ease-in-out infinite;
+              animation-delay: 0.3s;
+            "
+          ></div>
+          <div
+            class="star"
+            style="
+              top: 20%;
+              left: 75%;
+              animation: starTwinkleSlow 3.5s ease-in-out infinite;
+              animation-delay: 0.8s;
+            "
+          ></div>
+          <div
+            class="star"
+            style="
+              top: 18%;
+              right: 10%;
+              animation: starPulse 2.8s ease-in-out infinite;
+              animation-delay: 1.2s;
+            "
+          ></div>
           <!-- Additional stars -->
-          <div class="star" style="top: 5%; left: 35%; animation: starTwinkleFast 2.3s ease-in-out infinite; animation-delay: 0.2s"></div>
-          <div class="star" style="top: 25%; left: 55%; animation: starPulse 2.7s ease-in-out infinite; animation-delay: 1.5s"></div>
-          <div class="star" style="top: 22%; right: 25%; animation: starTwinkleSlow 3.2s ease-in-out infinite; animation-delay: 0.9s"></div>
-          <div class="star" style="top: 8%; right: 5%; animation: starTwinkleFast 2.1s ease-in-out infinite; animation-delay: 1.8s"></div>
+          <div
+            class="star"
+            style="
+              top: 5%;
+              left: 35%;
+              animation: starTwinkleFast 2.3s ease-in-out infinite;
+              animation-delay: 0.2s;
+            "
+          ></div>
+          <div
+            class="star"
+            style="
+              top: 25%;
+              left: 55%;
+              animation: starPulse 2.7s ease-in-out infinite;
+              animation-delay: 1.5s;
+            "
+          ></div>
+          <div
+            class="star"
+            style="
+              top: 22%;
+              right: 25%;
+              animation: starTwinkleSlow 3.2s ease-in-out infinite;
+              animation-delay: 0.9s;
+            "
+          ></div>
+          <div
+            class="star"
+            style="
+              top: 8%;
+              right: 5%;
+              animation: starTwinkleFast 2.1s ease-in-out infinite;
+              animation-delay: 1.8s;
+            "
+          ></div>
 
           <!-- Shooting stars -->
           <div class="shooting-star" style="top: 15%; right: 20%; animation-delay: 2s"></div>
@@ -868,7 +1203,7 @@
 
           <!-- Moon -->
           <div class="moon">🌙</div>
-          
+
           <!-- Moon glow -->
           <div class="moon-glow"></div>
 
@@ -878,7 +1213,10 @@
           <!-- Bed -->
           <div class="bed">🛏️</div>
           <div class="pillow">😴</div>
-          <div class="pillow-glow" style="bottom: 28%; left: 50%; transform: translateX(-50%);"></div>
+          <div
+            class="pillow-glow"
+            style="bottom: 28%; left: 50%; transform: translateX(-50%)"
+          ></div>
           <div class="blanket"></div>
           <div class="blanket-shimmer"></div>
 
@@ -948,17 +1286,97 @@
           <div class="scene-title">😴 Ngủ ngon...</div>
 
           <!-- Stars with variations -->
-          <div class="star" style="top: 10%; left: 15%; animation: starTwinkleFast 2s ease-in-out infinite; animation-delay: 0s"></div>
-          <div class="star" style="top: 15%; left: 25%; animation: starTwinkleSlow 3s ease-in-out infinite; animation-delay: 0.5s"></div>
-          <div class="star" style="top: 12%; left: 45%; animation: starPulse 2.5s ease-in-out infinite; animation-delay: 1s"></div>
-          <div class="star" style="top: 8%; left: 65%; animation: starTwinkleFast 2.2s ease-in-out infinite; animation-delay: 0.3s"></div>
-          <div class="star" style="top: 20%; left: 75%; animation: starTwinkleSlow 3.5s ease-in-out infinite; animation-delay: 0.8s"></div>
-          <div class="star" style="top: 18%; right: 10%; animation: starPulse 2.8s ease-in-out infinite; animation-delay: 1.2s"></div>
+          <div
+            class="star"
+            style="
+              top: 10%;
+              left: 15%;
+              animation: starTwinkleFast 2s ease-in-out infinite;
+              animation-delay: 0s;
+            "
+          ></div>
+          <div
+            class="star"
+            style="
+              top: 15%;
+              left: 25%;
+              animation: starTwinkleSlow 3s ease-in-out infinite;
+              animation-delay: 0.5s;
+            "
+          ></div>
+          <div
+            class="star"
+            style="
+              top: 12%;
+              left: 45%;
+              animation: starPulse 2.5s ease-in-out infinite;
+              animation-delay: 1s;
+            "
+          ></div>
+          <div
+            class="star"
+            style="
+              top: 8%;
+              left: 65%;
+              animation: starTwinkleFast 2.2s ease-in-out infinite;
+              animation-delay: 0.3s;
+            "
+          ></div>
+          <div
+            class="star"
+            style="
+              top: 20%;
+              left: 75%;
+              animation: starTwinkleSlow 3.5s ease-in-out infinite;
+              animation-delay: 0.8s;
+            "
+          ></div>
+          <div
+            class="star"
+            style="
+              top: 18%;
+              right: 10%;
+              animation: starPulse 2.8s ease-in-out infinite;
+              animation-delay: 1.2s;
+            "
+          ></div>
           <!-- Additional stars -->
-          <div class="star" style="top: 6%; left: 40%; animation: starTwinkleFast 2.4s ease-in-out infinite; animation-delay: 0.4s"></div>
-          <div class="star" style="top: 23%; left: 50%; animation: starPulse 2.6s ease-in-out infinite; animation-delay: 1.6s"></div>
-          <div class="star" style="top: 14%; right: 30%; animation: starTwinkleSlow 3.3s ease-in-out infinite; animation-delay: 1s"></div>
-          <div class="star" style="top: 9%; right: 8%; animation: starTwinkleFast 2.2s ease-in-out infinite; animation-delay: 2s"></div>
+          <div
+            class="star"
+            style="
+              top: 6%;
+              left: 40%;
+              animation: starTwinkleFast 2.4s ease-in-out infinite;
+              animation-delay: 0.4s;
+            "
+          ></div>
+          <div
+            class="star"
+            style="
+              top: 23%;
+              left: 50%;
+              animation: starPulse 2.6s ease-in-out infinite;
+              animation-delay: 1.6s;
+            "
+          ></div>
+          <div
+            class="star"
+            style="
+              top: 14%;
+              right: 30%;
+              animation: starTwinkleSlow 3.3s ease-in-out infinite;
+              animation-delay: 1s;
+            "
+          ></div>
+          <div
+            class="star"
+            style="
+              top: 9%;
+              right: 8%;
+              animation: starTwinkleFast 2.2s ease-in-out infinite;
+              animation-delay: 2s;
+            "
+          ></div>
 
           <!-- Shooting stars -->
           <div class="shooting-star" style="top: 12%; right: 25%; animation-delay: 3s"></div>
@@ -966,7 +1384,7 @@
 
           <!-- Moon -->
           <div class="moon">🌙</div>
-          
+
           <!-- Moon glow -->
           <div class="moon-glow"></div>
 
@@ -976,7 +1394,10 @@
           <!-- Bed -->
           <div class="bed">🛏️</div>
           <div class="pillow">😴</div>
-          <div class="pillow-glow" style="bottom: 28%; left: 50%; transform: translateX(-50%);"></div>
+          <div
+            class="pillow-glow"
+            style="bottom: 28%; left: 50%; transform: translateX(-50%)"
+          ></div>
           <div class="blanket"></div>
           <div class="blanket-shimmer"></div>
 
@@ -994,13 +1415,39 @@
           </div>
 
           <!-- Sleep Z's with variations -->
-          <div class="sleep-z" style="bottom: 50%; left: 45%; font-size: 32px; animation-delay: 0s">💤</div>
-          <div class="sleep-z" style="bottom: 48%; left: 48%; font-size: 28px; animation-delay: 1.5s">💤</div>
-          <div class="sleep-z" style="bottom: 52%; left: 42%; font-size: 35px; animation-delay: 3s">💤</div>
-          <div class="sleep-z" style="bottom: 55%; left: 40%; font-size: 30px; animation-delay: 4.5s">z</div>
-          <div class="sleep-z" style="bottom: 58%; left: 43%; font-size: 40px; animation-delay: 6s">Z</div>
-          <div class="sleep-z" style="bottom: 46%; right: 42%; font-size: 33px; animation-delay: 2s">z</div>
-          <div class="sleep-z" style="bottom: 54%; right: 40%; font-size: 38px; animation-delay: 5s">Z</div>
+          <div class="sleep-z" style="bottom: 50%; left: 45%; font-size: 32px; animation-delay: 0s">
+            💤
+          </div>
+          <div
+            class="sleep-z"
+            style="bottom: 48%; left: 48%; font-size: 28px; animation-delay: 1.5s"
+          >
+            💤
+          </div>
+          <div class="sleep-z" style="bottom: 52%; left: 42%; font-size: 35px; animation-delay: 3s">
+            💤
+          </div>
+          <div
+            class="sleep-z"
+            style="bottom: 55%; left: 40%; font-size: 30px; animation-delay: 4.5s"
+          >
+            z
+          </div>
+          <div class="sleep-z" style="bottom: 58%; left: 43%; font-size: 40px; animation-delay: 6s">
+            Z
+          </div>
+          <div
+            class="sleep-z"
+            style="bottom: 46%; right: 42%; font-size: 33px; animation-delay: 2s"
+          >
+            z
+          </div>
+          <div
+            class="sleep-z"
+            style="bottom: 54%; right: 40%; font-size: 38px; animation-delay: 5s"
+          >
+            Z
+          </div>
 
           <!-- Dream clouds -->
           <div class="dream-cloud" style="bottom: 42%; left: 32%; animation-delay: 0s">☁️</div>
@@ -1019,6 +1466,22 @@
 
           <!-- Good night text -->
           <div class="good-night-text" id="goodNightText">🌙 Chúc Ngủ Ngon 💕</div>
+
+          <!-- Magical sparkles around good night text -->
+          <div class="magic-sparkle" style="top: 45%; left: 35%; animation-delay: 0s">✨</div>
+          <div class="magic-sparkle" style="top: 48%; right: 35%; animation-delay: 0.5s">⭐</div>
+          <div class="magic-sparkle" style="top: 52%; left: 30%; animation-delay: 1s">💫</div>
+          <div class="magic-sparkle" style="top: 55%; right: 30%; animation-delay: 1.5s">🌟</div>
+          <div class="magic-sparkle" style="top: 42%; left: 40%; animation-delay: 2s">✨</div>
+          <div class="magic-sparkle" style="top: 58%; right: 40%; animation-delay: 2.5s">⭐</div>
+          <div class="magic-sparkle" style="top: 50%; left: 25%; animation-delay: 3s">💫</div>
+          <div class="magic-sparkle" style="top: 46%; right: 25%; animation-delay: 3.5s">🌟</div>
+
+          <!-- Floating hearts around text -->
+          <div class="floating-heart" style="top: 44%; left: 32%; animation-delay: 0s">💕</div>
+          <div class="floating-heart" style="top: 56%; right: 32%; animation-delay: 1s">💖</div>
+          <div class="floating-heart" style="top: 49%; left: 28%; animation-delay: 2s">💗</div>
+          <div class="floating-heart" style="top: 53%; right: 28%; animation-delay: 3s">💕</div>
 
           <div class="prop" style="top: 30%; right: 12%; animation-delay: 0.5s">⭐</div>
           <div class="prop" style="bottom: 10%; right: 15%; animation-delay: 1.5s">✨</div>
@@ -1202,11 +1665,11 @@
         autoProgress();
       });
 
-      // Next button - restart from scene 1
+      // Next button - restart from beginning (index = scene 1)
       nextButton.addEventListener('click', () => {
         document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
         setTimeout(() => {
-          window.location.href = 'scene1_wakeup.html';
+          window.location.href = 'index.html';
         }, 1000);
       });
     </script>
