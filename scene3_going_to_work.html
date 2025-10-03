@@ -1624,10 +1624,13 @@
         if (currentScene < subScenes.length) {
           startScene(currentScene);
         } else {
-          // Show next button after all scenes
+          // Tự động chuyển sang Scene 4 sau khi xong tất cả
           setTimeout(() => {
-            nextButton.classList.add('show');
-          }, 2000);
+            document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
+            setTimeout(() => {
+              window.location.href = 'scene4_at_work.html';
+            }, 1000);
+          }, 3000); // Chờ 3 giây
         }
       }
 

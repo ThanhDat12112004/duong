@@ -1402,10 +1402,13 @@
           greenLight.classList.add('active');
         }, 11000);
 
-        // Show next button
+        // Tự động chuyển sang Scene 6 sau animation
         setTimeout(() => {
-          nextButton.classList.add('show');
-        }, 12000);
+          document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
+          setTimeout(() => {
+            window.location.href = 'scene6_at_home.html';
+          }, 1000);
+        }, 14000); // Chờ 14 giây để xem hết animations
       }
 
       // Auto progress

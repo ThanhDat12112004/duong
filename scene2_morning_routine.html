@@ -1608,10 +1608,16 @@
           currentScene++;
           setTimeout(autoProgress, 4000); // 4 seconds per scene
         } else {
-          // Show next button after last scene
+          // Tự động chuyển sang Scene 3 sau khi xong tất cả sub-scenes
           setTimeout(() => {
-            nextButton.classList.add('show');
-          }, 2000);
+            // Fade out entire scene
+            document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
+
+            // Navigate to Scene 3
+            setTimeout(() => {
+              window.location.href = 'scene3_going_to_work.html';
+            }, 1000);
+          }, 3000); // Chờ 3 giây sau sub-scene cuối
         }
       }
 

@@ -1980,9 +1980,13 @@
 
       // Scene 6: Sleeping
       function animateSleeping() {
+        // Tự động chuyển sang Scene 7 sau sub-scene cuối
         setTimeout(() => {
-          nextButton.classList.add('show');
-        }, 4000);
+          document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
+          setTimeout(() => {
+            window.location.href = 'scene7_good_night.html';
+          }, 1000);
+        }, 6000); // Chờ 6 giây
       }
 
       // Auto progress

@@ -1616,7 +1616,7 @@
           bedroom.style.transition = 'opacity 1s ease-out';
           bedroom.style.opacity = '0';
 
-          // TỰ ĐỘNG chuyển sang Scene 2 (không cần bấm nút)
+          // TỰ ĐỘNG chuyển sang Scene 2 sau 2 giây
           setTimeout(() => {
             // Fade out entire scene
             document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
@@ -1625,7 +1625,7 @@
             setTimeout(() => {
               window.location.href = 'scene2_morning_routine.html';
             }, 1000);
-          }, 500);
+          }, 2000); // Tăng thời gian để người xem thấy rõ animation
         }, 1000);
       }
 

@@ -1622,16 +1622,28 @@
         autoProgress();
       });
 
-      // Next button
+      // Next button - Tự động chuyển sang Scene 5
       nextButton.addEventListener('click', () => {
         document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
         setTimeout(() => {
-          alert(
-            'Scene 5: Về nhà - Đang phát triển! 🏡\n\nSẽ có: về nhà, trả lời tin nhắn, video call... 💬📞'
-          );
-          document.body.style.animation = 'sceneTransitionIn 1s ease-out forwards';
+          window.location.href = 'scene5_going_home.html';
         }, 1000);
       });
+
+      // Tự động chuyển scene sau khi xong
+      function autoTransition() {
+        setTimeout(() => {
+          document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
+          setTimeout(() => {
+            window.location.href = 'scene5_going_home.html';
+          }, 1000);
+        }, 3000); // 3 giây sau khi xong hết animations
+      }
+
+      // Gọi auto transition sau khi spam messages kết thúc
+      setTimeout(() => {
+        autoTransition();
+      }, 20000); // Tổng thời gian animations ~20s
 
       // Add transition out
       const style = document.createElement('style');

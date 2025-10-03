@@ -1177,9 +1177,16 @@
           goodNightText.classList.add('show');
         }, 2500);
 
-        // Show next button
+        // Tự động quay lại Scene 1 hoặc về index
         setTimeout(() => {
           nextButton.classList.add('show');
+          // Tự động chuyển về trang chủ sau 5 giây
+          setTimeout(() => {
+            document.body.style.animation = 'sceneTransitionOut 1s ease-out forwards';
+            setTimeout(() => {
+              window.location.href = 'index.html'; // Về trang chủ thay vì loop
+            }, 1000);
+          }, 5000);
         }, 6000);
       }
 
